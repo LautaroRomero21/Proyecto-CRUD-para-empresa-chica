@@ -1,0 +1,41 @@
+<RCC>
+  <qresource prefix="ventana_principal_autorizado">
+    <file>principal_autorizada_background.png</file>
+    <file>registrar_compras.png</file>
+    <file>registrar_ventas.png</file>
+    <file>stock_disponible.png</file>
+    <file>historial_ventas.png</file>
+    <file>historial_compras.png</file>
+    <file>ganancias.png</file>
+  </qresource>
+  <qresource prefix="bienvenida">
+    <file>bienvenida_background.png</file>
+  </qresource>
+  <qresource prefix="login">
+    <file>login_background.jpg</file>
+  </qresource>
+  <qresource prefix="registrar_ventas">
+    <file>3294425.jpg</file>
+  </qresource>
+  <qresource prefix="elegir_tipo_compra">
+    <file>elegir_compra_background.png</file>
+  </qresource>
+  <qresource prefix="stock_disponible">
+    <file>modern-2560-x-1600-background-od87qg1wfx087jbt.jpg</file>
+  </qresource>
+  <qresource prefix="usuarios">
+    <file>black-dark-cubes-abstract.jpg</file>
+  </qresource>
+  <qresource prefix="ganancias">
+    <file>ganancias-background.png</file>
+  </qresource>
+  <qresource prefix="registrar_compras">
+    <file>3376284.jpg</file>
+  </qresource>
+  <qresource prefix="historial_compras">
+    <file>380346.jpg</file>
+  </qresource>
+  <qresource prefix="historia_ventas">
+    <file>wallpaper2you_79585.jpg</file>
+  </qresource>
+</RCC>

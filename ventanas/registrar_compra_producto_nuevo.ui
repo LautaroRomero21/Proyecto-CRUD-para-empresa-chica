@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RegistrarCompraProductoNuevo</class>
+ <widget class="QWidget" name="RegistrarCompraProductoNuevo">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1195</width>
+    <height>877</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1195</width>
+    <height>877</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1195</width>
+    <height>877</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1195</width>
+     <height>877</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>1195</width>
+     <height>877</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1195</width>
+     <height>877</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+font: 57 11pt &quot;Yu Gothic Medium&quot;;
+color: #fff;
+padding:5px;
+	background-color: qlineargradient(spread:pad, x1:0.421, y1:0.636863, x2:1, y2:0, stop:0 rgba(52, 190, 250, 172), stop:1 rgba(255, 255, 255, 158));
+}
+QPushButton:hover {
+	background-color: qlineargradient(spread:pad, x1:0.421, y1:0.636863, x2:1, y2:0, stop:0 rgba(41, 151, 199, 172), stop:1 rgba(255, 255, 255, 158));
+}
+QPushButton:pressed {
+	padding-top: 10px;
+	padding-left: 10px;
+}
+QLineEdit{
+padding: 3px;
+color: #fff; 
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+	background-color: qlineargradient(spread:pad, x1:0.421, y1:0.636863, x2:1, y2:0, stop:0 rgba(52, 190, 250, 172), stop:1 rgba(255, 255, 255, 158));
+}
+QLineEdit:hover {
+	background-color: qlineargradient(spread:pad, x1:0.421, y1:0.636863, x2:1, y2:0, stop:0 rgba(41, 151, 199, 172), stop:1 rgba(255, 255, 255, 158));
+}
+QLineEdit:focus {
+	background-color: qlineargradient(spread:pad, x1:0.421, y1:0.636863, x2:1, y2:0, stop:0 rgba(41, 151, 199, 172), stop:1 rgba(255, 255, 255, 158));
+color:#fff;
+}
+QRadioButton{
+color:#fff;
+background-color: none;
+font: 57 14pt &quot;Yu Gothic Medium&quot;;
+}
+QTreeView{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(147, 147, 147, 162));
+color: #fff;
+border: 1px solid #fff;
+}
+QHeaderView::section {
+color: #000;
+border: 1px solid #000;
+}
+QTreeView::item {
+color: #fff;
+}
+QWidget#widget{
+	background-image: url(:/registrar_compras/3376284.jpg);
+}
+QLabel{
+color:#fff;
+}</string>
+   </property>
+   <widget class="QLineEdit" name="input_precio_unitario">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>230</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_tipo_pago_no_elegido_3">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>230</y>
+      <width>21</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>$</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_buscar_producto">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>100</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:10px;</string>
+    </property>
+    <property name="text">
+     <string>BUSCAR</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>200</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Cantidad comprada:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_registrar_compra">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>370</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>REGISTRAR</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>1000</x>
+      <y>200</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Precio de venta unitario:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_tipo_pago_no_elegido_2">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>230</y>
+      <width>21</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>$</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="eleccion_posnet">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>320</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Yu Gothic Medium</family>
+      <pointsize>14</pointsize>
+      <weight>7</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: none;</string>
+    </property>
+    <property name="text">
+     <string>Posnet</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="eleccion_efectivo">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>320</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Yu Gothic Medium</family>
+      <pointsize>14</pointsize>
+      <weight>7</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: none;</string>
+    </property>
+    <property name="text">
+     <string>Efectivo</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="producto_no_encontrado">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>130</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#f00;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_volver">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>20</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>VOLVER</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="input_buscar_producto">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>100</y>
+      <width>411</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QTreeView" name="treeview_productos">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>160</y>
+      <width>591</width>
+      <height>691</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 0px;</string>
+    </property>
+    <property name="allColumnsShowFocus">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="eleccion_mercadopago">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>320</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Yu Gothic Medium</family>
+      <pointsize>14</pointsize>
+      <weight>7</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: none;</string>
+    </property>
+    <property name="text">
+     <string>MercadoPago</string>
+    </property>
+   </widget>
+   <widget class="QTreeView" name="treeview_compras">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>430</y>
+      <width>561</width>
+      <height>421</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">padding: 0px;</string>
+    </property>
+    <property name="allColumnsShowFocus">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>140</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Nombre producto:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="input_costo_unitario">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>230</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="input_nombre_producto">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>140</y>
+      <width>331</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="input_cantidad_comprada">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>230</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>40</y>
+      <width>491</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
+color: #fff;
+background: none;</string>
+    </property>
+    <property name="text">
+     <string>LISTA DE PRODUCTOS</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>200</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Costo Unitario:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>290</y>
+      <width>261</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Seleccione el tipo de pago:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_error_al_registrar">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>380</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#f00;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="imagenes/imagenes.qrc"/>
+ </resources>
+ <connections/>
+</ui>
