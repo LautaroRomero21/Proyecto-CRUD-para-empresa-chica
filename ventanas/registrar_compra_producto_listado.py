@@ -58,7 +58,7 @@ class Ui_RegistrarCompraProductoListado(object):
             'font: 57 14pt "Yu Gothic Medium";\n'
             "}\n"
             "QTreeView{\n"
-            "    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(147, 147, 147, 162));\n"
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(101, 101, 101, 162));\n"
             "color: #fff;\n"
             "border: 1px solid #fff;\n"
             "}\n"
@@ -251,7 +251,7 @@ class Ui_RegistrarCompraProductoListado(object):
             _translate("RegistrarCompraProductoListado", "Form")
         )
         self.boton_buscar_producto.setText(
-            _translate("RegistrarCompraProductoListado", "BUSCAR")
+            _translate("RegistrarCompraProductoListado", "Buscar")
         )
         self.label_8.setText(
             _translate("RegistrarCompraProductoListado", "Costo Unitario del producto:")
@@ -269,7 +269,7 @@ class Ui_RegistrarCompraProductoListado(object):
             _translate("RegistrarCompraProductoListado", "LISTA DE PRODUCTOS")
         )
         self.boton_volver.setText(
-            _translate("RegistrarCompraProductoListado", "VOLVER")
+            _translate("RegistrarCompraProductoListado", "Volver")
         )
         self.label_7.setText(
             _translate("RegistrarCompraProductoListado", "Cantidad comprada:")

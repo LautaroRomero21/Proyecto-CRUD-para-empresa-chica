@@ -36,6 +36,9 @@
     <file>380346.jpg</file>
   </qresource>
   <qresource prefix="historia_ventas">
+    <file>drc2.jpg</file>
+    <file>drc8.jpg</file>
+    <file>5489297.jpg</file>
     <file>wallpaper2you_79585.jpg</file>
   </qresource>
 </RCC>

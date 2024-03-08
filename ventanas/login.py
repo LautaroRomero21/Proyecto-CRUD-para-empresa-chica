@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 from ventanas.imagenes import imagenes
 
 
@@ -88,6 +87,9 @@ class Ui_Form(object):
         self.label_4.setFont(font)
         self.label_4.setStyleSheet("color:rgba(0, 0, 0, 200);")
         self.label_4.setObjectName("label_4")
+        self.label_4.setGraphicsEffect(
+            QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=5, yOffset=5)
+        )
         self.usuario_ingresado = QtWidgets.QLineEdit(self.widget)
         self.usuario_ingresado.setGeometry(QtCore.QRect(295, 150, 190, 40))
         font = QtGui.QFont()
@@ -124,6 +126,10 @@ class Ui_Form(object):
         self.boton_ingresar.setFont(font)
         self.boton_ingresar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.boton_ingresar.setObjectName("boton_ingresar")
+
+        self.boton_ingresar.setGraphicsEffect(
+            QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=5, yOffset=5)
+        )
         self.label_6 = QtWidgets.QLabel(self.widget)
         self.label_6.setGeometry(QtCore.QRect(40, 80, 230, 130))
         self.label_6.setStyleSheet("background-color:rgba(0, 0, 0, 75);")
@@ -157,6 +163,9 @@ class Ui_Form(object):
         self.boton_volver.setFont(font)
         self.boton_volver.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.boton_volver.setObjectName("boton_volver")
+        self.boton_volver.setGraphicsEffect(
+            QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=5, yOffset=5)
+        )
         self.campos_no_validos = QtWidgets.QLabel(self.widget)
         self.campos_no_validos.setGeometry(QtCore.QRect(290, 260, 211, 21))
         font = QtGui.QFont()

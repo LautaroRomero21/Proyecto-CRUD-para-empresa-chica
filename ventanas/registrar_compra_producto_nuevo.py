@@ -57,7 +57,7 @@ class Ui_RegistrarCompraProductoNuevo(object):
             'font: 57 14pt "Yu Gothic Medium";\n'
             "}\n"
             "QTreeView{\n"
-            "    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(147, 147, 147, 162));\n"
+            " background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(101, 101, 101, 162));\n"
             "color: #fff;\n"
             "border: 1px solid #fff;\n"
             "}\n"
@@ -269,7 +269,7 @@ class Ui_RegistrarCompraProductoNuevo(object):
             _translate("RegistrarCompraProductoNuevo", "$")
         )
         self.boton_buscar_producto.setText(
-            _translate("RegistrarCompraProductoNuevo", "BUSCAR")
+            _translate("RegistrarCompraProductoNuevo", "Buscar")
         )
         self.label_7.setText(
             _translate("RegistrarCompraProductoNuevo", "Cantidad comprada:")
@@ -289,7 +289,7 @@ class Ui_RegistrarCompraProductoNuevo(object):
         self.eleccion_efectivo.setText(
             _translate("RegistrarCompraProductoNuevo", "Efectivo")
         )
-        self.boton_volver.setText(_translate("RegistrarCompraProductoNuevo", "VOLVER"))
+        self.boton_volver.setText(_translate("RegistrarCompraProductoNuevo", "Volver"))
         self.eleccion_mercadopago.setText(
             _translate("RegistrarCompraProductoNuevo", "MercadoPago")
         )

@@ -81,8 +81,14 @@ color:#fff;
 background-color: none;
 font: 57 14pt &quot;Yu Gothic Medium&quot;;
 }
+QWidget#widget{
+	background-image: url(:/registrar_compras/3376284.jpg);
+}
+QLabel{
+color:#fff;
+}
 QTreeView{
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(147, 147, 147, 162));
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(101, 101, 101, 162));
 color: #fff;
 border: 1px solid #fff;
 }
@@ -92,12 +98,6 @@ border: 1px solid #000;
 }
 QTreeView::item {
 color: #fff;
-}
-QWidget#widget{
-	background-image: url(:/registrar_compras/3376284.jpg);
-}
-QLabel{
-color:#fff;
 }</string>
    </property>
    <widget class="QLineEdit" name="input_precio_unitario">
@@ -162,7 +162,7 @@ color:#fff;
      <string notr="true">border-radius:10px;</string>
     </property>
     <property name="text">
-     <string>BUSCAR</string>
+     <string>Buscar</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
@@ -337,7 +337,7 @@ color:#fff;
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>VOLVER</string>
+     <string>Volver</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="input_buscar_producto">
