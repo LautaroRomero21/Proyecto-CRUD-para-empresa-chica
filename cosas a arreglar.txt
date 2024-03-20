@@ -1,4 +1,0 @@
-Verificar que en los int/float tambien se puede poner numero negativo o que los date ingresados sean validos
-Verificar si hay funciones que sobran en el modulo
-
-

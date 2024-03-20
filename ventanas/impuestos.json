@@ -1,18 +1,1 @@
-[
-    [
-        "mercadolibre",
-        13.0
-    ],
-    [
-        "posnet",
-        7.0
-    ],
-    [
-        "efectivo",
-        0
-    ],
-    [
-        "constructores",
-        0
-    ]
-]
+{"mercadolibre": 13, "posnet": 7, "efectivo": 0, "constructores": 0}

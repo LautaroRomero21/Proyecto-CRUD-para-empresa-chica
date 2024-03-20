@@ -1,5 +1,4 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
-from modulo import base_datos
 from datetime import date
 from ventanas.bienvenida import Ui_UserSelection
 from ventanas.login import Ui_Form
@@ -17,6 +16,8 @@ from ventanas.historial_compras import Ui_HistorialCompras
 from ventanas.historial_ventas import Ui_HistorialVentas
 from ventanas.modificar_comisiones import Ui_ModificarComisiones
 from collections import namedtuple
+
+global base_datos, ventana_bienvenida, ventana_login, ventana_registrar_ventas_autorizado, ventana_registrar_ventas, ventana_principal_usuario_autorizado, ventana_usuarios, ventana_elegir_empresa, ventana_stock_cregar, ventana_stock_fara, ventana_stock_fontana, ventana_registrar_compras, ventana_historial_compras, ventana_historial_ventas, ventana_consultar_ganancias, ventana_modificar_comisiones
 
 
 class Ventana(QtWidgets.QWidget):
@@ -81,13 +82,14 @@ class VentanaBienvenida(QtWidgets.QWidget, Ui_UserSelection):
 
 
 class VentanaLogin(Ventana, Ui_Form):
-    def __init__(self, base_datos, ventana_anterior):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.boton_ingresar.clicked.connect(self.verificar_usuario)
         self.boton_volver.clicked.connect(self.volver)
+        global base_datos, ventana_bienvenida
         self.base_datos = base_datos
-        self.ventana_anterior = ventana_anterior
+        self.ventana_anterior = ventana_bienvenida
 
     def verificar_usuario(self):
         if ventana_bienvenida.tipo_usuario == "vendedor":
@@ -127,11 +129,12 @@ class VentanaLogin(Ventana, Ui_Form):
 
 
 class VentanaRegistrarVentas(Ventana):
-    def __init__(self, base_datos):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.boton_buscar_producto.clicked.connect(self.buscar_y_enfocar_producto)
         self.boton_registrar_venta.clicked.connect(self.verificar_cantidad_a_vender)
+        global base_datos
         self.base_datos = base_datos
 
         self.modelo_productos = QtGui.QStandardItemModel(self)
@@ -224,8 +227,8 @@ class VentanaRegistrarVentas(Ventana):
 
 
 class VentanaRegistrarVentasVendedor(VentanaRegistrarVentas, Ui_RegistrarVentaVendedor):
-    def __init__(self, base_datos):
-        super().__init__(base_datos)
+    def __init__(self):
+        super().__init__()
 
     def verificar_cantidad_a_vender(self):
         producto_seleccionado = self.treeview_productos.currentIndex()
@@ -295,10 +298,11 @@ class VentanaRegistrarVentasVendedor(VentanaRegistrarVentas, Ui_RegistrarVentaVe
 class VentanaRegistrarVentasAutorizado(
     VentanaRegistrarVentas, Ui_RegistrarVentasAutorizado
 ):
-    def __init__(self, base_datos, ventana_anterior):
-        super().__init__(base_datos)
+    def __init__(self):
+        super().__init__()
         self.boton_volver.clicked.connect(self.volver)
-        self.ventana_anterior = ventana_anterior
+        global ventana_principal_usuario_autorizado
+        self.ventana_anterior = ventana_principal_usuario_autorizado
 
     def verificar_cantidad_a_vender(self):
         producto_seleccionado = self.treeview_productos.currentIndex()
@@ -441,12 +445,13 @@ class VentanaPrincipalUsuarioAutorizado(
 
 
 class VentanaUsuarios(Ventana, Ui_Usuarios):
-    def __init__(self, base_datos, ventana_anterior):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.confirmar = None
+        global base_datos, ventana_principal_usuario_autorizado
         self.base_datos = base_datos
-        self.ventana_anterior = ventana_anterior
+        self.ventana_anterior = ventana_principal_usuario_autorizado
 
         self.boton_volver.clicked.connect(self.volver)
         self.boton_registrar_vendedor.clicked.connect(self.registrar_vendedor)
@@ -624,10 +629,11 @@ class VentanaUsuarios(Ventana, Ui_Usuarios):
 
 
 class VentanaElegirEmpresa(Ventana, Ui_ElegirEmpresa):
-    def __init__(self, ventana_anterior):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.ventana_anterior = ventana_anterior
+        global ventana_principal_usuario_autorizado
+        self.ventana_anterior = ventana_principal_usuario_autorizado
 
         self.boton_volver.clicked.connect(self.volver)
         self.boton_cregar.clicked.connect(
@@ -651,11 +657,12 @@ class VentanaElegirEmpresa(Ventana, Ui_ElegirEmpresa):
 
 
 class VentanaStock(Ventana):
-    def __init__(self, base_datos, ventana_anterior):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
+        global base_datos, ventana_elegir_empresa
         self.base_datos = base_datos
-        self.ventana_anterior = ventana_anterior
+        self.ventana_anterior = ventana_elegir_empresa
         self.ocultar_campos()
 
         self.modelo_productos = QtGui.QStandardItemModel(self)
@@ -930,8 +937,8 @@ class VentanaStock(Ventana):
 
 
 class VentanaStockCregar(VentanaStock, Ui_StockCregar):
-    def __init__(self, base_datos, ventana_anterior):
-        super().__init__(base_datos, ventana_anterior)
+    def __init__(self):
+        super().__init__()
 
     def actualizar_treeview_productos(self):
         columnas = [
@@ -1093,8 +1100,8 @@ class VentanaStockCregar(VentanaStock, Ui_StockCregar):
 
 
 class VentanaStockFara(VentanaStock, Ui_StockFara):
-    def __init__(self, base_datos, ventana_anterior):
-        super().__init__(base_datos, ventana_anterior)
+    def __init__(self):
+        super().__init__()
 
     def actualizar_treeview_productos(self):
         columnas = [
@@ -1255,11 +1262,11 @@ class VentanaStockFara(VentanaStock, Ui_StockFara):
 
 
 class VentanaStockFontana(VentanaStock, Ui_StockFontana):
-    def __init__(self, base_datos, ventana_anterior):
-        super().__init__(base_datos, ventana_anterior)
+    def __init__(self):
+        super().__init__()
         self.setupUi(self)
+        global base_datos
         self.base_datos = base_datos
-        self.ventana_anterior = ventana_anterior
         self.ocultar_campos()
 
         self.modelo_productos = QtGui.QStandardItemModel(self)
@@ -1450,14 +1457,15 @@ class VentanaStockFontana(VentanaStock, Ui_StockFontana):
 
 
 class VentanaRegistrarCompras(Ventana, Ui_RegistrarCompras):
-    def __init__(self, base_datos, ventana_anterior):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.boton_volver.clicked.connect(self.volver)
         self.boton_buscar_producto.clicked.connect(self.buscar_y_enfocar_producto)
         self.boton_registrar_compra.clicked.connect(self.registrar_compra)
+        global base_datos, ventana_principal_usuario_autorizado
         self.base_datos = base_datos
-        self.ventana_anterior = ventana_anterior
+        self.ventana_anterior = ventana_principal_usuario_autorizado
 
         # Inicializar los modelos como atributos de la clase
         self.modelo_productos = QtGui.QStandardItemModel(self)
@@ -1573,7 +1581,7 @@ class VentanaRegistrarCompras(Ventana, Ui_RegistrarCompras):
 
 
 class VentanaHistorialCompras(Ventana, Ui_HistorialCompras):
-    def __init__(self, base_datos, ventana_anterior):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.boton_volver.clicked.connect(self.volver)
@@ -1592,8 +1600,9 @@ class VentanaHistorialCompras(Ventana, Ui_HistorialCompras):
         self.boton_filtrar_compras_fontana.clicked.connect(
             lambda: self.filtrar_empresa_treeview("fontana")
         )
+        global base_datos, ventana_principal_usuario_autorizado
         self.base_datos = base_datos
-        self.ventana_anterior = ventana_anterior
+        self.ventana_anterior = ventana_principal_usuario_autorizado
 
         self.modelo_compras = QtGui.QStandardItemModel(self)
 
@@ -1806,7 +1815,7 @@ class VentanaHistorialCompras(Ventana, Ui_HistorialCompras):
 
 
 class VentanaHistorialVentas(Ventana, Ui_HistorialVentas):
-    def __init__(self, base_datos, ventana_anterior):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.boton_volver.clicked.connect(self.volver)
@@ -1825,8 +1834,9 @@ class VentanaHistorialVentas(Ventana, Ui_HistorialVentas):
         self.boton_filtrar_ventas_mercadolibre.clicked.connect(
             lambda: self.filtrar_tipo_pago_treeview("mercadolibre")
         )
+        global base_datos, ventana_principal_usuario_autorizado
         self.base_datos = base_datos
-        self.ventana_anterior = ventana_anterior
+        self.ventana_anterior = ventana_principal_usuario_autorizado
 
         self.modelo_ventas = QtGui.QStandardItemModel(self)
 
@@ -2058,13 +2068,14 @@ class VentanaHistorialVentas(Ventana, Ui_HistorialVentas):
 
 
 class VentanaConsultarGanancias(Ventana, Ui_ConsultarGanancias):
-    def __init__(self, base_datos, ventana_anterior):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.boton_volver.clicked.connect(self.volver)
         self.boton_consultar.clicked.connect(self.consultar_ganado)
+        global base_datos, ventana_principal_usuario_autorizado
         self.base_datos = base_datos
-        self.ventana_anterior = ventana_anterior
+        self.ventana_anterior = ventana_principal_usuario_autorizado
 
     def actualizar_treeviews(self):
         pass
@@ -2113,11 +2124,12 @@ class VentanaConsultarGanancias(Ventana, Ui_ConsultarGanancias):
 
 
 class VentanaModificarComisiones(Ventana, Ui_ModificarComisiones):
-    def __init__(self, base_datos, ventana_anterior):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
+        global base_datos, ventana_principal_usuario_autorizado
         self.base_datos = base_datos
-        self.ventana_anterior = ventana_anterior
+        self.ventana_anterior = ventana_principal_usuario_autorizado
 
         self.ocultar_campos()
         self.boton_volver.clicked.connect(self.volver)
@@ -2169,52 +2181,22 @@ class VentanaModificarComisiones(Ventana, Ui_ModificarComisiones):
         pass
 
 
-if __name__ == "__main__":
-
-    app = QtWidgets.QApplication([])
-
+def generar_ventanas(base):
+    global base_datos, ventana_bienvenida, ventana_login, ventana_registrar_ventas_autorizado, ventana_registrar_ventas, ventana_principal_usuario_autorizado, ventana_usuarios, ventana_elegir_empresa, ventana_stock_cregar, ventana_stock_fara, ventana_stock_fontana, ventana_registrar_compras, ventana_historial_compras, ventana_historial_ventas, ventana_consultar_ganancias, ventana_modificar_comisiones
+    base_datos = base
     ventana_bienvenida = VentanaBienvenida()
-    ventana_login = VentanaLogin(base_datos, ventana_bienvenida)
-    ventana_registrar_ventas = VentanaRegistrarVentasVendedor(base_datos)
+    ventana_login = VentanaLogin()
+    ventana_registrar_ventas = VentanaRegistrarVentasVendedor()
     ventana_principal_usuario_autorizado = VentanaPrincipalUsuarioAutorizado()
-    ventana_registrar_ventas_autorizado = VentanaRegistrarVentasAutorizado(
-        base_datos,
-        ventana_principal_usuario_autorizado,
-    )
-    ventana_usuarios = VentanaUsuarios(base_datos, ventana_principal_usuario_autorizado)
-    ventana_elegir_empresa = VentanaElegirEmpresa(ventana_principal_usuario_autorizado)
-    ventana_stock_cregar = VentanaStockCregar(
-        base_datos,
-        ventana_elegir_empresa,
-    )
-    ventana_stock_fara = VentanaStockFara(
-        base_datos,
-        ventana_elegir_empresa,
-    )
-    ventana_stock_fontana = VentanaStockFontana(
-        base_datos,
-        ventana_elegir_empresa,
-    )
-    ventana_registrar_compras = VentanaRegistrarCompras(
-        base_datos,
-        ventana_principal_usuario_autorizado,
-    )
-    ventana_historial_compras = VentanaHistorialCompras(
-        base_datos,
-        ventana_principal_usuario_autorizado,
-    )
-    ventana_historial_ventas = VentanaHistorialVentas(
-        base_datos,
-        ventana_principal_usuario_autorizado,
-    )
-    ventana_consultar_ganancias = VentanaConsultarGanancias(
-        base_datos,
-        ventana_principal_usuario_autorizado,
-    )
-    ventana_modificar_comisiones = VentanaModificarComisiones(
-        base_datos,
-        ventana_principal_usuario_autorizado,
-    )
-
-    ventana_bienvenida.show()
-    app.exec_()
+    ventana_registrar_ventas_autorizado = VentanaRegistrarVentasAutorizado()
+    ventana_usuarios = VentanaUsuarios()
+    ventana_elegir_empresa = VentanaElegirEmpresa()
+    ventana_stock_cregar = VentanaStockCregar()
+    ventana_stock_fara = VentanaStockFara()
+    ventana_stock_fontana = VentanaStockFontana()
+    ventana_registrar_compras = VentanaRegistrarCompras()
+    ventana_historial_compras = VentanaHistorialCompras()
+    ventana_historial_ventas = VentanaHistorialVentas()
+    ventana_consultar_ganancias = VentanaConsultarGanancias()
+    ventana_modificar_comisiones = VentanaModificarComisiones()
+    return ventana_bienvenida

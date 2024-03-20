@@ -153,12 +153,12 @@ class Base:
             print(
                 "El archivo de impuestos no existe. Se creará uno nuevo con valores predeterminados."
             )
-            impuestos_default = [
-                ("mercadolibre", 13),
-                ("posnet", 7),
-                ("efectivo", 0),
-                ("constructores", 0),
-            ]
+            impuestos_default = {
+                "mercadolibre": 13,
+                "posnet": 7,
+                "efectivo": 0,
+                "constructores": 0,
+            }
             with open("impuestos.json", "w") as file:
                 json.dump(impuestos_default, file)
             return impuestos_default
@@ -169,19 +169,14 @@ class Base:
 
     def modificar_impuesto(self, impuesto_a_modificar, nuevo_impuesto):
         try:
-            for impuesto in self.impuestos:
-                if impuesto[0] == impuesto_a_modificar:
-                    impuesto[1] = nuevo_impuesto
-                    break
+            self.impuestos[impuesto_a_modificar] = nuevo_impuesto
             self.guardar_impuestos()
             self.impuestos = self.cargar_impuestos()
         except ValueError:
             print("Error al modificar impuesto en la lista de impuestos")
 
     def obtener_comision(self, tipo_pago):
-        for impuesto in self.impuestos:
-            if tipo_pago == impuesto[0]:
-                return impuesto[1]
+        return self.impuestos[tipo_pago]
 
     #######################   VENTAS    #######################
     def registrar_venta(
@@ -193,10 +188,7 @@ class Base:
         try:
             producto_info = self.buscar_informacion_producto(producto)
             precio = self.obtener_precio(producto_info, tipo_pago)
-            for impuesto in self.impuestos:
-                if impuesto[0] == tipo_pago:
-                    porcentaje_perdido = impuesto[1]
-                    break
+            porcentaje_perdido = self.impuestos[tipo_pago]
             if tipo_pago == "constructores":
                 tipo_pago = "efectivo"
             Ventas.create(
@@ -206,7 +198,9 @@ class Base:
                 cantidad=cantidad_vendida,
                 precio_unitario=precio,
                 precio_total=precio * cantidad_vendida,
-                ingreso_neto=precio * cantidad_vendida * (1 - porcentaje_perdido / 100),
+                ingreso_neto=round(
+                    precio * cantidad_vendida * (1 - porcentaje_perdido / 100), 2
+                ),
                 tipo_pago=tipo_pago,
             )
 
@@ -225,10 +219,7 @@ class Base:
         nuevo_tipo_pago,
     ):
         try:
-            for impuesto in self.impuestos:
-                if impuesto[0] == nuevo_tipo_pago:
-                    porcentaje_perdido = impuesto[1]
-                    break
+            porcentaje_perdido = self.impuestos[nuevo_tipo_pago]
             nuevo_ingreso_neto = round(
                 nuevo_precio_total * (1 - porcentaje_perdido / 100), 2
             )
@@ -1109,7 +1100,5 @@ class Base:
             )
             return None
 
-
-base_datos = Base()
 
 # if __name__ == "__main__":

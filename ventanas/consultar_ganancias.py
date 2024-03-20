@@ -93,7 +93,7 @@ class Ui_ConsultarGanancias(object):
         self.fondo2.setAlignment(QtCore.Qt.AlignCenter)
         self.fondo2.setObjectName("fondo2")
         self.label_16 = QtWidgets.QLabel(self.widget)
-        self.label_16.setGeometry(QtCore.QRect(230, 60, 241, 31))
+        self.label_16.setGeometry(QtCore.QRect(200, 60, 291, 31))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(25)
@@ -371,7 +371,7 @@ class Ui_ConsultarGanancias(object):
     def retranslateUi(self, ConsultarGanancias):
         _translate = QtCore.QCoreApplication.translate
         ConsultarGanancias.setWindowTitle(_translate("ConsultarGanancias", "Form"))
-        self.label_16.setText(_translate("ConsultarGanancias", "GANANCIAS"))
+        self.label_16.setText(_translate("ConsultarGanancias", "GANANCIAS NETAS"))
         self.label_fecha_final_4.setText(_translate("ConsultarGanancias", "/"))
         self.label_tipo_pago_consulta.setText(
             _translate("ConsultarGanancias", "Tipo de pago:")
