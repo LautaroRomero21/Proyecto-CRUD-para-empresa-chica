@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>1195</width>
-    <height>877</height>
+    <height>722</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1195</width>
-    <height>877</height>
+    <height>722</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>1195</width>
-    <height>877</height>
+    <height>722</height>
    </size>
   </property>
   <property name="cursor">
@@ -34,7 +34,8 @@ font: 57 14pt &quot;Yu Gothic Medium&quot;;
 color: #fff;
 background: none;
 }
-QPushButton#boton_usuarios{font: 57 12pt &quot;Yu Gothic Medium&quot;;
+QPushButton#boton_usuarios,#boton_modificar_comisiones{
+font: 57 12pt &quot;Yu Gothic Medium&quot;;
 color: #fff;
 background-image: url(:/ventana_principal_autorizado/principal_autorizada_background.png);
 }
@@ -48,19 +49,19 @@ background-image: url(:/ventana_principal_autorizado/principal_autorizada_backgr
      <x>0</x>
      <y>0</y>
      <width>1195</width>
-     <height>877</height>
+     <height>722</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
      <width>1195</width>
-     <height>877</height>
+     <height>722</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
      <width>1195</width>
-     <height>877</height>
+     <height>722</height>
     </size>
    </property>
    <property name="cursor">
@@ -77,7 +78,7 @@ background-image: url(:/ventana_principal_autorizado/principal_autorizada_backgr
    <property name="geometry">
     <rect>
      <x>430</x>
-     <y>40</y>
+     <y>30</y>
      <width>341</width>
      <height>41</height>
     </rect>
@@ -94,10 +95,10 @@ background: none;</string>
   <widget class="QPushButton" name="boton_usuarios">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>760</y>
-     <width>551</width>
-     <height>61</height>
+     <x>280</x>
+     <y>650</y>
+     <width>271</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="cursor">
@@ -114,7 +115,7 @@ background: none;</string>
    <property name="geometry">
     <rect>
      <x>830</x>
-     <y>460</y>
+     <y>380</y>
      <width>271</width>
      <height>191</height>
     </rect>
@@ -130,7 +131,7 @@ background: none;</string>
    <property name="geometry">
     <rect>
      <x>470</x>
-     <y>460</y>
+     <y>380</y>
      <width>271</width>
      <height>191</height>
     </rect>
@@ -146,7 +147,7 @@ background: none;</string>
    <property name="geometry">
     <rect>
      <x>470</x>
-     <y>150</y>
+     <y>110</y>
      <width>271</width>
      <height>191</height>
     </rect>
@@ -162,7 +163,7 @@ background: none;</string>
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>150</y>
+     <y>110</y>
      <width>271</width>
      <height>191</height>
     </rect>
@@ -178,7 +179,7 @@ background: none;</string>
    <property name="geometry">
     <rect>
      <x>830</x>
-     <y>150</y>
+     <y>110</y>
      <width>271</width>
      <height>191</height>
     </rect>
@@ -194,7 +195,7 @@ background: none;</string>
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>460</y>
+     <y>380</y>
      <width>271</width>
      <height>191</height>
     </rect>
@@ -210,7 +211,7 @@ background: none;</string>
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>140</y>
+     <y>100</y>
      <width>291</width>
      <height>211</height>
     </rect>
@@ -230,7 +231,7 @@ border: 1px solid grey</string>
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>140</y>
+     <y>100</y>
      <width>291</width>
      <height>211</height>
     </rect>
@@ -250,7 +251,7 @@ border: 1px solid grey</string>
    <property name="geometry">
     <rect>
      <x>820</x>
-     <y>140</y>
+     <y>100</y>
      <width>291</width>
      <height>211</height>
     </rect>
@@ -270,7 +271,7 @@ border: 1px solid grey</string>
    <property name="geometry">
     <rect>
      <x>820</x>
-     <y>450</y>
+     <y>370</y>
      <width>291</width>
      <height>211</height>
     </rect>
@@ -290,7 +291,7 @@ border: 1px solid grey</string>
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>450</y>
+     <y>370</y>
      <width>291</width>
      <height>211</height>
     </rect>
@@ -310,7 +311,7 @@ border: 1px solid grey</string>
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>450</y>
+     <y>370</y>
      <width>291</width>
      <height>211</height>
     </rect>
@@ -330,9 +331,9 @@ border: 1px solid grey</string>
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>360</y>
+     <y>320</y>
      <width>151</width>
-     <height>41</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -346,9 +347,9 @@ border: 1px solid grey</string>
    <property name="geometry">
     <rect>
      <x>530</x>
-     <y>360</y>
+     <y>320</y>
      <width>151</width>
-     <height>41</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -362,9 +363,9 @@ border: 1px solid grey</string>
    <property name="geometry">
     <rect>
      <x>890</x>
-     <y>360</y>
+     <y>320</y>
      <width>161</width>
-     <height>41</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -378,9 +379,9 @@ border: 1px solid grey</string>
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>670</y>
+     <y>590</y>
      <width>181</width>
-     <height>41</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -394,9 +395,9 @@ border: 1px solid grey</string>
    <property name="geometry">
     <rect>
      <x>530</x>
-     <y>670</y>
+     <y>590</y>
      <width>161</width>
-     <height>41</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -410,9 +411,9 @@ border: 1px solid grey</string>
    <property name="geometry">
     <rect>
      <x>880</x>
-     <y>670</y>
+     <y>590</y>
      <width>191</width>
-     <height>41</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -420,6 +421,25 @@ border: 1px solid grey</string>
    </property>
    <property name="text">
     <string>Consultar Ganancias</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="boton_modificar_comisiones">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>650</y>
+     <width>281</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/ventana_principal_autorizado/principal_autorizada_background.png);</string>
+   </property>
+   <property name="text">
+    <string>Modificar Comisiones</string>
    </property>
   </widget>
  </widget>

@@ -9,21 +9,20 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 from ventanas.imagenes import imagenes
 
 
 class Ui_Usuarios(object):
     def setupUi(self, Usuarios):
         Usuarios.setObjectName("Usuarios")
-        Usuarios.resize(1195, 877)
-        Usuarios.setMinimumSize(QtCore.QSize(1195, 877))
-        Usuarios.setMaximumSize(QtCore.QSize(1195, 877))
+        Usuarios.resize(1195, 722)
+        Usuarios.setMinimumSize(QtCore.QSize(1195, 722))
+        Usuarios.setMaximumSize(QtCore.QSize(1195, 722))
         Usuarios.setStyleSheet("")
         self.widget = QtWidgets.QWidget(Usuarios)
-        self.widget.setGeometry(QtCore.QRect(0, 0, 1195, 877))
-        self.widget.setMinimumSize(QtCore.QSize(1195, 877))
-        self.widget.setMaximumSize(QtCore.QSize(1195, 877))
+        self.widget.setGeometry(QtCore.QRect(0, 0, 1195, 722))
+        self.widget.setMinimumSize(QtCore.QSize(1195, 722))
+        self.widget.setMaximumSize(QtCore.QSize(1195, 722))
         self.widget.setStyleSheet(
             "\n"
             "QTreeView{\n"
@@ -80,7 +79,7 @@ class Ui_Usuarios(object):
         )
         self.widget.setObjectName("widget")
         self.label_vendedor_no_seleccionado = QtWidgets.QLabel(self.widget)
-        self.label_vendedor_no_seleccionado.setGeometry(QtCore.QRect(70, 240, 361, 31))
+        self.label_vendedor_no_seleccionado.setGeometry(QtCore.QRect(70, 200, 361, 31))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(12)
@@ -97,7 +96,7 @@ class Ui_Usuarios(object):
         )
         self.label_vendedor_no_seleccionado_2 = QtWidgets.QLabel(self.widget)
         self.label_vendedor_no_seleccionado_2.setGeometry(
-            QtCore.QRect(780, 240, 361, 31)
+            QtCore.QRect(780, 200, 361, 31)
         )
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
@@ -114,7 +113,7 @@ class Ui_Usuarios(object):
             "label_vendedor_no_seleccionado_2"
         )
         self.label_ingresar_usuario = QtWidgets.QLabel(self.widget)
-        self.label_ingresar_usuario.setGeometry(QtCore.QRect(430, 380, 371, 31))
+        self.label_ingresar_usuario.setGeometry(QtCore.QRect(430, 330, 371, 31))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(12)
@@ -127,13 +126,8 @@ class Ui_Usuarios(object):
         self.label_ingresar_usuario.setText("")
         self.label_ingresar_usuario.setAlignment(QtCore.Qt.AlignCenter)
         self.label_ingresar_usuario.setObjectName("label_ingresar_usuario")
-        self.boton_volver = QtWidgets.QPushButton(self.widget)
-        self.boton_volver.setGeometry(QtCore.QRect(560, 810, 101, 41))
-        self.boton_volver.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.boton_volver.setStyleSheet("")
-        self.boton_volver.setObjectName("boton_volver")
         self.nuevo_usuario = QtWidgets.QLineEdit(self.widget)
-        self.nuevo_usuario.setGeometry(QtCore.QRect(470, 420, 281, 31))
+        self.nuevo_usuario.setGeometry(QtCore.QRect(470, 370, 281, 31))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(11)
@@ -147,7 +141,7 @@ class Ui_Usuarios(object):
         self.nuevo_usuario.setObjectName("nuevo_usuario")
         self.boton_registrar_usuario_autorizado = QtWidgets.QPushButton(self.widget)
         self.boton_registrar_usuario_autorizado.setGeometry(
-            QtCore.QRect(810, 120, 311, 51)
+            QtCore.QRect(820, 90, 291, 51)
         )
         self.boton_registrar_usuario_autorizado.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
@@ -157,14 +151,14 @@ class Ui_Usuarios(object):
             "boton_registrar_usuario_autorizado"
         )
         self.producto_no_encontrado = QtWidgets.QLabel(self.widget)
-        self.producto_no_encontrado.setGeometry(QtCore.QRect(830, 260, 231, 31))
+        self.producto_no_encontrado.setGeometry(QtCore.QRect(860, 240, 231, 31))
         self.producto_no_encontrado.setStyleSheet(
             'font: 16pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
         )
         self.producto_no_encontrado.setText("")
         self.producto_no_encontrado.setObjectName("producto_no_encontrado")
         self.label_ingresar_contrasenia = QtWidgets.QLabel(self.widget)
-        self.label_ingresar_contrasenia.setGeometry(QtCore.QRect(420, 460, 381, 31))
+        self.label_ingresar_contrasenia.setGeometry(QtCore.QRect(420, 410, 381, 31))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(12)
@@ -177,7 +171,7 @@ class Ui_Usuarios(object):
         self.label_ingresar_contrasenia.setAlignment(QtCore.Qt.AlignCenter)
         self.label_ingresar_contrasenia.setObjectName("label_ingresar_contrasenia")
         self.nueva_contrasenia = QtWidgets.QLineEdit(self.widget)
-        self.nueva_contrasenia.setGeometry(QtCore.QRect(470, 500, 281, 31))
+        self.nueva_contrasenia.setGeometry(QtCore.QRect(470, 450, 281, 31))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(11)
@@ -190,58 +184,58 @@ class Ui_Usuarios(object):
         )
         self.nueva_contrasenia.setObjectName("nueva_contrasenia")
         self.label_15 = QtWidgets.QLabel(self.widget)
-        self.label_15.setGeometry(QtCore.QRect(150, 50, 211, 31))
+        self.label_15.setGeometry(QtCore.QRect(150, 40, 211, 31))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(25)
+        font.setPointSize(20)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
         self.label_15.setFont(font)
         self.label_15.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.label_15.setStyleSheet(
-            'font: 25pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+            'font: 20pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
         )
         self.label_15.setAlignment(QtCore.Qt.AlignCenter)
         self.label_15.setObjectName("label_15")
         self.boton_registrar_vendedor = QtWidgets.QPushButton(self.widget)
-        self.boton_registrar_vendedor.setGeometry(QtCore.QRect(100, 120, 311, 51))
+        self.boton_registrar_vendedor.setGeometry(QtCore.QRect(110, 90, 291, 51))
         self.boton_registrar_vendedor.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
         self.boton_registrar_vendedor.setStyleSheet("")
         self.boton_registrar_vendedor.setObjectName("boton_registrar_vendedor")
         self.treeview_vendedores = QtWidgets.QTreeView(self.widget)
-        self.treeview_vendedores.setGeometry(QtCore.QRect(100, 280, 311, 541))
+        self.treeview_vendedores.setGeometry(QtCore.QRect(100, 230, 311, 481))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.treeview_vendedores.setFont(font)
         self.treeview_vendedores.setStyleSheet("")
         self.treeview_vendedores.setObjectName("treeview_vendedores")
         self.boton_eliminar_vendedor = QtWidgets.QPushButton(self.widget)
-        self.boton_eliminar_vendedor.setGeometry(QtCore.QRect(100, 190, 311, 51))
+        self.boton_eliminar_vendedor.setGeometry(QtCore.QRect(110, 150, 291, 51))
         self.boton_eliminar_vendedor.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
         self.boton_eliminar_vendedor.setStyleSheet("")
         self.boton_eliminar_vendedor.setObjectName("boton_eliminar_vendedor")
         self.label_16 = QtWidgets.QLabel(self.widget)
-        self.label_16.setGeometry(QtCore.QRect(760, 50, 401, 31))
+        self.label_16.setGeometry(QtCore.QRect(760, 40, 401, 31))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(25)
+        font.setPointSize(20)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
         self.label_16.setFont(font)
         self.label_16.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.label_16.setStyleSheet(
-            'font: 25pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+            'font: 20pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
         )
         self.label_16.setAlignment(QtCore.Qt.AlignCenter)
         self.label_16.setObjectName("label_16")
         self.treeview_usuarios_autorizados = QtWidgets.QTreeView(self.widget)
-        self.treeview_usuarios_autorizados.setGeometry(QtCore.QRect(810, 280, 311, 541))
+        self.treeview_usuarios_autorizados.setGeometry(QtCore.QRect(810, 230, 311, 481))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.treeview_usuarios_autorizados.setFont(font)
@@ -253,7 +247,7 @@ class Ui_Usuarios(object):
         self.treeview_usuarios_autorizados.header().setSortIndicatorShown(False)
         self.boton_eliminar_usuario_autorizado = QtWidgets.QPushButton(self.widget)
         self.boton_eliminar_usuario_autorizado.setGeometry(
-            QtCore.QRect(810, 190, 311, 51)
+            QtCore.QRect(820, 150, 291, 51)
         )
         self.boton_eliminar_usuario_autorizado.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
@@ -263,12 +257,17 @@ class Ui_Usuarios(object):
             "boton_eliminar_usuario_autorizado"
         )
         self.boton_confirmar_registro = QtWidgets.QPushButton(self.widget)
-        self.boton_confirmar_registro.setGeometry(QtCore.QRect(540, 550, 141, 51))
+        self.boton_confirmar_registro.setGeometry(QtCore.QRect(550, 510, 131, 41))
         self.boton_confirmar_registro.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
         self.boton_confirmar_registro.setStyleSheet("")
         self.boton_confirmar_registro.setObjectName("boton_confirmar_registro")
+        self.boton_volver = QtWidgets.QPushButton(self.widget)
+        self.boton_volver.setGeometry(QtCore.QRect(570, 680, 91, 31))
+        self.boton_volver.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_volver.setStyleSheet("\n" 'font: 57 11pt "Yu Gothic Medium";')
+        self.boton_volver.setObjectName("boton_volver")
 
         self.retranslateUi(Usuarios)
         QtCore.QMetaObject.connectSlotsByName(Usuarios)
@@ -276,7 +275,6 @@ class Ui_Usuarios(object):
     def retranslateUi(self, Usuarios):
         _translate = QtCore.QCoreApplication.translate
         Usuarios.setWindowTitle(_translate("Usuarios", "Form"))
-        self.boton_volver.setText(_translate("Usuarios", "Volver"))
         self.boton_registrar_usuario_autorizado.setText(
             _translate("Usuarios", "Registrar Usuario Autorizado")
         )
@@ -292,3 +290,4 @@ class Ui_Usuarios(object):
             _translate("Usuarios", "Eliminar Usuario Autorizado")
         )
         self.boton_confirmar_registro.setText(_translate("Usuarios", "Confrmar"))
+        self.boton_volver.setText(_translate("Usuarios", "Volver"))

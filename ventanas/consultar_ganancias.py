@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 from ventanas.imagenes import imagenes
 
 
@@ -88,7 +87,7 @@ class Ui_ConsultarGanancias(object):
         self.fondo2.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.fondo2.setStyleSheet(
             "border-radius: 50px;\n"
-            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(54, 44, 44, 113));"
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(45, 45, 45, 162));"
         )
         self.fondo2.setText("")
         self.fondo2.setAlignment(QtCore.Qt.AlignCenter)
@@ -213,13 +212,13 @@ class Ui_ConsultarGanancias(object):
         self.eleccion_posnet.setFont(font)
         self.eleccion_posnet.setStyleSheet("")
         self.eleccion_posnet.setObjectName("eleccion_posnet")
-        self.eleccion_mercadopago = QtWidgets.QRadioButton(self.widget)
-        self.eleccion_mercadopago.setGeometry(QtCore.QRect(400, 330, 121, 31))
+        self.eleccion_mercadolibre = QtWidgets.QRadioButton(self.widget)
+        self.eleccion_mercadolibre.setGeometry(QtCore.QRect(400, 330, 121, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.eleccion_mercadopago.setFont(font)
-        self.eleccion_mercadopago.setStyleSheet("")
-        self.eleccion_mercadopago.setObjectName("eleccion_mercadopago")
+        self.eleccion_mercadolibre.setFont(font)
+        self.eleccion_mercadolibre.setStyleSheet("")
+        self.eleccion_mercadolibre.setObjectName("eleccion_mercadolibre")
         self.eleccion_efectivo = QtWidgets.QRadioButton(self.widget)
         self.eleccion_efectivo.setGeometry(QtCore.QRect(220, 330, 81, 31))
         font = QtGui.QFont()
@@ -240,7 +239,7 @@ class Ui_ConsultarGanancias(object):
         self.boton_consultar.setStyleSheet("")
         self.boton_consultar.setObjectName("boton_consultar")
         self.label_total_gastado = QtWidgets.QLabel(self.widget)
-        self.label_total_gastado.setGeometry(QtCore.QRect(280, 450, 161, 31))
+        self.label_total_gastado.setGeometry(QtCore.QRect(260, 450, 181, 31))
         font = QtGui.QFont()
         font.setFamily("Yu Gothic Medium")
         font.setPointSize(12)
@@ -378,14 +377,14 @@ class Ui_ConsultarGanancias(object):
             _translate("ConsultarGanancias", "Tipo de pago:")
         )
         self.eleccion_posnet.setText(_translate("ConsultarGanancias", "Posnet"))
-        self.eleccion_mercadopago.setText(
-            _translate("ConsultarGanancias", "MercadoPago")
+        self.eleccion_mercadolibre.setText(
+            _translate("ConsultarGanancias", "MercadoLibre")
         )
         self.eleccion_efectivo.setText(_translate("ConsultarGanancias", "Efectivo"))
         self.eleccion_total.setText(_translate("ConsultarGanancias", "Total"))
         self.boton_consultar.setText(_translate("ConsultarGanancias", "CONSULTAR"))
         self.label_total_gastado.setText(
-            _translate("ConsultarGanancias", "TOTAL GANADO ($):")
+            _translate("ConsultarGanancias", "GANANCIA BRUTA($):")
         )
         self.label_fecha_inicial.setText(
             _translate("ConsultarGanancias", "Fecha Inicial")

@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RegistrarCompras</class>
+ <widget class="QWidget" name="RegistrarCompras">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1195</width>
+    <height>722</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1195</width>
+    <height>722</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1195</width>
+    <height>722</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1195</width>
+     <height>722</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>1195</width>
+     <height>722</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1195</width>
+     <height>722</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+font: 57 11pt &quot;Yu Gothic Medium&quot;;
+color: #fff;
+padding:5px;
+	background-color: qlineargradient(spread:pad, x1:0.421, y1:0.636863, x2:1, y2:0, stop:0 rgba(52, 190, 250, 172), stop:1 rgba(255, 255, 255, 158));
+}
+QPushButton:hover {
+	background-color: qlineargradient(spread:pad, x1:0.421, y1:0.636863, x2:1, y2:0, stop:0 rgba(41, 151, 199, 172), stop:1 rgba(255, 255, 255, 158));
+}
+QPushButton:pressed {
+	padding-top: 10px;
+	padding-left: 10px;
+}
+QLineEdit{
+padding: 3px;
+color: #fff; 
+font: 11pt &quot;MS Shell Dlg 2&quot;;
+	background-color: qlineargradient(spread:pad, x1:0.421, y1:0.636863, x2:1, y2:0, stop:0 rgba(52, 190, 250, 172), stop:1 rgba(255, 255, 255, 158));
+}
+QLineEdit:hover {
+	background-color: qlineargradient(spread:pad, x1:0.421, y1:0.636863, x2:1, y2:0, stop:0 rgba(41, 151, 199, 172), stop:1 rgba(255, 255, 255, 158));
+}
+QLineEdit:focus {
+	background-color: qlineargradient(spread:pad, x1:0.421, y1:0.636863, x2:1, y2:0, stop:0 rgba(41, 151, 199, 172), stop:1 rgba(255, 255, 255, 158));
+color:#fff;
+}
+QRadioButton{
+color:#fff;
+background-color: none;
+font: 57 12pt &quot;Yu Gothic Medium&quot;;
+}
+QTreeView{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(101, 101, 101, 162));
+color: #fff;
+border: 1px solid #fff;
+}
+QHeaderView::section {
+color: #000;
+border: 1px solid #000;
+}
+QTreeView::item {
+color: #fff;
+}
+QWidget#widget{
+	background-image: url(:/registrar_compras/3376284.jpg);
+}
+QLabel{
+color:#fff;
+}</string>
+   </property>
+   <widget class="QPushButton" name="boton_buscar_producto">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>60</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:10px;</string>
+    </property>
+    <property name="text">
+     <string>Buscar</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="producto_no_encontrado">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>90</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#f00;
+font-size:14px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_producto_no_seleccionado">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>210</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#f00;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="input_cantidad_comprada">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>150</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QTreeView" name="treeview_compras">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>280</y>
+      <width>571</width>
+      <height>431</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="allColumnsShowFocus">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>10</y>
+      <width>361</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 26pt &quot;MS Shell Dlg 2&quot;;
+color: #fff;
+background: none;</string>
+    </property>
+    <property name="text">
+     <string>LISTA DE PRODUCTOS</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_volver">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>20</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Volver</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>900</x>
+      <y>120</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Cantidad comprada:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_registrar_compra">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>210</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>REGISTRAR</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_error_al_registrar">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>220</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:#f00;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QTreeView" name="treeview_productos">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>120</y>
+      <width>601</width>
+      <height>591</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="allColumnsShowFocus">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="input_buscar_producto">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>60</y>
+      <width>411</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_rfiltrar_cregar">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>130</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Filtrar Cregar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_filtrar_fara">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>180</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Filtrar Fara</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_filtrar_fontana">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>230</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Filtrar Fontana</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="imagenes/imagenes.qrc"/>
+ </resources>
+ <connections/>
+</ui>
