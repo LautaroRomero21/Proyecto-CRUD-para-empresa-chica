@@ -22,34 +22,24 @@ global base_datos, ventana_bienvenida, ventana_login, ventana_registrar_ventas_a
 
 class Ventana(QtWidgets.QWidget):
     def mostrar_error_temporal(self, label, mensaje):
-        self.tiempo_ocultar = QtCore.QTimer()
         label.setText(mensaje)
-        self.tiempo_ocultar.timeout.connect(lambda: self.ocultar_label_temporal(label))
-        self.tiempo_ocultar.start(2000)
-
-    def ocultar_label_temporal(self, label):
-        label.clear()
-        self.tiempo_ocultar.stop()
+        QtCore.QTimer.singleShot(2000, lambda: label.clear())
 
     def actualizar_treeview(self, treeview, modelo, columnas, datos, tamanios_columnas):
         modelo.clear()
         treeview.setModel(modelo)
         modelo.setHorizontalHeaderLabels(columnas)
 
-        font = QtGui.QFont()
-        font.setFamily("Segoe UI")
-        font.setPointSize(13)
+        font = QtGui.QFont("Segoe UI", 13)
         header = treeview.header()
         header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
         header.setFont(font)
 
         for dato in datos:
-            items = [QtGui.QStandardItem(str(getattr(dato, col))) for col in columnas]
-
-            for item in items:
+            row = [QtGui.QStandardItem(str(getattr(dato, col))) for col in columnas]
+            for item in row:
                 item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
-
-            modelo.appendRow(items)
+            modelo.appendRow(row)
 
         for i, tamano in enumerate(tamanios_columnas):
             treeview.setColumnWidth(i, tamano)
@@ -64,20 +54,15 @@ class VentanaBienvenida(QtWidgets.QWidget, Ui_UserSelection):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.boton_vendedor.clicked.connect(self.ir_a_login_como_vendedor)
+        self.boton_vendedor.clicked.connect(lambda: self.ir_a_login("vendedor"))
         self.boton_usuario_autorizado.clicked.connect(
-            self.ir_a_login_como_usuario_autorizado
+            lambda: self.ir_a_login("usuario_autorizado")
         )
         self.tipo_usuario = None
 
-    def ir_a_login_como_vendedor(self):
+    def ir_a_login(self, tipo_usuario):
         self.hide()
-        self.tipo_usuario = "vendedor"
-        ventana_login.show()
-
-    def ir_a_login_como_usuario_autorizado(self):
-        self.hide()
-        self.tipo_usuario = "usuario_autorizado"
+        self.tipo_usuario = tipo_usuario
         ventana_login.show()
 
 
@@ -134,6 +119,10 @@ class VentanaRegistrarVentas(Ventana):
         self.setupUi(self)
         self.boton_buscar_producto.clicked.connect(self.buscar_y_enfocar_producto)
         self.boton_registrar_venta.clicked.connect(self.verificar_cantidad_a_vender)
+        self.boton_todos.clicked.connect(self.actualizar_treeview_productos)
+        self.boton_cregar.clicked.connect(self.filtrar_productos_cregar)
+        self.boton_fara.clicked.connect(self.filtrar_productos_fara)
+        self.boton_fontana.clicked.connect(self.filtrar_productos_fontana)
         global base_datos
         self.base_datos = base_datos
 
@@ -152,7 +141,7 @@ class VentanaRegistrarVentas(Ventana):
         ]
 
         datos = self.base_datos.obtener_productos_para_venta()
-        lista_widths = [200, 50, 50, 50, 50]
+        lista_widths = [220, 30, 100, 125, 110]
         productos = [
             namedtuple(
                 "Producto",
@@ -185,7 +174,7 @@ class VentanaRegistrarVentas(Ventana):
             "tipo_pago",
         ]
         datos = self.base_datos.obtener_ventas_ordenadas()
-        lista_widths = [70, 95, 90, 75, 100, 100, 85]
+        lista_widths = [70, 95, 120, 65, 100, 80, 85]
         self.actualizar_treeview(
             self.treeview_ventas,
             self.modelo_ventas,
@@ -197,6 +186,55 @@ class VentanaRegistrarVentas(Ventana):
     def actualizar_treeviews(self):
         self.actualizar_treeview_productos()
         self.actualizar_treeview_ventas()
+
+    def filtrar_productos_cregar(self):
+        self.modelo_productos.removeRows(0, self.modelo_productos.rowCount())
+        productos_cregar = self.base_datos.obtener_productos_cregar()
+        self.filtrar_treeview_productos(productos_cregar)
+
+    def filtrar_productos_fara(self):
+        self.modelo_productos.removeRows(0, self.modelo_productos.rowCount())
+        productos_fara = self.base_datos.obtener_productos_fara()
+        self.filtrar_treeview_productos(productos_fara)
+
+    def filtrar_productos_fontana(self):
+        self.modelo_productos.removeRows(0, self.modelo_productos.rowCount())
+        productos_fontana = self.base_datos.obtener_productos_fontana()
+        self.filtrar_treeview_productos(productos_fontana)
+
+    def filtrar_treeview_productos(self, productos):
+        for producto in productos:
+            item_producto = QtGui.QStandardItem(producto.producto)
+            item_stock = QtGui.QStandardItem(str(producto.stock))
+            item_precio_efectivo = QtGui.QStandardItem(str(producto.precio_efectivo))
+            item_precio_mercadolibre = QtGui.QStandardItem(
+                str(producto.precio_mercadolibre)
+            )
+            item_precio_constructores = QtGui.QStandardItem(
+                str(producto.precio_constructores)
+            )
+
+            item_producto.setFlags(item_producto.flags() & ~QtCore.Qt.ItemIsEditable)
+            item_stock.setFlags(item_stock.flags() & ~QtCore.Qt.ItemIsEditable)
+            item_precio_efectivo.setFlags(
+                item_precio_efectivo.flags() & ~QtCore.Qt.ItemIsEditable
+            )
+            item_precio_mercadolibre.setFlags(
+                item_precio_mercadolibre.flags() & ~QtCore.Qt.ItemIsEditable
+            )
+            item_precio_constructores.setFlags(
+                item_precio_constructores.flags() & ~QtCore.Qt.ItemIsEditable
+            )
+
+            self.modelo_productos.appendRow(
+                [
+                    item_producto,
+                    item_stock,
+                    item_precio_efectivo,
+                    item_precio_mercadolibre,
+                    item_precio_constructores,
+                ]
+            )
 
     def buscar_y_enfocar_producto(self):
         nombre_producto = self.input_buscar_producto.text().lower()
@@ -261,6 +299,7 @@ class VentanaRegistrarVentasVendedor(VentanaRegistrarVentas, Ui_RegistrarVentaVe
                             self, "Venta Cargada", "Venta registrada con exito"
                         )
                         self.limpiar_campos()
+                        self.actualizar_treeviews()
                     elif self.eleccion_posnet.isChecked():
                         self.base_datos.registrar_venta(
                             producto, cantidad_a_vender, "posnet"
@@ -269,14 +308,12 @@ class VentanaRegistrarVentasVendedor(VentanaRegistrarVentas, Ui_RegistrarVentaVe
                             self, "Venta Cargada", "Venta registrada con exito"
                         )
                         self.limpiar_campos()
+                        self.actualizar_treeviews()
                     else:
                         self.mostrar_error_temporal(
                             self.label_tipo_pago_no_elegido,
                             "Seleccione el precio de venta",
                         )
-                    self.actualizar_treeview_productos()
-                    self.actualizar_treeview_ventas()
-
             except ValueError:
                 self.mostrar_error_temporal(
                     self.label_cantidad_invalida,
@@ -335,6 +372,7 @@ class VentanaRegistrarVentasAutorizado(
                             self, "Venta Cargada", "Venta registrada con exito"
                         )
                         self.limpiar_campos()
+                        self.actualizar_treeviews()
                     elif self.eleccion_posnet.isChecked():
                         self.base_datos.registrar_venta(
                             producto, cantidad_a_vender, "posnet"
@@ -343,6 +381,7 @@ class VentanaRegistrarVentasAutorizado(
                             self, "Venta Cargada", "Venta registrada con exito"
                         )
                         self.limpiar_campos()
+                        self.actualizar_treeviews()
                     elif self.eleccion_mercadolibre.isChecked():
                         self.base_datos.registrar_venta(
                             producto, cantidad_a_vender, "mercadolibre"
@@ -351,13 +390,12 @@ class VentanaRegistrarVentasAutorizado(
                             self, "Venta Cargada", "Venta registrada con exito"
                         )
                         self.limpiar_campos()
+                        self.actualizar_treeviews()
                     else:
                         self.mostrar_error_temporal(
                             self.label_tipo_pago_no_elegido,
                             "Seleccione el precio de venta",
                         )
-                    self.actualizar_treeview_productos()
-                    self.actualizar_treeview_ventas()
 
             except ValueError:
                 self.mostrar_error_temporal(
@@ -468,8 +506,7 @@ class VentanaUsuarios(Ventana, Ui_Usuarios):
         self.modelo_vendedores = QtGui.QStandardItemModel(self)
         self.modelo_usuarios_autorizados = QtGui.QStandardItemModel(self)
 
-        self.actualizar_treeview_vendedores()
-        self.actualizar_treeview_usuarios_autorizados()
+        self.actualizar_treeviews()
 
     def actualizar_treeview_vendedores(self):
         self.modelo_vendedores.clear()
@@ -772,6 +809,7 @@ class VentanaStock(Ventana):
         producto_info = self.base_datos.buscar_informacion_producto(
             self.nombre_producto
         )
+        self.nombre_viejo_producto = producto_info.producto
 
         self.input_nombre_producto.setText(producto_info.producto)
         self.input_stock.setText(str(producto_info.stock))
@@ -943,7 +981,6 @@ class VentanaStockCregar(VentanaStock, Ui_StockCregar):
     def actualizar_treeview_productos(self):
         columnas = [
             "producto",
-            "empresa",
             "stock",
             "costo_inicial",
             "descuento_1",
@@ -961,22 +998,21 @@ class VentanaStockCregar(VentanaStock, Ui_StockCregar):
         ]
         datos = self.base_datos.obtener_productos_cregar()
         lista_widths = [
+            400,
             50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
+            70,
+            70,
+            80,
+            30,
+            80,
+            70,
+            70,
+            90,
+            90,
+            110,
+            110,
+            110,
+            110,
         ]
         self.actualizar_treeview(
             self.treeview_productos,
@@ -1028,7 +1064,10 @@ class VentanaStockCregar(VentanaStock, Ui_StockCregar):
     def confirmar_modificacion(self):
         try:
             nuevo_producto = self.input_nombre_producto.text()
-            if self.base_datos.producto_repetido_en_stock(nuevo_producto):
+            if (
+                self.nombre_viejo_producto != nuevo_producto
+                and self.base_datos.producto_repetido_en_stock(nuevo_producto)
+            ):
                 self.mostrar_error_temporal(self.label_error, "Producto ya existente")
             else:
                 nuevo_stock = int(self.input_stock.text())
@@ -1106,7 +1145,6 @@ class VentanaStockFara(VentanaStock, Ui_StockFara):
     def actualizar_treeview_productos(self):
         columnas = [
             "producto",
-            "empresa",
             "stock",
             "costo_inicial",
             "descuento_1",
@@ -1124,22 +1162,21 @@ class VentanaStockFara(VentanaStock, Ui_StockFara):
         ]
         datos = self.base_datos.obtener_productos_fara()
         lista_widths = [
+            400,
             50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
+            70,
+            70,
+            80,
+            80,
+            80,
+            30,
+            70,
+            90,
+            90,
+            115,
+            110,
+            120,
+            110,
         ]
         self.actualizar_treeview(
             self.treeview_productos,
@@ -1191,7 +1228,10 @@ class VentanaStockFara(VentanaStock, Ui_StockFara):
     def confirmar_modificacion(self):
         try:
             nuevo_producto = self.input_nombre_producto.text()
-            if self.base_datos.producto_repetido_en_stock(nuevo_producto):
+            if (
+                self.nombre_viejo_producto != nuevo_producto
+                and self.base_datos.producto_repetido_en_stock(nuevo_producto)
+            ):
                 self.mostrar_error_temporal(self.label_error, "Producto ya existente")
             else:
                 nuevo_stock = int(self.input_stock.text())
@@ -1315,18 +1355,18 @@ class VentanaStockFontana(VentanaStock, Ui_StockFontana):
         ]
         datos = self.base_datos.obtener_productos_fontana()
         lista_widths = [
+            400,
             50,
             50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
-            50,
+            60,
+            30,
+            70,
+            95,
+            90,
+            115,
+            110,
+            120,
+            110,
         ]
         self.actualizar_treeview(
             self.treeview_productos,
@@ -1389,7 +1429,10 @@ class VentanaStockFontana(VentanaStock, Ui_StockFontana):
     def confirmar_modificacion(self):
         try:
             nuevo_producto = self.input_nombre_producto.text()
-            if self.base_datos.producto_repetido_en_stock(nuevo_producto):
+            if (
+                self.nombre_viejo_producto != nuevo_producto
+                and self.base_datos.producto_repetido_en_stock(nuevo_producto)
+            ):
                 self.mostrar_error_temporal(self.label_error, "Producto ya existente")
             else:
                 nuevo_stock = int(self.input_stock.text())
@@ -1483,7 +1526,7 @@ class VentanaRegistrarCompras(Ventana, Ui_RegistrarCompras):
         ]
 
         datos = self.base_datos.obtener_productos_para_compra()
-        lista_widths = [200, 50, 50, 50]
+        lista_widths = [370, 80, 30, 30]
         productos = [
             namedtuple(
                 "Producto",
@@ -1515,7 +1558,7 @@ class VentanaRegistrarCompras(Ventana, Ui_RegistrarCompras):
             "costo_total",
         ]
         datos = self.base_datos.obtener_compras_ordenadas()
-        lista_widths = [95, 95, 90, 75, 90, 95, 85]
+        lista_widths = [95, 95, 90, 75, 90, 105, 85]
         self.actualizar_treeview(
             self.treeview_compras,
             self.modelo_compras,
@@ -1623,7 +1666,7 @@ class VentanaHistorialCompras(Ventana, Ui_HistorialCompras):
             "costo_total",
         ]
         datos = self.base_datos.obtener_compras_ordenadas()
-        lista_widths = [95, 95, 90, 75, 90, 95, 85]
+        lista_widths = [95, 95, 80, 75, 75, 110, 90]
         self.actualizar_treeview(
             self.treeview_compras,
             self.modelo_compras,
@@ -1858,7 +1901,7 @@ class VentanaHistorialVentas(Ventana, Ui_HistorialVentas):
             "tipo_pago",
         ]
         datos = self.base_datos.obtener_ventas_ordenadas()
-        lista_widths = [70, 95, 90, 75, 100, 100, 85]
+        lista_widths = [70, 95, 90, 75, 120, 100, 100]
         self.actualizar_treeview(
             self.treeview_ventas,
             self.modelo_ventas,

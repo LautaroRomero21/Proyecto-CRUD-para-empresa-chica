@@ -87,11 +87,12 @@ QTreeView{
 	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(45, 45, 45, 162));
 color: #000;
 border: 1px solid #000;
-font-size: 13px;
+font-size: 14px;
 }
 QHeaderView::section {
 color: #000;
 border: 1px solid #000;
+font-size:13px;
 }
 QTreeView::item {
 color: #fff;
@@ -100,7 +101,7 @@ color: #fff;
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>830</x>
+      <x>850</x>
       <y>70</y>
       <width>161</width>
       <height>21</height>
@@ -119,9 +120,9 @@ background: none;</string>
    <widget class="QLabel" name="label_cantidad_invalida">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>740</x>
       <y>140</y>
-      <width>451</width>
+      <width>381</width>
       <height>31</height>
      </rect>
     </property>
@@ -141,7 +142,7 @@ background: none;</string>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>780</x>
+      <x>800</x>
       <y>160</y>
       <width>271</width>
       <height>31</height>
@@ -160,7 +161,7 @@ background: none;</string>
    <widget class="QRadioButton" name="eleccion_efectivo">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>730</x>
       <y>190</y>
       <width>81</width>
       <height>41</height>
@@ -185,7 +186,7 @@ background: none;</string>
    <widget class="QRadioButton" name="eleccion_mercadolibre">
     <property name="geometry">
      <rect>
-      <x>790</x>
+      <x>830</x>
       <y>190</y>
       <width>121</width>
       <height>41</height>
@@ -210,7 +211,7 @@ background: none;</string>
    <widget class="QLineEdit" name="input_cantidad_vendida">
     <property name="geometry">
      <rect>
-      <x>880</x>
+      <x>890</x>
       <y>100</y>
       <width>71</width>
       <height>41</height>
@@ -249,6 +250,9 @@ background: none;</string>
       <pointsize>-1</pointsize>
      </font>
     </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
@@ -259,7 +263,7 @@ background: none;</string>
    <widget class="QRadioButton" name="eleccion_posnet">
     <property name="geometry">
      <rect>
-      <x>930</x>
+      <x>970</x>
       <y>190</y>
       <width>71</width>
       <height>41</height>
@@ -284,7 +288,7 @@ background: none;</string>
    <widget class="QPushButton" name="boton_registrar_venta">
     <property name="geometry">
      <rect>
-      <x>850</x>
+      <x>860</x>
       <y>250</y>
       <width>141</width>
       <height>41</height>
@@ -303,9 +307,9 @@ background: none;</string>
    <widget class="QLabel" name="label_tipo_pago_no_elegido">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>750</x>
       <y>220</y>
-      <width>451</width>
+      <width>371</width>
       <height>31</height>
      </rect>
     </property>
@@ -334,6 +338,9 @@ background: none;</string>
      <font>
       <pointsize>-1</pointsize>
      </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
@@ -438,7 +445,7 @@ background: none;</string>
    <widget class="QRadioButton" name="eleccion_constructor">
     <property name="geometry">
      <rect>
-      <x>1020</x>
+      <x>1060</x>
       <y>190</y>
       <width>111</width>
       <height>41</height>
@@ -458,6 +465,82 @@ background: none;</string>
     </property>
     <property name="text">
      <string>Constructor</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_todos">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>120</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Todos</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_cregar">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>160</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Cregar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_fara">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>200</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Fara</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_fontana">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>240</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Fontana</string>
     </property>
    </widget>
   </widget>

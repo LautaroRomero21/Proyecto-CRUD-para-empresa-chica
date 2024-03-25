@@ -23,52 +23,55 @@ class Ui_StockFara(object):
         self.widget.setGeometry(QtCore.QRect(0, 0, 1195, 722))
         self.widget.setMinimumSize(QtCore.QSize(1195, 722))
         self.widget.setMaximumSize(QtCore.QSize(1195, 722))
-        self.widget.setStyleSheet("QPushButton{\n"
-"border:2px solid rgb(28, 165, 206);\n"
-"border-radius: 10px;\n"
-"color: #fff;\n"
-"font: 57 12pt \"Yu Gothic Medium\";\n"
-"padding:5px;\n"
-"background-color:none;\n"
-"}\n"
-"QPushButton:hover {\n"
-"color: rgb(28, 165, 206);\n"
-"border:1px solid #fff;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    padding-top: 10px;\n"
-"    padding-left: 10px;\n"
-"}\n"
-"\n"
-"QLineEdit{\n"
-"background-color:transparent;\n"
-"border-bottom:2px solid rgb(28, 165, 206);\n"
-"border-radius: 0px;\n"
-"padding: 4px;\n"
-"color: #fff;\n"
-"}\n"
-"QLineEdit:hover {\n"
-"background-color:transparent;\n"
-"}\n"
-"QLineEdit:focus {\n"
-"background-color:transparent;\n"
-"}\n"
-"QWidget#widget{\n"
-"background-image: url(:/stock_disponible/modern-2560-x-1600-background-od87qg1wfx087jbt.jpg);\n"
-"}\n"
-"QTreeView{\n"
-"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(0, 190, 255, 113));\n"
-"color: #fff;\n"
-"border: 1px solid #000;\n"
-"}\n"
-"QHeaderView::section {\n"
-"color: #000;\n"
-"border: 1px solid #000;\n"
-"}\n"
-"QTreeView::item {\n"
-"color: #fff;\n"
-"}\n"
-"")
+        self.widget.setStyleSheet(
+            "QPushButton{\n"
+            "border:2px solid rgb(28, 165, 206);\n"
+            "border-radius: 10px;\n"
+            "color: #fff;\n"
+            'font: 57 12pt "Yu Gothic Medium";\n'
+            "padding:5px;\n"
+            "background-color:none;\n"
+            "}\n"
+            "QPushButton:hover {\n"
+            "color: rgb(28, 165, 206);\n"
+            "border:1px solid #fff;\n"
+            "}\n"
+            "QPushButton:pressed {\n"
+            "    padding-top: 10px;\n"
+            "    padding-left: 10px;\n"
+            "}\n"
+            "\n"
+            "QLineEdit{\n"
+            "background-color:transparent;\n"
+            "border-bottom:2px solid rgb(28, 165, 206);\n"
+            "border-radius: 0px;\n"
+            "padding: 4px;\n"
+            "color: #fff;\n"
+            "}\n"
+            "QLineEdit:hover {\n"
+            "background-color:transparent;\n"
+            "}\n"
+            "QLineEdit:focus {\n"
+            "background-color:transparent;\n"
+            "}\n"
+            "QWidget#widget{\n"
+            "background-image: url(:/stock_disponible/modern-2560-x-1600-background-od87qg1wfx087jbt.jpg);\n"
+            "}\n"
+            "QTreeView{\n"
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(0, 190, 255, 113));\n"
+            "color: #fff;\n"
+            "border: 1px solid #000;\n"
+            "font-size: 13px;\n"
+            "}\n"
+            "QHeaderView::section {\n"
+            "color: #000;\n"
+            "border: 1px solid #000;\n"
+            "}\n"
+            "QTreeView::item {\n"
+            "color: #fff;\n"
+            "}\n"
+            ""
+        )
         self.widget.setObjectName("widget")
         self.widget_lista_productos = QtWidgets.QWidget(self.widget)
         self.widget_lista_productos.setGeometry(QtCore.QRect(0, 0, 1201, 721))
@@ -84,9 +87,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_15.setFont(font)
         self.label_15.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_15.setStyleSheet("font: 20pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_15.setStyleSheet(
+            'font: 20pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_15.setAlignment(QtCore.Qt.AlignCenter)
         self.label_15.setObjectName("label_15")
         self.input_buscar_producto = QtWidgets.QLineEdit(self.widget_lista_productos)
@@ -101,7 +104,9 @@ class Ui_StockFara(object):
         self.input_buscar_producto.setObjectName("input_buscar_producto")
         self.boton_buscar_producto = QtWidgets.QPushButton(self.widget_lista_productos)
         self.boton_buscar_producto.setGeometry(QtCore.QRect(780, 40, 101, 31))
-        self.boton_buscar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_buscar_producto.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_buscar_producto.setStyleSheet("")
         self.boton_buscar_producto.setObjectName("boton_buscar_producto")
         self.boton_volver = QtWidgets.QPushButton(self.widget_lista_productos)
@@ -126,32 +131,48 @@ class Ui_StockFara(object):
         font.setWeight(7)
         self.producto_no_encontrado.setFont(font)
         self.producto_no_encontrado.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.producto_no_encontrado.setStyleSheet("font: 57 12pt \"Yu Gothic Medium\";\n"
-"color: #f00;\n"
-"background: none;")
+        self.producto_no_encontrado.setStyleSheet(
+            'font: 57 12pt "Yu Gothic Medium";\n' "color: #f00;\n" "background: none;"
+        )
         self.producto_no_encontrado.setText("")
         self.producto_no_encontrado.setAlignment(QtCore.Qt.AlignCenter)
         self.producto_no_encontrado.setObjectName("producto_no_encontrado")
         self.boton_agregar_producto = QtWidgets.QPushButton(self.widget_lista_productos)
         self.boton_agregar_producto.setGeometry(QtCore.QRect(100, 620, 201, 51))
-        self.boton_agregar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_agregar_producto.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_agregar_producto.setStyleSheet("")
         self.boton_agregar_producto.setObjectName("boton_agregar_producto")
-        self.boton_eliminar_producto = QtWidgets.QPushButton(self.widget_lista_productos)
+        self.boton_eliminar_producto = QtWidgets.QPushButton(
+            self.widget_lista_productos
+        )
         self.boton_eliminar_producto.setGeometry(QtCore.QRect(370, 620, 201, 51))
-        self.boton_eliminar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_eliminar_producto.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_eliminar_producto.setStyleSheet("")
         self.boton_eliminar_producto.setObjectName("boton_eliminar_producto")
-        self.boton_modificar_producto = QtWidgets.QPushButton(self.widget_lista_productos)
+        self.boton_modificar_producto = QtWidgets.QPushButton(
+            self.widget_lista_productos
+        )
         self.boton_modificar_producto.setGeometry(QtCore.QRect(640, 620, 201, 51))
-        self.boton_modificar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_modificar_producto.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_modificar_producto.setStyleSheet("")
         self.boton_modificar_producto.setObjectName("boton_modificar_producto")
-        self.boton_modificar_productos_gral = QtWidgets.QPushButton(self.widget_lista_productos)
+        self.boton_modificar_productos_gral = QtWidgets.QPushButton(
+            self.widget_lista_productos
+        )
         self.boton_modificar_productos_gral.setGeometry(QtCore.QRect(900, 620, 201, 51))
-        self.boton_modificar_productos_gral.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_modificar_productos_gral.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_modificar_productos_gral.setStyleSheet("")
-        self.boton_modificar_productos_gral.setObjectName("boton_modificar_productos_gral")
+        self.boton_modificar_productos_gral.setObjectName(
+            "boton_modificar_productos_gral"
+        )
         self.label_eliminar_producto = QtWidgets.QLabel(self.widget_lista_productos)
         self.label_eliminar_producto.setGeometry(QtCore.QRect(350, 670, 251, 21))
         font = QtGui.QFont()
@@ -162,9 +183,9 @@ class Ui_StockFara(object):
         font.setWeight(7)
         self.label_eliminar_producto.setFont(font)
         self.label_eliminar_producto.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_eliminar_producto.setStyleSheet("font: 57 12pt \"Yu Gothic Medium\";\n"
-"color: #f00;\n"
-"background: none;")
+        self.label_eliminar_producto.setStyleSheet(
+            'font: 57 12pt "Yu Gothic Medium";\n' "color: #f00;\n" "background: none;"
+        )
         self.label_eliminar_producto.setText("")
         self.label_eliminar_producto.setAlignment(QtCore.Qt.AlignCenter)
         self.label_eliminar_producto.setObjectName("label_eliminar_producto")
@@ -178,9 +199,9 @@ class Ui_StockFara(object):
         font.setWeight(7)
         self.label_modificar_producto.setFont(font)
         self.label_modificar_producto.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_modificar_producto.setStyleSheet("font: 57 12pt \"Yu Gothic Medium\";\n"
-"color: #f00;\n"
-"background: none;")
+        self.label_modificar_producto.setStyleSheet(
+            'font: 57 12pt "Yu Gothic Medium";\n' "color: #f00;\n" "background: none;"
+        )
         self.label_modificar_producto.setText("")
         self.label_modificar_producto.setAlignment(QtCore.Qt.AlignCenter)
         self.label_modificar_producto.setObjectName("label_modificar_producto")
@@ -219,9 +240,13 @@ class Ui_StockFara(object):
         self.input_descuento_1.setStyleSheet("")
         self.input_descuento_1.setAlignment(QtCore.Qt.AlignCenter)
         self.input_descuento_1.setObjectName("input_descuento_1")
-        self.boton_cancelar_modificacion = QtWidgets.QPushButton(self.widget_agregar_producto)
+        self.boton_cancelar_modificacion = QtWidgets.QPushButton(
+            self.widget_agregar_producto
+        )
         self.boton_cancelar_modificacion.setGeometry(QtCore.QRect(10, 570, 91, 31))
-        self.boton_cancelar_modificacion.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_cancelar_modificacion.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_cancelar_modificacion.setStyleSheet("")
         self.boton_cancelar_modificacion.setObjectName("boton_cancelar_modificacion")
         self.input_aumento_efectivo = QtWidgets.QLineEdit(self.widget_agregar_producto)
@@ -244,7 +269,9 @@ class Ui_StockFara(object):
         self.input_costo_inicial.setStyleSheet("")
         self.input_costo_inicial.setAlignment(QtCore.Qt.AlignCenter)
         self.input_costo_inicial.setObjectName("input_costo_inicial")
-        self.input_aumento_constructores = QtWidgets.QLineEdit(self.widget_agregar_producto)
+        self.input_aumento_constructores = QtWidgets.QLineEdit(
+            self.widget_agregar_producto
+        )
         self.input_aumento_constructores.setGeometry(QtCore.QRect(720, 440, 61, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -254,7 +281,9 @@ class Ui_StockFara(object):
         self.input_aumento_constructores.setStyleSheet("")
         self.input_aumento_constructores.setAlignment(QtCore.Qt.AlignCenter)
         self.input_aumento_constructores.setObjectName("input_aumento_constructores")
-        self.input_aumento_mercadolibre = QtWidgets.QLineEdit(self.widget_agregar_producto)
+        self.input_aumento_mercadolibre = QtWidgets.QLineEdit(
+            self.widget_agregar_producto
+        )
         self.input_aumento_mercadolibre.setGeometry(QtCore.QRect(450, 440, 61, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -274,9 +303,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_16.setFont(font)
         self.label_16.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_16.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_16.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_16.setAlignment(QtCore.Qt.AlignCenter)
         self.label_16.setObjectName("label_16")
         self.label_17 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -289,9 +318,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_17.setFont(font)
         self.label_17.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_17.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_17.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_17.setAlignment(QtCore.Qt.AlignCenter)
         self.label_17.setObjectName("label_17")
         self.label_18 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -304,9 +333,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_18.setFont(font)
         self.label_18.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_18.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_18.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_18.setAlignment(QtCore.Qt.AlignCenter)
         self.label_18.setObjectName("label_18")
         self.label_19 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -319,9 +348,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_19.setFont(font)
         self.label_19.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_19.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_19.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_19.setAlignment(QtCore.Qt.AlignCenter)
         self.label_19.setObjectName("label_19")
         self.label_20 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -334,9 +363,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_20.setFont(font)
         self.label_20.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_20.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_20.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_20.setAlignment(QtCore.Qt.AlignCenter)
         self.label_20.setObjectName("label_20")
         self.label_21 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -349,9 +378,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_21.setFont(font)
         self.label_21.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_21.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_21.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_21.setAlignment(QtCore.Qt.AlignCenter)
         self.label_21.setObjectName("label_21")
         self.label_22 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -364,9 +393,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_22.setFont(font)
         self.label_22.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_22.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_22.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_22.setAlignment(QtCore.Qt.AlignCenter)
         self.label_22.setObjectName("label_22")
         self.label_23 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -379,9 +408,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_23.setFont(font)
         self.label_23.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_23.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_23.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_23.setAlignment(QtCore.Qt.AlignCenter)
         self.label_23.setObjectName("label_23")
         self.label_24 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -394,14 +423,18 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_24.setFont(font)
         self.label_24.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_24.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_24.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_24.setAlignment(QtCore.Qt.AlignCenter)
         self.label_24.setObjectName("label_24")
-        self.boton_confirmar_registro = QtWidgets.QPushButton(self.widget_agregar_producto)
+        self.boton_confirmar_registro = QtWidgets.QPushButton(
+            self.widget_agregar_producto
+        )
         self.boton_confirmar_registro.setGeometry(QtCore.QRect(420, 520, 131, 51))
-        self.boton_confirmar_registro.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_confirmar_registro.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_confirmar_registro.setStyleSheet("")
         self.boton_confirmar_registro.setObjectName("boton_confirmar_registro")
         self.label_25 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -414,9 +447,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_25.setFont(font)
         self.label_25.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_25.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_25.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_25.setAlignment(QtCore.Qt.AlignCenter)
         self.label_25.setObjectName("label_25")
         self.label_26 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -429,9 +462,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_26.setFont(font)
         self.label_26.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_26.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_26.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_26.setAlignment(QtCore.Qt.AlignCenter)
         self.label_26.setObjectName("label_26")
         self.label_27 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -444,9 +477,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_27.setFont(font)
         self.label_27.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_27.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_27.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_27.setAlignment(QtCore.Qt.AlignCenter)
         self.label_27.setObjectName("label_27")
         self.label_28 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -459,9 +492,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_28.setFont(font)
         self.label_28.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_28.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_28.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_28.setAlignment(QtCore.Qt.AlignCenter)
         self.label_28.setObjectName("label_28")
         self.input_iva = QtWidgets.QLineEdit(self.widget_agregar_producto)
@@ -494,9 +527,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_29.setFont(font)
         self.label_29.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_29.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_29.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_29.setAlignment(QtCore.Qt.AlignCenter)
         self.label_29.setObjectName("label_29")
         self.label_30 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -509,9 +542,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_30.setFont(font)
         self.label_30.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_30.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_30.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_30.setAlignment(QtCore.Qt.AlignCenter)
         self.label_30.setObjectName("label_30")
         self.label_31 = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -524,14 +557,18 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_31.setFont(font)
         self.label_31.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_31.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_31.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_31.setAlignment(QtCore.Qt.AlignCenter)
         self.label_31.setObjectName("label_31")
-        self.boton_confirmar_modificacion = QtWidgets.QPushButton(self.widget_agregar_producto)
+        self.boton_confirmar_modificacion = QtWidgets.QPushButton(
+            self.widget_agregar_producto
+        )
         self.boton_confirmar_modificacion.setGeometry(QtCore.QRect(420, 520, 131, 51))
-        self.boton_confirmar_modificacion.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_confirmar_modificacion.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_confirmar_modificacion.setStyleSheet("")
         self.boton_confirmar_modificacion.setObjectName("boton_confirmar_modificacion")
         self.label_error = QtWidgets.QLabel(self.widget_agregar_producto)
@@ -544,9 +581,9 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_error.setFont(font)
         self.label_error.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_error.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #f00;\n"
-"background: none;")
+        self.label_error.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #f00;\n" "background: none;"
+        )
         self.label_error.setText("")
         self.label_error.setAlignment(QtCore.Qt.AlignCenter)
         self.label_error.setObjectName("label_error")
@@ -564,24 +601,38 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_32.setFont(font)
         self.label_32.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_32.setStyleSheet("font: 20pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_32.setStyleSheet(
+            'font: 20pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_32.setAlignment(QtCore.Qt.AlignCenter)
         self.label_32.setObjectName("label_32")
-        self.boton_modificar_costo_inicial = QtWidgets.QPushButton(self.widget_modificar_gral)
+        self.boton_modificar_costo_inicial = QtWidgets.QPushButton(
+            self.widget_modificar_gral
+        )
         self.boton_modificar_costo_inicial.setGeometry(QtCore.QRect(120, 70, 241, 51))
-        self.boton_modificar_costo_inicial.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_modificar_costo_inicial.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_modificar_costo_inicial.setStyleSheet("")
-        self.boton_modificar_costo_inicial.setObjectName("boton_modificar_costo_inicial")
-        self.boton_modificar_descuento_1 = QtWidgets.QPushButton(self.widget_modificar_gral)
+        self.boton_modificar_costo_inicial.setObjectName(
+            "boton_modificar_costo_inicial"
+        )
+        self.boton_modificar_descuento_1 = QtWidgets.QPushButton(
+            self.widget_modificar_gral
+        )
         self.boton_modificar_descuento_1.setGeometry(QtCore.QRect(440, 70, 241, 51))
-        self.boton_modificar_descuento_1.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_modificar_descuento_1.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_modificar_descuento_1.setStyleSheet("")
         self.boton_modificar_descuento_1.setObjectName("boton_modificar_descuento_1")
-        self.boton_modificar_descuento_2 = QtWidgets.QPushButton(self.widget_modificar_gral)
+        self.boton_modificar_descuento_2 = QtWidgets.QPushButton(
+            self.widget_modificar_gral
+        )
         self.boton_modificar_descuento_2.setGeometry(QtCore.QRect(440, 130, 241, 51))
-        self.boton_modificar_descuento_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_modificar_descuento_2.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_modificar_descuento_2.setStyleSheet("")
         self.boton_modificar_descuento_2.setObjectName("boton_modificar_descuento_2")
         self.boton_modificar_iva = QtWidgets.QPushButton(self.widget_modificar_gral)
@@ -589,30 +640,62 @@ class Ui_StockFara(object):
         self.boton_modificar_iva.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.boton_modificar_iva.setStyleSheet("")
         self.boton_modificar_iva.setObjectName("boton_modificar_iva")
-        self.boton_modificar_aumento_constructores = QtWidgets.QPushButton(self.widget_modificar_gral)
-        self.boton_modificar_aumento_constructores.setGeometry(QtCore.QRect(540, 190, 241, 51))
-        self.boton_modificar_aumento_constructores.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_modificar_aumento_constructores = QtWidgets.QPushButton(
+            self.widget_modificar_gral
+        )
+        self.boton_modificar_aumento_constructores.setGeometry(
+            QtCore.QRect(540, 190, 241, 51)
+        )
+        self.boton_modificar_aumento_constructores.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_modificar_aumento_constructores.setStyleSheet("")
-        self.boton_modificar_aumento_constructores.setObjectName("boton_modificar_aumento_constructores")
-        self.boton_modificar_aumento_efectivo = QtWidgets.QPushButton(self.widget_modificar_gral)
-        self.boton_modificar_aumento_efectivo.setGeometry(QtCore.QRect(20, 190, 241, 51))
-        self.boton_modificar_aumento_efectivo.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_modificar_aumento_constructores.setObjectName(
+            "boton_modificar_aumento_constructores"
+        )
+        self.boton_modificar_aumento_efectivo = QtWidgets.QPushButton(
+            self.widget_modificar_gral
+        )
+        self.boton_modificar_aumento_efectivo.setGeometry(
+            QtCore.QRect(20, 190, 241, 51)
+        )
+        self.boton_modificar_aumento_efectivo.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_modificar_aumento_efectivo.setStyleSheet("")
-        self.boton_modificar_aumento_efectivo.setObjectName("boton_modificar_aumento_efectivo")
-        self.boton_modificar_aumento_mercadolibre = QtWidgets.QPushButton(self.widget_modificar_gral)
-        self.boton_modificar_aumento_mercadolibre.setGeometry(QtCore.QRect(280, 190, 241, 51))
-        self.boton_modificar_aumento_mercadolibre.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_modificar_aumento_efectivo.setObjectName(
+            "boton_modificar_aumento_efectivo"
+        )
+        self.boton_modificar_aumento_mercadolibre = QtWidgets.QPushButton(
+            self.widget_modificar_gral
+        )
+        self.boton_modificar_aumento_mercadolibre.setGeometry(
+            QtCore.QRect(280, 190, 241, 51)
+        )
+        self.boton_modificar_aumento_mercadolibre.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_modificar_aumento_mercadolibre.setStyleSheet("")
-        self.boton_modificar_aumento_mercadolibre.setObjectName("boton_modificar_aumento_mercadolibre")
-        self.boton_cancelar_modificacion_gral = QtWidgets.QPushButton(self.widget_modificar_gral)
+        self.boton_modificar_aumento_mercadolibre.setObjectName(
+            "boton_modificar_aumento_mercadolibre"
+        )
+        self.boton_cancelar_modificacion_gral = QtWidgets.QPushButton(
+            self.widget_modificar_gral
+        )
         self.boton_cancelar_modificacion_gral.setGeometry(QtCore.QRect(10, 10, 91, 31))
-        self.boton_cancelar_modificacion_gral.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_cancelar_modificacion_gral.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_cancelar_modificacion_gral.setStyleSheet("")
-        self.boton_cancelar_modificacion_gral.setObjectName("boton_cancelar_modificacion_gral")
+        self.boton_cancelar_modificacion_gral.setObjectName(
+            "boton_cancelar_modificacion_gral"
+        )
         self.widget_ingresar_porcentaje = QtWidgets.QWidget(self.widget_modificar_gral)
         self.widget_ingresar_porcentaje.setGeometry(QtCore.QRect(210, 250, 371, 201))
         self.widget_ingresar_porcentaje.setObjectName("widget_ingresar_porcentaje")
-        self.label_ingrese_porcentaje = QtWidgets.QLabel(self.widget_ingresar_porcentaje)
+        self.label_ingrese_porcentaje = QtWidgets.QLabel(
+            self.widget_ingresar_porcentaje
+        )
         self.label_ingrese_porcentaje.setGeometry(QtCore.QRect(20, 0, 331, 81))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
@@ -622,13 +705,15 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_ingrese_porcentaje.setFont(font)
         self.label_ingrese_porcentaje.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_ingrese_porcentaje.setStyleSheet("font: 14pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_ingrese_porcentaje.setStyleSheet(
+            'font: 14pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_ingrese_porcentaje.setAlignment(QtCore.Qt.AlignCenter)
         self.label_ingrese_porcentaje.setWordWrap(True)
         self.label_ingrese_porcentaje.setObjectName("label_ingrese_porcentaje")
-        self.input_nuevo_porcentaje = QtWidgets.QLineEdit(self.widget_ingresar_porcentaje)
+        self.input_nuevo_porcentaje = QtWidgets.QLineEdit(
+            self.widget_ingresar_porcentaje
+        )
         self.input_nuevo_porcentaje.setGeometry(QtCore.QRect(150, 90, 61, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -648,17 +733,27 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_35.setFont(font)
         self.label_35.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_35.setStyleSheet("font: 13pt \"MS Shell Dlg 2\";\n"
-"color: #fff;\n"
-"background: none;")
+        self.label_35.setStyleSheet(
+            'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
+        )
         self.label_35.setAlignment(QtCore.Qt.AlignCenter)
         self.label_35.setObjectName("label_35")
-        self.boton_confirmar_modificacion_gral = QtWidgets.QPushButton(self.widget_ingresar_porcentaje)
-        self.boton_confirmar_modificacion_gral.setGeometry(QtCore.QRect(120, 150, 121, 51))
-        self.boton_confirmar_modificacion_gral.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_confirmar_modificacion_gral = QtWidgets.QPushButton(
+            self.widget_ingresar_porcentaje
+        )
+        self.boton_confirmar_modificacion_gral.setGeometry(
+            QtCore.QRect(120, 150, 121, 51)
+        )
+        self.boton_confirmar_modificacion_gral.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
         self.boton_confirmar_modificacion_gral.setStyleSheet("")
-        self.boton_confirmar_modificacion_gral.setObjectName("boton_confirmar_modificacion_gral")
-        self.label_ingrese_porcentaje_valido = QtWidgets.QLabel(self.widget_ingresar_porcentaje)
+        self.boton_confirmar_modificacion_gral.setObjectName(
+            "boton_confirmar_modificacion_gral"
+        )
+        self.label_ingrese_porcentaje_valido = QtWidgets.QLabel(
+            self.widget_ingresar_porcentaje
+        )
         self.label_ingrese_porcentaje_valido.setGeometry(QtCore.QRect(40, 80, 101, 61))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
@@ -668,12 +763,14 @@ class Ui_StockFara(object):
         font.setWeight(50)
         self.label_ingrese_porcentaje_valido.setFont(font)
         self.label_ingrese_porcentaje_valido.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_ingrese_porcentaje_valido.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";\n"
-"color: #f00;\n"
-"background: none;")
+        self.label_ingrese_porcentaje_valido.setStyleSheet(
+            'font: 10pt "MS Shell Dlg 2";\n' "color: #f00;\n" "background: none;"
+        )
         self.label_ingrese_porcentaje_valido.setAlignment(QtCore.Qt.AlignCenter)
         self.label_ingrese_porcentaje_valido.setWordWrap(True)
-        self.label_ingrese_porcentaje_valido.setObjectName("label_ingrese_porcentaje_valido")
+        self.label_ingrese_porcentaje_valido.setObjectName(
+            "label_ingrese_porcentaje_valido"
+        )
 
         self.retranslateUi(StockFara)
         QtCore.QMetaObject.connectSlotsByName(StockFara)
@@ -685,9 +782,15 @@ class Ui_StockFara(object):
         self.boton_buscar_producto.setText(_translate("StockFara", "Buscar"))
         self.boton_volver.setText(_translate("StockFara", "Volver"))
         self.boton_agregar_producto.setText(_translate("StockFara", "Agregar Producto"))
-        self.boton_eliminar_producto.setText(_translate("StockFara", "Eliminar Producto"))
-        self.boton_modificar_producto.setText(_translate("StockFara", "Modificar Producto"))
-        self.boton_modificar_productos_gral.setText(_translate("StockFara", "Modificar Productos Gral"))
+        self.boton_eliminar_producto.setText(
+            _translate("StockFara", "Eliminar Producto")
+        )
+        self.boton_modificar_producto.setText(
+            _translate("StockFara", "Modificar Producto")
+        )
+        self.boton_modificar_productos_gral.setText(
+            _translate("StockFara", "Modificar Productos Gral")
+        )
         self.boton_cancelar_modificacion.setText(_translate("StockFara", "Cancelar"))
         self.label_16.setText(_translate("StockFara", "Producto:"))
         self.label_17.setText(_translate("StockFara", "Stock"))
@@ -708,14 +811,35 @@ class Ui_StockFara(object):
         self.label_31.setText(_translate("StockFara", "%"))
         self.boton_confirmar_modificacion.setText(_translate("StockFara", "Confirmar"))
         self.label_32.setText(_translate("StockFara", "Que desea modificar?:"))
-        self.boton_modificar_costo_inicial.setText(_translate("StockFara", "Aumentar Costo Inicial"))
-        self.boton_modificar_descuento_1.setText(_translate("StockFara", "Nuevo descuento_1"))
-        self.boton_modificar_descuento_2.setText(_translate("StockFara", "Nuevo descuento_2"))
+        self.boton_modificar_costo_inicial.setText(
+            _translate("StockFara", "Aumentar Costo Inicial")
+        )
+        self.boton_modificar_descuento_1.setText(
+            _translate("StockFara", "Nuevo descuento_1")
+        )
+        self.boton_modificar_descuento_2.setText(
+            _translate("StockFara", "Nuevo descuento_2")
+        )
         self.boton_modificar_iva.setText(_translate("StockFara", "Nuevo IVA"))
-        self.boton_modificar_aumento_constructores.setText(_translate("StockFara", "Nuevo aumento_constructores"))
-        self.boton_modificar_aumento_efectivo.setText(_translate("StockFara", "Nuevo aumento_efectivo"))
-        self.boton_modificar_aumento_mercadolibre.setText(_translate("StockFara", "Nuevo aumento_mercadolibre"))
-        self.boton_cancelar_modificacion_gral.setText(_translate("StockFara", "Cancelar"))
-        self.label_ingrese_porcentaje.setText(_translate("StockFara", "Ingrese el nuevo porcentaje de aumento_constructores para todos los productos:"))
+        self.boton_modificar_aumento_constructores.setText(
+            _translate("StockFara", "Nuevo aumento_constructores")
+        )
+        self.boton_modificar_aumento_efectivo.setText(
+            _translate("StockFara", "Nuevo aumento_efectivo")
+        )
+        self.boton_modificar_aumento_mercadolibre.setText(
+            _translate("StockFara", "Nuevo aumento_mercadolibre")
+        )
+        self.boton_cancelar_modificacion_gral.setText(
+            _translate("StockFara", "Cancelar")
+        )
+        self.label_ingrese_porcentaje.setText(
+            _translate(
+                "StockFara",
+                "Ingrese el nuevo porcentaje de aumento_constructores para todos los productos:",
+            )
+        )
         self.label_35.setText(_translate("StockFara", "%"))
-        self.boton_confirmar_modificacion_gral.setText(_translate("StockFara", "Confirmar"))
+        self.boton_confirmar_modificacion_gral.setText(
+            _translate("StockFara", "Confirmar")
+        )

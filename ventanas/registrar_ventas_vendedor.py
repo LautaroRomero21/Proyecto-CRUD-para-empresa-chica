@@ -66,6 +66,7 @@ class Ui_RegistrarVentaVendedor(object):
             "QHeaderView::section {\n"
             "color: #000;\n"
             "border: 1px solid #000;\n"
+            "font-size:13px;\n"
             "}\n"
             "QTreeView::item {\n"
             "color: #fff;\n"
@@ -73,7 +74,7 @@ class Ui_RegistrarVentaVendedor(object):
         )
         self.widget.setObjectName("widget")
         self.label_5 = QtWidgets.QLabel(self.widget)
-        self.label_5.setGeometry(QtCore.QRect(830, 50, 161, 21))
+        self.label_5.setGeometry(QtCore.QRect(850, 50, 161, 21))
         self.label_5.setStyleSheet(
             "\n"
             'font: 57 14pt "Yu Gothic Medium";\n'
@@ -82,7 +83,7 @@ class Ui_RegistrarVentaVendedor(object):
         )
         self.label_5.setObjectName("label_5")
         self.label_cantidad_invalida = QtWidgets.QLabel(self.widget)
-        self.label_cantidad_invalida.setGeometry(QtCore.QRect(690, 120, 451, 31))
+        self.label_cantidad_invalida.setGeometry(QtCore.QRect(760, 120, 351, 31))
         self.label_cantidad_invalida.setStyleSheet(
             "\n"
             'font: 57 14pt "Yu Gothic Medium";\n'
@@ -93,7 +94,7 @@ class Ui_RegistrarVentaVendedor(object):
         self.label_cantidad_invalida.setAlignment(QtCore.Qt.AlignCenter)
         self.label_cantidad_invalida.setObjectName("label_cantidad_invalida")
         self.label_6 = QtWidgets.QLabel(self.widget)
-        self.label_6.setGeometry(QtCore.QRect(780, 140, 261, 31))
+        self.label_6.setGeometry(QtCore.QRect(810, 140, 261, 31))
         self.label_6.setStyleSheet(
             "\n"
             'font: 57 14pt "Yu Gothic Medium";\n'
@@ -102,7 +103,7 @@ class Ui_RegistrarVentaVendedor(object):
         )
         self.label_6.setObjectName("label_6")
         self.eleccion_efectivo = QtWidgets.QRadioButton(self.widget)
-        self.eleccion_efectivo.setGeometry(QtCore.QRect(750, 180, 91, 21))
+        self.eleccion_efectivo.setGeometry(QtCore.QRect(780, 180, 91, 21))
         font = QtGui.QFont()
         font.setFamily("Yu Gothic Medium")
         font.setPointSize(12)
@@ -113,7 +114,7 @@ class Ui_RegistrarVentaVendedor(object):
         self.eleccion_efectivo.setStyleSheet("")
         self.eleccion_efectivo.setObjectName("eleccion_efectivo")
         self.input_cantidad_vendida = QtWidgets.QLineEdit(self.widget)
-        self.input_cantidad_vendida.setGeometry(QtCore.QRect(880, 80, 71, 41))
+        self.input_cantidad_vendida.setGeometry(QtCore.QRect(900, 80, 71, 41))
         self.input_cantidad_vendida.setStyleSheet("")
         self.input_cantidad_vendida.setText("")
         self.input_cantidad_vendida.setFrame(True)
@@ -122,7 +123,7 @@ class Ui_RegistrarVentaVendedor(object):
         self.input_cantidad_vendida.setClearButtonEnabled(False)
         self.input_cantidad_vendida.setObjectName("input_cantidad_vendida")
         self.treeview_productos = QtWidgets.QTreeView(self.widget)
-        self.treeview_productos.setGeometry(QtCore.QRect(10, 90, 621, 551))
+        self.treeview_productos.setGeometry(QtCore.QRect(10, 90, 631, 551))
         font = QtGui.QFont()
         font.setPointSize(-1)
         self.treeview_productos.setFont(font)
@@ -130,7 +131,7 @@ class Ui_RegistrarVentaVendedor(object):
         self.treeview_productos.setAllColumnsShowFocus(False)
         self.treeview_productos.setObjectName("treeview_productos")
         self.eleccion_posnet = QtWidgets.QRadioButton(self.widget)
-        self.eleccion_posnet.setGeometry(QtCore.QRect(870, 170, 81, 41))
+        self.eleccion_posnet.setGeometry(QtCore.QRect(900, 170, 81, 41))
         font = QtGui.QFont()
         font.setFamily("Yu Gothic Medium")
         font.setPointSize(12)
@@ -141,14 +142,14 @@ class Ui_RegistrarVentaVendedor(object):
         self.eleccion_posnet.setStyleSheet("")
         self.eleccion_posnet.setObjectName("eleccion_posnet")
         self.boton_registrar_venta = QtWidgets.QPushButton(self.widget)
-        self.boton_registrar_venta.setGeometry(QtCore.QRect(850, 230, 141, 41))
+        self.boton_registrar_venta.setGeometry(QtCore.QRect(870, 230, 141, 41))
         self.boton_registrar_venta.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
         self.boton_registrar_venta.setStyleSheet("")
         self.boton_registrar_venta.setObjectName("boton_registrar_venta")
         self.label_tipo_pago_no_elegido = QtWidgets.QLabel(self.widget)
-        self.label_tipo_pago_no_elegido.setGeometry(QtCore.QRect(690, 200, 451, 21))
+        self.label_tipo_pago_no_elegido.setGeometry(QtCore.QRect(780, 200, 321, 21))
         self.label_tipo_pago_no_elegido.setStyleSheet(
             'font: 57 12pt "Yu Gothic Medium";\n' "color: #f00;\n" "background: none;"
         )
@@ -156,7 +157,7 @@ class Ui_RegistrarVentaVendedor(object):
         self.label_tipo_pago_no_elegido.setAlignment(QtCore.Qt.AlignCenter)
         self.label_tipo_pago_no_elegido.setObjectName("label_tipo_pago_no_elegido")
         self.treeview_ventas = QtWidgets.QTreeView(self.widget)
-        self.treeview_ventas.setGeometry(QtCore.QRect(640, 280, 541, 361))
+        self.treeview_ventas.setGeometry(QtCore.QRect(650, 280, 531, 361))
         font = QtGui.QFont()
         font.setPointSize(-1)
         self.treeview_ventas.setFont(font)
@@ -190,7 +191,7 @@ class Ui_RegistrarVentaVendedor(object):
         self.input_buscar_producto.setAlignment(QtCore.Qt.AlignCenter)
         self.input_buscar_producto.setObjectName("input_buscar_producto")
         self.eleccion_constructor = QtWidgets.QRadioButton(self.widget)
-        self.eleccion_constructor.setGeometry(QtCore.QRect(980, 170, 111, 41))
+        self.eleccion_constructor.setGeometry(QtCore.QRect(1010, 170, 111, 41))
         font = QtGui.QFont()
         font.setFamily("Yu Gothic Medium")
         font.setPointSize(12)
@@ -200,6 +201,26 @@ class Ui_RegistrarVentaVendedor(object):
         self.eleccion_constructor.setFont(font)
         self.eleccion_constructor.setStyleSheet("")
         self.eleccion_constructor.setObjectName("eleccion_constructor")
+        self.boton_todos = QtWidgets.QPushButton(self.widget)
+        self.boton_todos.setGeometry(QtCore.QRect(650, 100, 91, 31))
+        self.boton_todos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_todos.setStyleSheet("")
+        self.boton_todos.setObjectName("boton_todos")
+        self.boton_cregar = QtWidgets.QPushButton(self.widget)
+        self.boton_cregar.setGeometry(QtCore.QRect(650, 140, 91, 31))
+        self.boton_cregar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_cregar.setStyleSheet("")
+        self.boton_cregar.setObjectName("boton_cregar")
+        self.boton_fara = QtWidgets.QPushButton(self.widget)
+        self.boton_fara.setGeometry(QtCore.QRect(650, 180, 91, 31))
+        self.boton_fara.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_fara.setStyleSheet("")
+        self.boton_fara.setObjectName("boton_fara")
+        self.boton_fontana = QtWidgets.QPushButton(self.widget)
+        self.boton_fontana.setGeometry(QtCore.QRect(650, 220, 91, 31))
+        self.boton_fontana.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_fontana.setStyleSheet("")
+        self.boton_fontana.setObjectName("boton_fontana")
 
         self.retranslateUi(RegistrarVentaVendedor)
         QtCore.QMetaObject.connectSlotsByName(RegistrarVentaVendedor)
@@ -225,3 +246,7 @@ class Ui_RegistrarVentaVendedor(object):
         self.eleccion_constructor.setText(
             _translate("RegistrarVentaVendedor", "Constructor")
         )
+        self.boton_todos.setText(_translate("RegistrarVentaVendedor", "Todos"))
+        self.boton_cregar.setText(_translate("RegistrarVentaVendedor", "Cregar"))
+        self.boton_fara.setText(_translate("RegistrarVentaVendedor", "Fara"))
+        self.boton_fontana.setText(_translate("RegistrarVentaVendedor", "Fontana"))

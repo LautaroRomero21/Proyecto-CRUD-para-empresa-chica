@@ -61,6 +61,7 @@ class Ui_StockFontana(object):
             "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(0, 190, 255, 113));\n"
             "color: #fff;\n"
             "border: 1px solid #000;\n"
+            "font-size: 13px;\n"
             "}\n"
             "QHeaderView::section {\n"
             "color: #000;\n"
