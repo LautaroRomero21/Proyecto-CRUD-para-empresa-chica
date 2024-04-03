@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ventanas.imagenes import imagenes
+from PyQt5.QtCore import Qt
 
 
 class Ui_RegistrarCompras(object):
@@ -59,13 +60,20 @@ class Ui_RegistrarCompras(object):
             "    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(101, 101, 101, 162));\n"
             "color: #fff;\n"
             "border: 1px solid #fff;\n"
+            "font-size: 15px;\n"
             "}\n"
             "QHeaderView::section {\n"
             "color: #000;\n"
             "border: 1px solid #000;\n"
+            "font-size: 14px;\n"
             "}\n"
             "QTreeView::item {\n"
             "color: #fff;\n"
+            "border-right:0.5px solid #000;\n"
+            "border-bottom:0.5px solid #000;\n"
+            "}\n"
+            "QTreeView::item:selected {\n"
+            "background-color: #f00;\n"
             "}\n"
             "QWidget#widget{\n"
             "    background-image: url(:/registrar_compras/3376284.jpg);\n"
@@ -91,7 +99,7 @@ class Ui_RegistrarCompras(object):
         self.producto_no_encontrado.setText("")
         self.producto_no_encontrado.setObjectName("producto_no_encontrado")
         self.label_producto_no_seleccionado = QtWidgets.QLabel(self.widget)
-        self.label_producto_no_seleccionado.setGeometry(QtCore.QRect(980, 140, 141, 61))
+        self.label_producto_no_seleccionado.setGeometry(QtCore.QRect(990, 200, 141, 61))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(12)
@@ -107,20 +115,45 @@ class Ui_RegistrarCompras(object):
             "label_producto_no_seleccionado"
         )
         self.input_cantidad_comprada = QtWidgets.QLineEdit(self.widget)
-        self.input_cantidad_comprada.setGeometry(QtCore.QRect(870, 100, 71, 31))
+        self.input_cantidad_comprada.setGeometry(QtCore.QRect(890, 160, 71, 31))
         self.input_cantidad_comprada.setStyleSheet("")
         self.input_cantidad_comprada.setText("")
         self.input_cantidad_comprada.setFrame(True)
         self.input_cantidad_comprada.setAlignment(QtCore.Qt.AlignCenter)
         self.input_cantidad_comprada.setObjectName("input_cantidad_comprada")
         self.treeview_compras = QtWidgets.QTreeView(self.widget)
-        self.treeview_compras.setGeometry(QtCore.QRect(620, 220, 571, 491))
+        self.treeview_compras.setGeometry(QtCore.QRect(620, 280, 571, 431))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.treeview_compras.setFont(font)
         self.treeview_compras.setStyleSheet("")
         self.treeview_compras.setAllColumnsShowFocus(False)
         self.treeview_compras.setObjectName("treeview_compras")
+
+        self.modelo_compras = QtGui.QStandardItemModel()
+        self.treeview_compras.setModel(self.modelo_compras)
+        self.modelo_compras.setHorizontalHeaderLabels(
+            [
+                "N°",
+                "Fecha",
+                "Empresa",
+                "Producto",
+                "Cant",
+                "Costo c/u",
+                "Total",
+            ]
+        )
+        self.treeview_compras.setFocusPolicy(Qt.NoFocus)
+        header = self.treeview_compras.header()
+        header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
+        header.resizeSection(0, 65)
+        header.resizeSection(1, 100)
+        header.resizeSection(2, 60)
+        header.resizeSection(3, 150)
+        header.resizeSection(4, 30)
+        header.resizeSection(5, 90)
+        header.resizeSection(6, 90)
+
         self.label = QtWidgets.QLabel(self.widget)
         self.label.setGeometry(QtCore.QRect(120, 10, 361, 41))
         self.label.setStyleSheet(
@@ -133,21 +166,21 @@ class Ui_RegistrarCompras(object):
         self.boton_volver.setStyleSheet("")
         self.boton_volver.setObjectName("boton_volver")
         self.label_7 = QtWidgets.QLabel(self.widget)
-        self.label_7.setGeometry(QtCore.QRect(830, 70, 141, 21))
+        self.label_7.setGeometry(QtCore.QRect(860, 120, 141, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label_7.setFont(font)
         self.label_7.setStyleSheet("")
         self.label_7.setObjectName("label_7")
         self.boton_registrar_compra = QtWidgets.QPushButton(self.widget)
-        self.boton_registrar_compra.setGeometry(QtCore.QRect(840, 150, 131, 41))
+        self.boton_registrar_compra.setGeometry(QtCore.QRect(860, 210, 131, 41))
         self.boton_registrar_compra.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
         self.boton_registrar_compra.setStyleSheet("")
         self.boton_registrar_compra.setObjectName("boton_registrar_compra")
         self.label_error_al_registrar = QtWidgets.QLabel(self.widget)
-        self.label_error_al_registrar.setGeometry(QtCore.QRect(680, 160, 151, 21))
+        self.label_error_al_registrar.setGeometry(QtCore.QRect(710, 220, 151, 21))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(12)
@@ -167,12 +200,55 @@ class Ui_RegistrarCompras(object):
         self.treeview_productos.setStyleSheet("")
         self.treeview_productos.setAllColumnsShowFocus(False)
         self.treeview_productos.setObjectName("treeview_productos")
+
+        self.modelo_productos = QtGui.QStandardItemModel()
+        self.treeview_productos.setModel(self.modelo_productos)
+        self.modelo_productos.setHorizontalHeaderLabels(
+            [
+                "ID",
+                "Producto",
+                "Empresa",
+                "Stock",
+                "Costo neto c/u",
+            ]
+        )
+        self.treeview_productos.setFocusPolicy(Qt.NoFocus)
+        header = self.treeview_productos.header()
+        header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
+        header.resizeSection(0, 40)
+        header.resizeSection(1, 340)
+        header.resizeSection(2, 70)
+        header.resizeSection(3, 50)
+        header.resizeSection(4, 90)
+
         self.input_buscar_producto = QtWidgets.QLineEdit(self.widget)
-        self.input_buscar_producto.setGeometry(QtCore.QRect(40, 60, 411, 31))
+        self.input_buscar_producto.setGeometry(QtCore.QRect(70, 60, 381, 31))
         self.input_buscar_producto.setStyleSheet("")
         self.input_buscar_producto.setText("")
         self.input_buscar_producto.setAlignment(QtCore.Qt.AlignCenter)
         self.input_buscar_producto.setObjectName("input_buscar_producto")
+        self.boton_filtrar_cregar = QtWidgets.QPushButton(self.widget)
+        self.boton_filtrar_cregar.setGeometry(QtCore.QRect(620, 160, 81, 31))
+        self.boton_filtrar_cregar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_filtrar_cregar.setStyleSheet("")
+        self.boton_filtrar_cregar.setObjectName("boton_filtrar_cregar")
+        self.boton_filtrar_fara = QtWidgets.QPushButton(self.widget)
+        self.boton_filtrar_fara.setGeometry(QtCore.QRect(620, 200, 81, 31))
+        self.boton_filtrar_fara.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_filtrar_fara.setStyleSheet("")
+        self.boton_filtrar_fara.setObjectName("boton_filtrar_fara")
+        self.boton_filtrar_fontana = QtWidgets.QPushButton(self.widget)
+        self.boton_filtrar_fontana.setGeometry(QtCore.QRect(620, 240, 81, 31))
+        self.boton_filtrar_fontana.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
+        self.boton_filtrar_fontana.setStyleSheet("")
+        self.boton_filtrar_fontana.setObjectName("boton_filtrar_fontana")
+        self.boton_todos = QtWidgets.QPushButton(self.widget)
+        self.boton_todos.setGeometry(QtCore.QRect(620, 120, 81, 31))
+        self.boton_todos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_todos.setStyleSheet("")
+        self.boton_todos.setObjectName("boton_todos")
 
         self.retranslateUi(RegistrarCompras)
         QtCore.QMetaObject.connectSlotsByName(RegistrarCompras)
@@ -185,3 +261,7 @@ class Ui_RegistrarCompras(object):
         self.boton_volver.setText(_translate("RegistrarCompras", "Volver"))
         self.label_7.setText(_translate("RegistrarCompras", "Cantidad comprada:"))
         self.boton_registrar_compra.setText(_translate("RegistrarCompras", "REGISTRAR"))
+        self.boton_filtrar_cregar.setText(_translate("RegistrarCompras", "Cregar"))
+        self.boton_filtrar_fara.setText(_translate("RegistrarCompras", "Fara"))
+        self.boton_filtrar_fontana.setText(_translate("RegistrarCompras", "Fontana"))
+        self.boton_todos.setText(_translate("RegistrarCompras", "Todos"))

@@ -92,7 +92,7 @@ font-size: 14px;
 QHeaderView::section {
 color: #000;
 border: 1px solid #000;
-font-size:5px;
+font-size:13px;
 }
 QTreeView::item {
 color: #fff;
@@ -491,6 +491,34 @@ background: none;</string>
     </property>
     <property name="text">
      <string>Fontana</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boton_actualizar">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Yu Gothic Medium</family>
+      <pointsize>-1</pointsize>
+      <weight>7</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size:30px;</string>
+    </property>
+    <property name="text">
+     <string>↻</string>
     </property>
    </widget>
   </widget>

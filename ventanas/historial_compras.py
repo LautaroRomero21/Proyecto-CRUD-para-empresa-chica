@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ventanas.imagenes import imagenes
+from PyQt5.QtCore import Qt
 
 
 class Ui_HistorialCompras(object):
@@ -62,13 +63,20 @@ class Ui_HistorialCompras(object):
             "    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(45, 45, 45, 162));\n"
             "color: #fff;\n"
             "border: 1px solid #000;\n"
+            "font-size:15px;\n"
             "}\n"
             "QHeaderView::section {\n"
             "color: #000;\n"
             "border: 1px solid #000;\n"
+            "font-size:14px;\n"
             "}\n"
             "QTreeView::item {\n"
             "color: #fff;\n"
+            "border-right: 0.5px solid #fff;\n"
+            "border-bottom: 0.5px solid #fff;\n"
+            "}\n"
+            "QTreeView::item:selected {\n"
+            "background-color: red;\n"
             "}\n"
             "QWidget#widget{\n"
             "    background-image: url(:/historial_compras/380346.jpg);\n"
@@ -148,6 +156,23 @@ class Ui_HistorialCompras(object):
         self.treeview_compras.setFont(font)
         self.treeview_compras.setStyleSheet("")
         self.treeview_compras.setObjectName("treeview_compras")
+        self.modelo_compras = QtGui.QStandardItemModel()
+        self.treeview_compras.setModel(self.modelo_compras)
+
+        self.treeview_compras.setFocusPolicy(Qt.NoFocus)
+        self.modelo_compras.setHorizontalHeaderLabels(
+            ["N°", "Fecha", "Empresa", "Producto", "Cant", "Costo c/u", "Total"]
+        )
+        header = self.treeview_compras.header()
+        header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
+        header.resizeSection(0, 70)
+        header.resizeSection(1, 90)
+        header.resizeSection(2, 60)
+        header.resizeSection(3, 155)
+        header.resizeSection(4, 30)
+        header.resizeSection(5, 90)
+        header.resizeSection(6, 70)
+
         self.boton_eliminar_compra = QtWidgets.QPushButton(self.widget)
         self.boton_eliminar_compra.setGeometry(QtCore.QRect(630, 200, 201, 51))
         self.boton_eliminar_compra.setCursor(

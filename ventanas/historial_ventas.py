@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ventanas.imagenes import imagenes
+from PyQt5.QtCore import Qt
 
 
 class Ui_HistorialVentas(object):
@@ -55,16 +56,23 @@ class Ui_HistorialVentas(object):
             "}\n"
             "\n"
             "QTreeView{\n"
-            "    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(45, 45, 45, 162));\n"
+            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(45, 45, 45, 162));\n"
             "color: #fff;\n"
             "border: 1px solid #000;\n"
+            "font-size: 15px;\n"
             "}\n"
             "QHeaderView::section {\n"
             "color: #000;\n"
             "border: 1px solid #000;\n"
+            "font-size: 14px;\n"
             "}\n"
             "QTreeView::item {\n"
             "color: #fff;\n"
+            "border-right: 0.5px solid #fff;\n"
+            "border-bottom: 0.5px solid #fff;\n"
+            "}\n"
+            "QTreeView::item:selected {\n"
+            "background-color:#f00;\n"
             "}\n"
             "QWidget#widget{\n"
             "    background-image: url(:/historia_ventas/drc2.jpg);\n"
@@ -78,6 +86,33 @@ class Ui_HistorialVentas(object):
         self.treeview_ventas.setFont(font)
         self.treeview_ventas.setStyleSheet("")
         self.treeview_ventas.setObjectName("treeview_ventas")
+        self.modelo_ventas = QtGui.QStandardItemModel()
+        self.treeview_ventas.setModel(self.modelo_ventas)
+
+        self.treeview_ventas.setFocusPolicy(Qt.NoFocus)
+        self.modelo_ventas.setHorizontalHeaderLabels(
+            [
+                "N°",
+                "Fecha",
+                "Producto",
+                "Cant",
+                "Precio c/u",
+                "Total",
+                "Pago",
+                "Ingreso Neto",
+            ]
+        )
+        header = self.treeview_ventas.header()
+        header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
+        header.resizeSection(0, 70)
+        header.resizeSection(1, 100)
+        header.resizeSection(2, 120)
+        header.resizeSection(3, 30)
+        header.resizeSection(4, 90)
+        header.resizeSection(5, 100)
+        header.resizeSection(6, 80)
+        header.resizeSection(7, 100)
+
         self.boton_filtrar_ventas_posnet = QtWidgets.QPushButton(self.widget)
         self.boton_filtrar_ventas_posnet.setGeometry(QtCore.QRect(680, 560, 181, 51))
         self.boton_filtrar_ventas_posnet.setCursor(

@@ -33,6 +33,7 @@ class Ui_Usuarios(object):
             "QHeaderView::section {\n"
             "color: #000;\n"
             "border: 1px solid #000;\n"
+            "font-size: 15px;\n"
             "}\n"
             "QTreeView::item {\n"
             "color: #fff;\n"
@@ -212,6 +213,19 @@ class Ui_Usuarios(object):
         self.treeview_vendedores.setFont(font)
         self.treeview_vendedores.setStyleSheet("")
         self.treeview_vendedores.setObjectName("treeview_vendedores")
+        self.modelo_vendedores = QtGui.QStandardItemModel()
+        self.treeview_vendedores.setModel(self.modelo_vendedores)
+        self.modelo_vendedores.setHorizontalHeaderLabels(
+            [
+                "Usuario",
+                "Contraseña",
+            ]
+        )
+        header = self.treeview_vendedores.header()
+        header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
+        header.resizeSection(0, 155)
+        header.resizeSection(1, 50)
+
         self.boton_eliminar_vendedor = QtWidgets.QPushButton(self.widget)
         self.boton_eliminar_vendedor.setGeometry(QtCore.QRect(110, 150, 291, 51))
         self.boton_eliminar_vendedor.setCursor(
@@ -244,6 +258,19 @@ class Ui_Usuarios(object):
         self.treeview_usuarios_autorizados.setObjectName(
             "treeview_usuarios_autorizados"
         )
+        self.modelo_usuarios_autorizados = QtGui.QStandardItemModel()
+        self.treeview_usuarios_autorizados.setModel(self.modelo_usuarios_autorizados)
+        self.modelo_usuarios_autorizados.setHorizontalHeaderLabels(
+            [
+                "Usuario",
+                "Contraseña",
+            ]
+        )
+        header = self.treeview_usuarios_autorizados.header()
+        header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
+        header.resizeSection(0, 155)
+        header.resizeSection(1, 50)
+
         self.treeview_usuarios_autorizados.header().setSortIndicatorShown(False)
         self.boton_eliminar_usuario_autorizado = QtWidgets.QPushButton(self.widget)
         self.boton_eliminar_usuario_autorizado.setGeometry(

@@ -7,10 +7,12 @@ from peewee import (
     DoubleField,
     DateField,
     CharField,
+    AutoField,
     DoesNotExist,
 )
 from datetime import date
 import json
+
 
 db = MySQLDatabase(
     "mi_base_de_datos",
@@ -64,54 +66,17 @@ class Compras(Model):
         database = db
 
 
-class Stock(Model):
+class Stock(Model):  # no lo normalizo debido al costo computacional
+    id_producto = AutoField(primary_key=True, unique=True)
     producto = CharField(unique=True)
     empresa = CharField()
     stock = IntegerField()
     costo_inicial = DoubleField()
-
-    class Meta:
-        database = db
-
-
-class StockCregar(Stock):
-    descuento_1 = DoubleField()
-    costo_parcial_1 = DoubleField()
     iva = DoubleField()
-    costo_parcial_2 = DoubleField()
-    descuento_2 = DoubleField()
-    costo_total = DoubleField()
-    aumento_efectivo = DoubleField()
-    precio_efectivo = DoubleField()
-    aumento_mercadolibre = DoubleField()
-    precio_mercadolibre = DoubleField()
-    aumento_constructores = DoubleField()
-    precio_constructores = DoubleField()
-
-    class Meta:
-        database = db
-
-
-class StockFara(Stock):
-    descuento_1 = DoubleField()
-    costo_parcial_1 = DoubleField()
-    descuento_2 = DoubleField()
-    costo_parcial_2 = DoubleField()
-    iva = DoubleField()
-    costo_total = DoubleField()
-    aumento_efectivo = DoubleField()
-    precio_efectivo = DoubleField()
-    aumento_mercadolibre = DoubleField()
-    precio_mercadolibre = DoubleField()
-    aumento_constructores = DoubleField()
-    precio_constructores = DoubleField()
-
-    class Meta:
-        database = db
-
-
-class StockFontana(Stock):
-    iva = DoubleField()
+    descuento_1 = DoubleField(null=True)
+    descuento_2 = DoubleField(null=True)
+    costo_parcial_1 = DoubleField(null=True)
+    costo_parcial_2 = DoubleField(null=True)
     costo_total = DoubleField()
     aumento_efectivo = DoubleField()
     precio_efectivo = DoubleField()
@@ -125,23 +90,12 @@ class StockFontana(Stock):
 
 
 class Base:
-
     def __init__(self):
         try:
             db.connect()
-            db.create_tables(
-                [
-                    Ventas,
-                    UsuariosAutorizados,
-                    Vendedores,
-                    Compras,
-                    StockCregar,
-                    StockFara,
-                    StockFontana,
-                ]
-            )
-            self.stocks = [StockCregar, StockFara, StockFontana]
+            db.create_tables([Ventas, UsuariosAutorizados, Vendedores, Compras, Stock])
             self.impuestos = self.cargar_impuestos()
+            self.ultima_verificacion = None
         except PeeweeException:
             print("Error al conectarse a la base de datos")
 
@@ -181,12 +135,12 @@ class Base:
     #######################   VENTAS    #######################
     def registrar_venta(
         self,
-        producto,
+        id_producto,
         cantidad_vendida,
         tipo_pago,
     ):
         try:
-            producto_info = self.buscar_informacion_producto(producto)
+            producto_info = self.buscar_informacion_producto(id_producto)
             precio = self.obtener_precio(producto_info, tipo_pago)
             porcentaje_perdido = self.impuestos[tipo_pago]
             if tipo_pago == "constructores":
@@ -203,8 +157,7 @@ class Base:
                 ),
                 tipo_pago=tipo_pago,
             )
-
-            self.restar_stock_producto(producto, cantidad_vendida)
+            self.restar_stock_producto(id_producto, cantidad_vendida)
         except PeeweeException:
             print("Error al registrar la Ventas en la Base de Datos")
 
@@ -282,7 +235,7 @@ class Base:
         return (
             Ventas.select()
             .where(Ventas.tipo_pago == tipo_pago)
-            .order_by(Ventas.fecha.desc())
+            .order_by(Ventas.fecha.desc(), Ventas.id_venta.desc())
         )
 
     def mayor_id_ventas(self):
@@ -299,26 +252,25 @@ class Base:
         except DoesNotExist:
             print("No existe la venta con el id indicado")
 
-    def stock_suficiente(self, producto, cantidad_a_vender):
-        producto_info = self.buscar_informacion_producto(producto)
+    def stock_suficiente(self, id_producto, cantidad_a_vender):
+        producto_info = self.buscar_informacion_producto(id_producto)
         return producto_info.stock >= cantidad_a_vender
 
     #######################   COMPRAS    #######################
-    def registrar_compra(self, fecha, producto, cantidad):
+    def registrar_compra(self, fecha, id_producto, cantidad_comprada):
         try:
-            producto_info = self.buscar_informacion_producto(producto)
-            empresa = producto_info.empresa
+            producto_info = self.buscar_informacion_producto(id_producto)
             costo_unitario = producto_info.costo_total
             Compras.create(
                 id_compra=self.mayor_id_compra() + 1,
                 fecha=fecha,
-                empresa=empresa,
-                producto=producto,
-                cantidad=cantidad,
+                empresa=producto_info.empresa,
+                producto=producto_info.producto,
+                cantidad=cantidad_comprada,
                 costo_unitario=costo_unitario,
-                costo_total=cantidad * costo_unitario,
+                costo_total=cantidad_comprada * costo_unitario,
             )
-            self.aumentar_stock_producto(producto, cantidad)
+            self.aumentar_stock_producto(id_producto, cantidad_comprada)
         except PeeweeException:
             print("Error al registrar la compra en la Base de Datos")
 
@@ -350,7 +302,7 @@ class Base:
         return (
             Compras.select()
             .where(Compras.empresa == empresa)
-            .order_by(Compras.fecha.desc())
+            .order_by(Compras.fecha.desc(), Compras.id_compra.desc())
         )
 
     def consultar_total_gastado(self, fecha_inicial, fecha_final):
@@ -488,14 +440,63 @@ class Base:
             return True
 
     ##############   STOCK   #################
-    def buscar_informacion_producto(self, producto):
-        for stock in self.stocks:
-            try:
-                producto_info = stock.select().where(stock.producto == producto).get()
-                return producto_info  # Devuelve la fila del producto encontrado
-            except DoesNotExist:
-                continue
-        return None  # Si no se encuentra el producto en ningún stock
+    def agregar_producto_a_stock(
+        self,
+        producto,
+        empresa,
+        stock,
+        costo_inicial,
+        iva=10.5,
+        descuento_1=None,
+        descuento_2=None,
+        aumento_efectivo=0,
+        aumento_mercadolibre=0,
+        aumento_constructores=0,
+    ):
+        try:
+            costos_producto = self.calcular_costos(
+                empresa,
+                costo_inicial,
+                iva,
+                descuento_1,
+                descuento_2,
+            )
+            precio_efectivo = round(
+                costos_producto["costo_total"] * (1 + (aumento_efectivo / 100)), 2
+            )
+            precio_mercadolibre = round(
+                costos_producto["costo_total"] * (1 + (aumento_mercadolibre / 100)), 2
+            )
+            precio_constructores = round(
+                costos_producto["costo_total"] * (1 + (aumento_constructores / 100)), 2
+            )
+            Stock.create(
+                producto=producto,
+                empresa=empresa,
+                stock=stock,
+                costo_inicial=costo_inicial,
+                iva=iva,
+                descuento_1=descuento_1,
+                descuento_2=descuento_2,
+                costo_parcial_1=costos_producto["costo_parcial_1"],
+                costo_parcial_2=costos_producto["costo_parcial_2"],
+                costo_total=costos_producto["costo_total"],
+                aumento_efectivo=aumento_efectivo,
+                precio_efectivo=precio_efectivo,
+                aumento_mercadolibre=aumento_mercadolibre,
+                precio_mercadolibre=precio_mercadolibre,
+                aumento_constructores=aumento_constructores,
+                precio_constructores=precio_constructores,
+            )
+        except PeeweeException:
+            print("Error al registrar el producto en el stock")
+
+    def buscar_informacion_producto(self, id_producto):
+        try:
+            producto_info = Stock.select().where(Stock.id_producto == id_producto).get()
+            return producto_info  # Devuelve la fila del producto encontrado
+        except DoesNotExist:
+            return None  # Si no se encuentra el producto en ningún stock
 
     def obtener_precio(self, producto_info, tipo_pago):
         if tipo_pago == "mercadolibre":
@@ -507,563 +508,258 @@ class Base:
         elif tipo_pago == "constructor":
             return producto_info.precio_constructores
 
-    def eliminar_producto(self, producto):
+    def eliminar_producto(self, id_producto):
         try:
-            for stock in self.stocks:
-                try:
-                    producto = stock.get(stock.producto == producto)
-                    producto.delete_instance()
-                    break  # Termina la función después de eliminar el producto
-                except DoesNotExist:
-                    continue
+            producto = Stock.get(Stock.id_producto == id_producto)
+            producto.delete_instance()
         except PeeweeException:
             print("Error al eliminar el producto:")
 
-    def aumentar_stock_producto(self, producto, cantidad):
+    def aumentar_stock_producto(self, id_producto, cantidad):
         try:
-            producto_info = self.buscar_informacion_producto(producto)
+            producto_info = self.buscar_informacion_producto(id_producto)
             nuevo_stock = producto_info.stock + cantidad
-            tabla_stock = type(producto_info)
-            producto_a_actualizar = tabla_stock.update(stock=nuevo_stock).where(
-                tabla_stock.producto == producto
+            actualizacion = Stock.update(stock=nuevo_stock).where(
+                Stock.id_producto == id_producto
             )
-            producto_a_actualizar.execute()
+            actualizacion.execute()
         except DoesNotExist:
             print("El producto no existe")
         except Exception:
             print("Error al aumentar el stock:")
 
-    def restar_stock_producto(self, producto, cantidad):
+    def restar_stock_producto(self, id_producto, cantidad):
         try:
-            producto_info = self.buscar_informacion_producto(producto)
+            producto_info = self.buscar_informacion_producto(id_producto)
             nuevo_stock = producto_info.stock - cantidad
-            tabla_stock = type(producto_info)
-            producto_a_actualizar = tabla_stock.update(stock=nuevo_stock).where(
-                tabla_stock.producto == producto
+            actualizacion = Stock.update(stock=nuevo_stock).where(
+                Stock.id_producto == id_producto
             )
-            producto_a_actualizar.execute()
+            actualizacion.execute()
         except DoesNotExist:
             print("El producto no existe")
         except Exception:
-            print("Error al restar el stock:")
+            print("Error al aumentar el stock:")
 
     def producto_repetido_en_stock(self, producto):
-        for stock in self.stocks:
-            try:
-                stock.get(stock.producto == producto)
-                return True  # Si encuentra el producto en alguna tabla, devuelve True
-            except DoesNotExist:
-                continue
-        return False
+        try:
+            Stock.get(Stock.producto == producto)
+            return True  # Si encuentra el producto en alguna tabla, devuelve True
+        except DoesNotExist:
+            return False
 
     def obtener_productos_para_compra(self):
         try:
-            productos_totales = []
-            for stock in self.stocks:
-                # Obtener los datos de stock como una lista de tuplas
-                productos = [
-                    (
-                        producto.producto,
-                        producto.empresa,
-                        producto.stock,
-                        producto.costo_total,
-                    )
-                    for producto in stock.select()
-                ]
-                productos_totales.extend(productos)
-
-            # Ordenar los productos alfabéticamente
-            productos_totales = sorted(productos_totales, key=lambda x: x[0].lower())
-
-            return productos_totales
-        except PeeweeException as e:
-            print("Error al obtener productos totales:", e)
-            return []
+            productos = Stock.select(
+                Stock.id_producto,
+                Stock.producto,
+                Stock.empresa,
+                Stock.stock,
+                Stock.costo_total,
+            ).order_by(Stock.producto)
+            return productos  # Devuelve el resultado de la consulta
+        except PeeweeException:
+            print("Error al obtener productos para compra")
+            return None
 
     def obtener_productos_para_venta(self):
         try:
-            productos_totales = []
-            for stock_class in self.stocks:
-                productos = stock_class.select(
-                    stock_class.producto,
-                    stock_class.stock,
-                    stock_class.precio_efectivo,
-                    stock_class.precio_mercadolibre,
-                    stock_class.precio_constructores,
-                )
-
-                productos_totales.extend(productos)
-
-            productos_totales = sorted(
-                productos_totales, key=lambda x: x.producto.lower()
-            )
-
-            productos_info = [
-                (
-                    producto.producto,
-                    producto.stock,
-                    producto.precio_efectivo,
-                    producto.precio_mercadolibre,
-                    producto.precio_constructores,
-                )
-                for producto in productos_totales
-            ]
-            return productos_info
+            productos = Stock.select(
+                Stock.id_producto,
+                Stock.producto,
+                Stock.stock,
+                Stock.precio_efectivo,
+                Stock.precio_mercadolibre,
+                Stock.precio_constructores,
+            ).order_by(Stock.producto)
+            return productos  # Devuelve el resultado de la consulta
         except PeeweeException:
             print("Error al obtener productos para venta")
-            return []
+            return None
 
-    ##############   STOCK CREGAR   #############
-    def agregar_producto_cregar(
-        self,
-        producto,
-        stock,
-        costo_inicial,
-        descuento_1,
-        iva,
-        descuento_2,
-        aumento_efectivo,
-        aumento_mercadolibre,
-        aumento_constructores,
-    ):
+    def obtener_productos_filtrados(self, empresa):
         try:
-            costo_parcial_1 = round(costo_inicial * (1 - descuento_1 / 100), 2)
-            costo_parcial_2 = round(costo_parcial_1 * (1 + (iva / 100)), 2)
-            costo_total = round(costo_parcial_2 * (1 - (descuento_2 / 100)), 2)
-            precio_efectivo = round(costo_total * (1 + (aumento_efectivo / 100)), 2)
-            precio_mercadolibre = round(
-                costo_total * (1 + (aumento_mercadolibre / 100)), 2
+            productos_filtrados = (
+                Stock.select().where(Stock.empresa == empresa).order_by(Stock.producto)
             )
-            precio_constructores = round(
-                costo_total * (1 + (aumento_constructores / 100)), 2
-            )
-            StockCregar.create(
-                producto=producto,
-                empresa="cregar",
-                stock=stock,
-                costo_inicial=costo_inicial,
-                descuento_1=descuento_1,
-                costo_parcial_1=costo_parcial_1,
-                iva=iva,
-                costo_parcial_2=costo_parcial_2,
-                descuento_2=descuento_2,
-                costo_total=costo_total,
-                aumento_efectivo=aumento_efectivo,
-                precio_efectivo=precio_efectivo,
-                aumento_mercadolibre=aumento_mercadolibre,
-                precio_mercadolibre=precio_mercadolibre,
-                aumento_constructores=aumento_constructores,
-                precio_constructores=precio_constructores,
-            )
+            return productos_filtrados  # Devuelve el resultado de la consulta
         except PeeweeException:
-            print("Error al registrar el producto en el stock")
+            print("Error al obtener productos filtrados")
+            return None
 
-    def modificar_producto_cregar(
+    def modificar_producto_de_stock(
         self,
-        producto_a_modificar,
+        id_producto_a_modificar,
         nuevo_producto,
         nuevo_stock,
         nuevo_costo_inicial,
-        nuevo_descuento_1,
-        nuevo_iva,
-        nuevo_descuento_2,
-        nuevo_aumento_efectivo,
-        nuevo_aumento_mercadolibre,
-        nuevo_aumento_constructores,
+        nuevo_iva=10.5,
+        nuevo_descuento_1=None,
+        nuevo_descuento_2=None,
+        nuevo_aumento_efectivo=0,
+        nuevo_aumento_mercadolibre=0,
+        nuevo_aumento_constructores=0,
     ):
         try:
-            costo_parcial_1 = round(
-                nuevo_costo_inicial * (1 - nuevo_descuento_1 / 100), 2
+            producto_a_modificar_info = self.buscar_informacion_producto(
+                id_producto_a_modificar
             )
-            costo_parcial_2 = round(costo_parcial_1 * (1 + (nuevo_iva / 100)), 2)
-            costo_total = round(costo_parcial_2 * (1 - (nuevo_descuento_2 / 100)), 2)
-            precio_efectivo = round(
-                costo_total * (1 + (nuevo_aumento_efectivo / 100)), 2
-            )
-            precio_mercadolibre = round(
-                costo_total * (1 + (nuevo_aumento_mercadolibre / 100)), 2
-            )
-            precio_constructores = round(
-                costo_total * (1 + (nuevo_aumento_constructores / 100)), 2
+            costos_producto = self.calcular_costos(
+                producto_a_modificar_info.empresa,
+                nuevo_costo_inicial,
+                nuevo_iva,
+                nuevo_descuento_1,
+                nuevo_descuento_2,
             )
 
-            producto_en_stock = StockCregar.update(
+            precio_efectivo = round(
+                costos_producto["costo_total"] * (1 + (nuevo_aumento_efectivo / 100)),
+                2,
+            )
+            precio_mercadolibre = round(
+                costos_producto["costo_total"]
+                * (1 + (nuevo_aumento_mercadolibre / 100)),
+                2,
+            )
+            precio_constructores = round(
+                costos_producto["costo_total"]
+                * (1 + (nuevo_aumento_constructores / 100)),
+                2,
+            )
+
+            producto_en_stock = Stock.update(
                 producto=nuevo_producto,
                 stock=nuevo_stock,
                 costo_inicial=nuevo_costo_inicial,
+                iva=nuevo_iva,
                 descuento_1=nuevo_descuento_1,
-                costo_parcial_1=costo_parcial_1,
-                iva=nuevo_iva,
-                costo_parcial_2=costo_parcial_2,
                 descuento_2=nuevo_descuento_2,
-                costo_total=costo_total,
+                costo_parcial_1=costos_producto["costo_parcial_1"],
+                costo_parcial_2=costos_producto["costo_parcial_2"],
+                costo_total=costos_producto["costo_total"],
                 aumento_efectivo=nuevo_aumento_efectivo,
                 precio_efectivo=precio_efectivo,
                 aumento_mercadolibre=nuevo_aumento_mercadolibre,
                 precio_mercadolibre=precio_mercadolibre,
                 aumento_constructores=nuevo_aumento_constructores,
                 precio_constructores=precio_constructores,
-            ).where(StockCregar.producto == producto_a_modificar)
+            ).where(Stock.id_producto == id_producto_a_modificar)
             producto_en_stock.execute()
         except PeeweeException:
             print("Error al modificar el producto en stock")
 
-    def obtener_productos_cregar(self):
-        return StockCregar.select().order_by(StockCregar.producto)
-
-    def aumentar_costo_inicial_cregar(self, porcentaje):
+    def aumentar_costo_inicial_general(self, empresa, porcentaje):
         try:
-            productos = StockCregar.select()
+            productos = self.obtener_productos_filtrados(empresa)
             for producto in productos:
-                nuevo_costo = round(producto.costo_inicial * (1 + porcentaje / 100), 2)
-                producto.costo_inicial = nuevo_costo
-
-                # Recalcular valores dependientes
-                producto.costo_parcial_1 = round(
-                    nuevo_costo * (1 - producto.descuento_1 / 100), 2
+                producto_info = self.buscar_informacion_producto(producto)
+                nuevo_costo_inicial = round(
+                    producto.costo_inicial * (1 + porcentaje / 100), 2
                 )
-                producto.costo_parcial_2 = round(
-                    producto.costo_parcial_1 * (1 + (producto.iva / 100)), 2
+                costos = self.calcular_costos(
+                    producto_info.empresa,
+                    nuevo_costo_inicial,
+                    producto_info.iva,
+                    producto_info.descuento_1,
+                    producto_info.descuento_2,
                 )
-                producto.costo_total = round(
-                    producto.costo_parcial_2 * (1 - (producto.descuento_2 / 100)), 2
-                )
+                producto.costo_inicial = nuevo_costo_inicial
+                producto.costo_parcial_1 = costos["costo_parcial_1"]
+                producto.costo_parcial_2 = costos["costo_parcial_2"]
+                producto.costo_total = costos["costo_total"]
                 producto.precio_efectivo = round(
-                    producto.costo_total * (1 + (producto.aumento_efectivo / 100)), 2
+                    costos["costo_total"] * (1 + (producto.aumento_efectivo / 100)), 2
                 )
                 producto.precio_mercadolibre = round(
-                    producto.costo_total * (1 + (producto.aumento_mercadolibre / 100)),
+                    costos["costo_total"] * (1 + (producto.aumento_mercadolibre / 100)),
                     2,
                 )
                 producto.precio_constructores = round(
-                    producto.costo_total * (1 + (producto.aumento_constructores / 100)),
+                    costos["costo_total"]
+                    * (1 + (producto.aumento_constructores / 100)),
                     2,
                 )
-
                 producto.save()  # Guardar el cambio en el costo inicial y los valores dependientes
         except PeeweeException:
             print("Error al aumentar el costo inicial")
 
-    def modificar_productos_cregar_gral(self, columna, nuevo_valor):
+    def modificar_productos_gral(self, empresa, columna, nuevo_valor):
         try:
-            productos = StockCregar.select()
+            productos = self.obtener_productos_filtrados(empresa)
             for producto in productos:
                 setattr(producto, columna, nuevo_valor)
-                # Recalcular valores dependientes
-                producto.costo_parcial_1 = round(
-                    producto.costo_inicial * (1 - producto.descuento_1 / 100), 2
+
+                nuevos_costos = self.calcular_costos(
+                    producto.empresa,
+                    producto.costo_inicial,
+                    producto.iva,
+                    producto.descuento_1,
+                    producto.descuento_2,
                 )
-                producto.costo_parcial_2 = round(
-                    producto.costo_parcial_1 * (1 + (producto.iva / 100)), 2
+                nuevos_precios = self.calcular_precios(
+                    nuevos_costos["costo_total"],
+                    producto.aumento_efectivo,
+                    producto.aumento_mercadolibre,
+                    producto.aumento_constructores,
                 )
-                producto.costo_total = round(
-                    producto.costo_parcial_2 * (1 - (producto.descuento_2 / 100)), 2
-                )
-                producto.precio_efectivo = round(
-                    producto.costo_total * (1 + (producto.aumento_efectivo / 100)), 2
-                )
-                producto.precio_mercadolibre = round(
-                    producto.costo_total * (1 + (producto.aumento_mercadolibre / 100)),
-                    2,
-                )
-                producto.precio_constructores = round(
-                    producto.costo_total * (1 + (producto.aumento_constructores / 100)),
-                    2,
-                )
+                producto.costo_parcial_1 = nuevos_costos["costo_parcial_1"]
+                producto.costo_parcial_2 = nuevos_costos["costo_parcial_2"]
+                producto.costo_total = nuevos_costos["costo_total"]
+                producto.precio_efectivo = nuevos_precios["precio_efectivo"]
+                producto.precio_mercadolibre = nuevos_precios["precio_mercadolibre"]
+                producto.precio_constructores = nuevos_precios["precio_constructores"]
                 producto.save()
         except PeeweeException:
-            print("Error al modificar los productos en StockCregar")
+            print("error al modificar columna general")
 
-    ##############   STOCK FARA   #############
-    def agregar_producto_fara(
+    def calcular_costos(
+        self, empresa, costo_inicial, iva=10.5, descuento_1=None, descuento_2=None
+    ):
+        costos = {}
+        if empresa == "cregar":
+            costos["costo_parcial_1"] = round(
+                costo_inicial * (1 - descuento_1 / 100), 2
+            )
+            costos["costo_parcial_2"] = round(
+                costos["costo_parcial_1"] * (1 + iva / 100), 2
+            )
+            costos["costo_total"] = round(
+                costos["costo_parcial_2"] * (1 - descuento_2 / 100), 2
+            )
+        if empresa == "fara":
+            costos["costo_parcial_1"] = round(
+                costo_inicial * (1 - descuento_1 / 100), 2
+            )
+            costos["costo_parcial_2"] = round(
+                costos["costo_parcial_1"] * (1 - descuento_2 / 100), 2
+            )
+            costos["costo_total"] = round(
+                costos["costo_parcial_2"] * (1 + iva / 100), 2
+            )
+        if empresa == "fontana":
+            costos["costo_parcial_1"] = None
+            costos["costo_parcial_2"] = None
+            costos["costo_total"] = round(costo_inicial * (1 + iva / 100), 2)
+        return costos
+
+    def calcular_precios(
         self,
-        producto,
-        stock,
-        costo_inicial,
-        descuento_1,
-        descuento_2,
-        iva,
+        costo_total,
         aumento_efectivo,
-        aumento_mercadolibre,
-        aumento_constructores,
+        precio_mercadolibre,
+        precio_constructores,
     ):
-        try:
-            costo_parcial_1 = round(costo_inicial * (1 - descuento_1 / 100), 2)
-            costo_parcial_2 = round(costo_parcial_1 * (1 - (descuento_2 / 100)), 2)
-            costo_total = round(costo_parcial_2 * (1 + (iva / 100)), 2)
-            precio_efectivo = round(costo_total * (1 + (aumento_efectivo / 100)), 2)
-            precio_mercadolibre = round(
-                costo_total * (1 + (aumento_mercadolibre / 100)), 2
-            )
-            precio_constructores = round(
-                costo_total * (1 + (aumento_constructores / 100)), 2
-            )
-            StockFara.create(
-                producto=producto,
-                empresa="fara",
-                stock=stock,
-                costo_inicial=costo_inicial,
-                descuento_1=descuento_1,
-                costo_parcial_1=costo_parcial_1,
-                descuento_2=descuento_2,
-                costo_parcial_2=costo_parcial_2,
-                iva=iva,
-                costo_total=costo_total,
-                aumento_efectivo=aumento_efectivo,
-                precio_efectivo=precio_efectivo,
-                aumento_mercadolibre=aumento_mercadolibre,
-                precio_mercadolibre=precio_mercadolibre,
-                aumento_constructores=aumento_constructores,
-                precio_constructores=precio_constructores,
-            )
-        except PeeweeException:
-            print("Error al registrar el producto en el stock")
-
-    def modificar_producto_fara(
-        self,
-        producto_a_modificar,
-        nuevo_producto,
-        nuevo_stock,
-        nuevo_costo_inicial,
-        nuevo_descuento_1,
-        nuevo_iva,
-        nuevo_descuento_2,
-        nuevo_aumento_efectivo,
-        nuevo_aumento_mercadolibre,
-        nuevo_aumento_constructores,
-    ):
-        try:
-            costo_parcial_1 = round(
-                nuevo_costo_inicial * (1 - nuevo_descuento_1 / 100), 2
-            )
-            costo_parcial_2 = round(
-                costo_parcial_1 * (1 - (nuevo_descuento_2 / 100)), 2
-            )
-            costo_total = round(costo_parcial_2 * (1 + (nuevo_iva / 100)), 2)
-            precio_efectivo = round(
-                costo_total * (1 + (nuevo_aumento_efectivo / 100)), 2
-            )
-            precio_mercadolibre = round(
-                costo_total * (1 + (nuevo_aumento_mercadolibre / 100)), 2
-            )
-            precio_constructores = round(
-                costo_total * (1 + (nuevo_aumento_constructores / 100)), 2
-            )
-
-            producto_en_stock = StockFara.update(
-                producto=nuevo_producto,
-                stock=nuevo_stock,
-                costo_inicial=nuevo_costo_inicial,
-                descuento_1=nuevo_descuento_1,
-                costo_parcial_1=costo_parcial_1,
-                descuento_2=nuevo_descuento_2,
-                costo_parcial_2=costo_parcial_2,
-                iva=nuevo_iva,
-                costo_total=costo_total,
-                aumento_efectivo=nuevo_aumento_efectivo,
-                precio_efectivo=precio_efectivo,
-                aumento_mercadolibre=nuevo_aumento_mercadolibre,
-                precio_mercadolibre=precio_mercadolibre,
-                aumento_constructores=nuevo_aumento_constructores,
-                precio_constructores=precio_constructores,
-            ).where(StockFara.producto == producto_a_modificar)
-            producto_en_stock.execute()
-        except PeeweeException:
-            print("Error al modificar el producto en stock")
-
-    def obtener_productos_fara(self):
-        return StockFara.select().order_by(StockFara.producto)
-
-    def aumentar_costo_inicial_fara(self, porcentaje):
-        try:
-            productos = StockFara.select()
-            for producto in productos:
-                nuevo_costo = round(producto.costo_inicial * (1 + porcentaje / 100), 2)
-                producto.costo_inicial = nuevo_costo
-
-                producto.costo_parcial_1 = round(
-                    nuevo_costo * (1 - producto.descuento_1 / 100), 2
-                )
-                producto.costo_parcial_2 = round(
-                    producto.costo_parcial_1 * (1 - (producto.descuento_2 / 100)), 2
-                )
-                producto.costo_total = round(
-                    producto.costo_parcial_2 * (1 + (producto.iva / 100)), 2
-                )
-                producto.precio_efectivo = round(
-                    producto.costo_total * (1 + (producto.aumento_efectivo / 100)), 2
-                )
-                producto.precio_mercadolibre = round(
-                    producto.costo_total * (1 + (producto.aumento_mercadolibre / 100)),
-                    2,
-                )
-                producto.precio_constructores = round(
-                    producto.costo_total * (1 + (producto.aumento_constructores / 100)),
-                    2,
-                )
-
-                producto.save()  # Guardar el cambio en el costo inicial y los valores dependientes
-        except PeeweeException:
-            print("Error al aumentar el costo inicial")
-
-    def modificar_productos_fara_gral(self, columna, nuevo_valor):
-        try:
-            productos = StockFara.select()
-            for producto in productos:
-                setattr(producto, columna, nuevo_valor)
-                # Recalcular valores dependientes
-                producto.costo_parcial_1 = round(
-                    producto.costo_inicial * (1 - producto.descuento_1 / 100), 2
-                )
-                producto.costo_parcial_2 = round(
-                    producto.costo_parcial_1 * (1 - (producto.descuento_2 / 100)), 2
-                )
-                producto.costo_total = round(
-                    producto.costo_parcial_2 * (1 + (producto.iva / 100)), 2
-                )
-                producto.precio_efectivo = round(
-                    producto.costo_total * (1 + (producto.aumento_efectivo / 100)), 2
-                )
-                producto.precio_mercadolibre = round(
-                    producto.costo_total * (1 + (producto.aumento_mercadolibre / 100)),
-                    2,
-                )
-                producto.precio_constructores = round(
-                    producto.costo_total * (1 + (producto.aumento_constructores / 100)),
-                    2,
-                )
-                producto.save()
-        except PeeweeException:
-            print("Error al modificar los productos en StockCregar")
-
-    ##############   STOCK FONTANA   #############
-    def agregar_producto_fontana(
-        self,
-        producto,
-        stock,
-        costo_inicial,
-        iva,
-        aumento_efectivo,
-        aumento_mercadolibre,
-        aumento_constructores,
-    ):
-        try:
-            costo_total = round(costo_inicial * (1 + (iva / 100)), 2)
-            precio_efectivo = round(costo_total * (1 + (aumento_efectivo / 100)), 2)
-            precio_mercadolibre = round(
-                costo_total * (1 + (aumento_mercadolibre / 100)), 2
-            )
-            precio_constructores = round(
-                costo_total * (1 + (aumento_constructores / 100)), 2
-            )
-            StockFontana.create(
-                producto=producto,
-                empresa="fontana",
-                stock=stock,
-                costo_inicial=costo_inicial,
-                iva=iva,
-                costo_total=costo_total,
-                aumento_efectivo=aumento_efectivo,
-                precio_efectivo=precio_efectivo,
-                aumento_mercadolibre=aumento_mercadolibre,
-                precio_mercadolibre=precio_mercadolibre,
-                aumento_constructores=aumento_constructores,
-                precio_constructores=precio_constructores,
-            )
-        except PeeweeException:
-            print("Error al registrar el producto en el stock")
-
-    def modificar_producto_fontana(
-        self,
-        producto_a_modificar,
-        producto,
-        nuevo_stock,
-        nuevo_costo_inicial,
-        nuevo_iva,
-        nuevo_aumento_efectivo,
-        nuevo_aumento_mercadolibre,
-        nuevo_aumento_constructores,
-    ):
-        try:
-            costo_total = round(nuevo_costo_inicial * (1 + (nuevo_iva / 100)), 2)
-            precio_efectivo = round(
-                costo_total * (1 + (nuevo_aumento_efectivo / 100)), 2
-            )
-            precio_mercadolibre = round(
-                costo_total * (1 + (nuevo_aumento_mercadolibre / 100)), 2
-            )
-            precio_constructores = round(
-                costo_total * (1 + (nuevo_aumento_constructores / 100)), 2
-            )
-
-            producto_en_stock = StockFontana.update(
-                producto=producto,
-                stock=nuevo_stock,
-                costo_inicial=nuevo_costo_inicial,
-                iva=nuevo_iva,
-                costo_total=costo_total,
-                aumento_efectivo=nuevo_aumento_efectivo,
-                precio_efectivo=precio_efectivo,
-                aumento_mercadolibre=nuevo_aumento_mercadolibre,
-                precio_mercadolibre=precio_mercadolibre,
-                aumento_constructores=nuevo_aumento_constructores,
-                precio_constructores=precio_constructores,
-            ).where(StockFontana.producto == producto_a_modificar)
-            producto_en_stock.execute()
-        except PeeweeException:
-            print("Error al modificar el producto en stock")
-
-    def obtener_productos_fontana(self):
-        return StockFontana.select().order_by(StockFontana.producto)
-
-    def aumentar_costo_inicial_fontana(self, porcentaje):
-        try:
-            productos = StockFontana.select()
-            for producto in productos:
-                nuevo_costo = round(producto.costo_inicial * (1 + porcentaje / 100), 2)
-                producto.costo_inicial = nuevo_costo
-
-                producto.costo_total = round(
-                    producto.costo_inicial * (1 + (producto.iva / 100)), 2
-                )
-                producto.precio_efectivo = round(
-                    producto.costo_total * (1 + (producto.aumento_efectivo / 100)), 2
-                )
-                producto.precio_mercadolibre = round(
-                    producto.costo_total * (1 + (producto.aumento_mercadolibre / 100)),
-                    2,
-                )
-                producto.precio_constructores = round(
-                    producto.costo_total * (1 + (producto.aumento_constructores / 100)),
-                    2,
-                )
-
-                producto.save()  # Guardar el cambio en el costo inicial y los valores dependientes
-        except PeeweeException:
-            print("Error al aumentar el costo inicial")
-
-    def modificar_productos_fontana_gral(self, columna, nuevo_valor):
-        try:
-            productos = StockFontana.select()
-            for producto in productos:
-                setattr(producto, columna, nuevo_valor)
-                producto.costo_total = round(
-                    producto.costo_inicial * (1 + (producto.iva / 100)), 2
-                )
-                producto.precio_efectivo = round(
-                    producto.costo_total * (1 + (producto.aumento_efectivo / 100)), 2
-                )
-                producto.precio_mercadolibre = round(
-                    producto.costo_total * (1 + (producto.aumento_mercadolibre / 100)),
-                    2,
-                )
-                producto.precio_constructores = round(
-                    producto.costo_total * (1 + (producto.aumento_constructores / 100)),
-                    2,
-                )
-                producto.save()
-        except PeeweeException:
-            print("Error al modificar los productos en StockCregar")
+        precios = {}
+        precios["precio_efectivo"] = round(
+            costo_total * (1 + aumento_efectivo / 100), 2
+        )
+        precios["precio_mercadolibre"] = round(
+            costo_total * (1 + precio_mercadolibre / 100), 2
+        )
+        precios["precio_constructores"] = round(
+            costo_total * (1 + precio_constructores / 100), 2
+        )
+        return precios
 
     #################   GANANCIAS   #################
     def consultar_ganancias_totales(self, fecha_inicial, fecha_final):

@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ventanas.imagenes import imagenes
+from PyQt5.QtCore import Qt
 
 
 class Ui_StockFara(object):
@@ -61,17 +62,24 @@ class Ui_StockFara(object):
             "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(0, 190, 255, 113));\n"
             "color: #fff;\n"
             "border: 1px solid #000;\n"
-            "font-size: 13px;\n"
+            "font-size: 15px;\n"
             "}\n"
             "QHeaderView::section {\n"
             "color: #000;\n"
             "border: 1px solid #000;\n"
+            "font-size: 14px;\n"
             "}\n"
             "QTreeView::item {\n"
             "color: #fff;\n"
+            "border-right: 0.5px solid #000;\n"
+            "border-bottom: 0.5px solid #000;\n"
+            "}\n"
+            "QTreeView::item:selected {\n"
+            "background-color: red;\n"
             "}\n"
             ""
         )
+
         self.widget.setObjectName("widget")
         self.widget_lista_productos = QtWidgets.QWidget(self.widget)
         self.widget_lista_productos.setGeometry(QtCore.QRect(0, 0, 1201, 721))
@@ -121,6 +129,49 @@ class Ui_StockFara(object):
         self.treeview_productos.setFont(font)
         self.treeview_productos.setStyleSheet("")
         self.treeview_productos.setObjectName("treeview_productos")
+
+        self.treeview_productos.setFocusPolicy(Qt.NoFocus)
+        self.modelo_productos = QtGui.QStandardItemModel()
+        self.treeview_productos.setModel(self.modelo_productos)
+        self.modelo_productos.setHorizontalHeaderLabels(
+            [
+                "ID",
+                "Producto",
+                "Stock",
+                "Costo Inicial",
+                "desc 1",
+                "Costo Parc 1",
+                "desc 2",
+                "Costo Parc 2",
+                "IVA",
+                "Costo Neto",
+                "Aumento Ef",
+                "Efectivo",
+                "Aumento ML",
+                "MercadoLibre",
+                "Aumento Cons",
+                "Constructores",
+            ]
+        )
+        header = self.treeview_productos.header()
+        header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
+        header.resizeSection(0, 60)
+        header.resizeSection(1, 150)
+        header.resizeSection(2, 45)
+        header.resizeSection(3, 90)
+        header.resizeSection(4, 90)
+        header.resizeSection(5, 0)
+        header.resizeSection(6, 90)
+        header.resizeSection(7, 0)
+        header.resizeSection(8, 90)
+        header.resizeSection(9, 90)
+        header.resizeSection(10, 90)
+        header.resizeSection(11, 90)
+        header.resizeSection(12, 90)
+        header.resizeSection(13, 90)
+        header.resizeSection(14, 90)
+        header.resizeSection(15, 90)
+
         self.producto_no_encontrado = QtWidgets.QLabel(self.widget_lista_productos)
         self.producto_no_encontrado.setGeometry(QtCore.QRect(230, 50, 181, 21))
         font = QtGui.QFont()
@@ -498,7 +549,7 @@ class Ui_StockFara(object):
         self.label_28.setAlignment(QtCore.Qt.AlignCenter)
         self.label_28.setObjectName("label_28")
         self.input_iva = QtWidgets.QLineEdit(self.widget_agregar_producto)
-        self.input_iva.setGeometry(QtCore.QRect(730, 190, 61, 31))
+        self.input_iva.setGeometry(QtCore.QRect(730, 290, 61, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(False)
@@ -508,7 +559,7 @@ class Ui_StockFara(object):
         self.input_iva.setAlignment(QtCore.Qt.AlignCenter)
         self.input_iva.setObjectName("input_iva")
         self.input_descuento_2 = QtWidgets.QLineEdit(self.widget_agregar_producto)
-        self.input_descuento_2.setGeometry(QtCore.QRect(730, 290, 61, 31))
+        self.input_descuento_2.setGeometry(QtCore.QRect(730, 190, 61, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(False)
@@ -588,7 +639,7 @@ class Ui_StockFara(object):
         self.label_error.setAlignment(QtCore.Qt.AlignCenter)
         self.label_error.setObjectName("label_error")
         self.widget_modificar_gral = QtWidgets.QWidget(self.widget)
-        self.widget_modificar_gral.setGeometry(QtCore.QRect(70, 100, 821, 461))
+        self.widget_modificar_gral.setGeometry(QtCore.QRect(180, 150, 821, 461))
         self.widget_modificar_gral.setStyleSheet("")
         self.widget_modificar_gral.setObjectName("widget_modificar_gral")
         self.label_32 = QtWidgets.QLabel(self.widget_modificar_gral)
@@ -766,6 +817,7 @@ class Ui_StockFara(object):
         self.label_ingrese_porcentaje_valido.setStyleSheet(
             'font: 10pt "MS Shell Dlg 2";\n' "color: #f00;\n" "background: none;"
         )
+        self.label_ingrese_porcentaje_valido.setText("")
         self.label_ingrese_porcentaje_valido.setAlignment(QtCore.Qt.AlignCenter)
         self.label_ingrese_porcentaje_valido.setWordWrap(True)
         self.label_ingrese_porcentaje_valido.setObjectName(

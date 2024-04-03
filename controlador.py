@@ -2,6 +2,7 @@ from vista import generar_ventanas
 import modulo
 from PyQt5 import QtWidgets
 
+
 if __name__ == "__main__":
 
     app = QtWidgets.QApplication([])

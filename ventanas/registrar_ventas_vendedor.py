@@ -9,7 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from ventanas.imagenes import imagenes
+
+from PyQt5.QtCore import Qt
 
 
 class Ui_RegistrarVentaVendedor(object):
@@ -61,7 +62,7 @@ class Ui_RegistrarVentaVendedor(object):
             "    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(45, 45, 45, 162));\n"
             "color: #000;\n"
             "border: 1px solid #000;\n"
-            "font-size: 14px;\n"
+            "font-size: 15px;\n"
             "}\n"
             "QHeaderView::section {\n"
             "color: #000;\n"
@@ -70,6 +71,11 @@ class Ui_RegistrarVentaVendedor(object):
             "}\n"
             "QTreeView::item {\n"
             "color: #fff;\n"
+            "border-right:0.5px solid #000;\n"
+            "border-bottom:0.5px solid #000;\n"
+            "}"
+            "QTreeView::item:selected {\n"
+            "background-color: #f00;\n"
             "}"
         )
         self.widget.setObjectName("widget")
@@ -130,6 +136,29 @@ class Ui_RegistrarVentaVendedor(object):
         self.treeview_productos.setStyleSheet("")
         self.treeview_productos.setAllColumnsShowFocus(False)
         self.treeview_productos.setObjectName("treeview_productos")
+
+        self.modelo_productos = QtGui.QStandardItemModel()
+        self.treeview_productos.setModel(self.modelo_productos)
+        self.modelo_productos.setHorizontalHeaderLabels(
+            [
+                "ID",
+                "Producto",
+                "Stock",
+                "Efectivo",
+                "Posnet",
+                "Constructor",
+            ]
+        )
+        self.treeview_productos.setFocusPolicy(Qt.NoFocus)
+        header = self.treeview_productos.header()
+        header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
+        header.resizeSection(0, 50)
+        header.resizeSection(1, 300)
+        header.resizeSection(2, 40)
+        header.resizeSection(3, 80)
+        header.resizeSection(4, 80)
+        header.resizeSection(5, 80)
+
         self.eleccion_posnet = QtWidgets.QRadioButton(self.widget)
         self.eleccion_posnet.setGeometry(QtCore.QRect(900, 170, 81, 41))
         font = QtGui.QFont()
@@ -164,6 +193,29 @@ class Ui_RegistrarVentaVendedor(object):
         self.treeview_ventas.setStyleSheet("")
         self.treeview_ventas.setAllColumnsShowFocus(False)
         self.treeview_ventas.setObjectName("treeview_ventas")
+
+        self.modelo_ventas = QtGui.QStandardItemModel()
+        self.treeview_ventas.setModel(self.modelo_ventas)
+        self.modelo_ventas.setHorizontalHeaderLabels(
+            [
+                "N°",
+                "Fecha",
+                "Producto",
+                "Cant",
+                "Precio c/u",
+                "Pago",
+            ]
+        )
+        self.treeview_ventas.setFocusPolicy(Qt.NoFocus)
+        header = self.treeview_ventas.header()
+        header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
+        header.resizeSection(0, 65)
+        header.resizeSection(1, 85)
+        header.resizeSection(2, 150)
+        header.resizeSection(3, 40)
+        header.resizeSection(4, 90)
+        header.resizeSection(5, 60)
+
         self.producto_no_encontrado = QtWidgets.QLabel(self.widget)
         self.producto_no_encontrado.setGeometry(QtCore.QRect(160, 70, 231, 21))
         self.producto_no_encontrado.setStyleSheet(
@@ -221,6 +273,18 @@ class Ui_RegistrarVentaVendedor(object):
         self.boton_fontana.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.boton_fontana.setStyleSheet("")
         self.boton_fontana.setObjectName("boton_fontana")
+        self.boton_actualizar = QtWidgets.QPushButton(self.widget)
+        self.boton_actualizar.setGeometry(QtCore.QRect(20, 40, 41, 31))
+        font = QtGui.QFont()
+        font.setFamily("Yu Gothic Medium")
+        font.setPointSize(-1)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(7)
+        self.boton_actualizar.setFont(font)
+        self.boton_actualizar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.boton_actualizar.setStyleSheet("font-size:30px;")
+        self.boton_actualizar.setObjectName("boton_actualizar")
 
         self.retranslateUi(RegistrarVentaVendedor)
         QtCore.QMetaObject.connectSlotsByName(RegistrarVentaVendedor)
@@ -250,3 +314,4 @@ class Ui_RegistrarVentaVendedor(object):
         self.boton_cregar.setText(_translate("RegistrarVentaVendedor", "Cregar"))
         self.boton_fara.setText(_translate("RegistrarVentaVendedor", "Fara"))
         self.boton_fontana.setText(_translate("RegistrarVentaVendedor", "Fontana"))
+        self.boton_actualizar.setText(_translate("RegistrarVentaVendedor", "↻"))
