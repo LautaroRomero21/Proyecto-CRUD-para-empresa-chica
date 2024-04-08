@@ -157,7 +157,7 @@ class Ui_RegistrarVentasAutorizado(object):
                 "Producto",
                 "Stock",
                 "Efectivo",
-                "MercadoLibre",
+                "ML / Posnet",
                 "Constructor",
             ]
         )

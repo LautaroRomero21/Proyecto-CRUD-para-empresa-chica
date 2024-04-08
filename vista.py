@@ -193,7 +193,7 @@ class VentanaRegistrarVentas(Ventana):
         nombre_producto = self.input_buscar_producto.text().lower()
         if len(nombre_producto) > 0:
             items = self.modelo_productos.findItems(
-                nombre_producto, QtCore.Qt.MatchContains, 0
+                nombre_producto, QtCore.Qt.MatchContains, 1
             )  # Columna 1 es la columna de "Producto"
 
             if items:
@@ -224,58 +224,61 @@ class VentanaRegistrarVentasVendedor(VentanaRegistrarVentas, Ui_RegistrarVentaVe
     def verificar_cantidad_a_vender(self):
         producto_seleccionado = self.treeview_productos.currentIndex()
 
-        if producto_seleccionado.isValid():
-            producto = self.modelo_productos.itemFromIndex(
-                producto_seleccionado.siblingAtColumn(0)
-            ).text()
-            try:
-                cantidad_a_vender = int(self.input_cantidad_vendida.text())
-                if not self.base_datos.stock_suficiente(producto, cantidad_a_vender):
-                    self.mostrar_error_temporal(
-                        self.label_cantidad_invalida,
-                        "No hay stock suficiente para esa venta",
-                    )
-                elif cantidad_a_vender < 1:
-                    self.mostrar_error_temporal(
-                        self.label_cantidad_invalida,
-                        "Por favor Ingrese una cantidad valida",
-                    )
-                else:
-                    if (
-                        self.eleccion_efectivo.isChecked()
-                        or self.eleccion_constructor.isChecked()
-                    ):
-                        self.base_datos.registrar_venta(
-                            producto, cantidad_a_vender, "efectivo"
-                        )
-                        QtWidgets.QMessageBox.information(
-                            self, "Venta Cargada", "Venta registrada con exito"
-                        )
-                        self.limpiar_campos()
-                        self.actualizar_treeviews()
-                    elif self.eleccion_posnet.isChecked():
-                        self.base_datos.registrar_venta(
-                            producto, cantidad_a_vender, "posnet"
-                        )
-                        QtWidgets.QMessageBox.information(
-                            self, "Venta Cargada", "Venta registrada con exito"
-                        )
-                        self.limpiar_campos()
-                        self.actualizar_treeviews()
-                    else:
-                        self.mostrar_error_temporal(
-                            self.label_tipo_pago_no_elegido,
-                            "Seleccione el precio de venta",
-                        )
-            except ValueError:
-                self.mostrar_error_temporal(
-                    self.label_cantidad_invalida,
-                    "Por favor ingrese una cantidad valida",
-                )
-        else:
+        if not producto_seleccionado.isValid():
             self.mostrar_error_temporal(
                 self.label_cantidad_invalida,
                 "Seleccione un producto primero",
+            )
+            return
+
+        producto = self.modelo_productos.itemFromIndex(
+            producto_seleccionado.siblingAtColumn(0)
+        ).text()
+
+        try:
+            cantidad_a_vender = int(self.input_cantidad_vendida.text())
+            if cantidad_a_vender < 1:
+                self.mostrar_error_temporal(
+                    self.label_cantidad_invalida,
+                    "Por favor Ingrese una cantidad válida",
+                )
+                return
+
+            if not self.base_datos.stock_suficiente(producto, cantidad_a_vender):
+                self.mostrar_error_temporal(
+                    self.label_cantidad_invalida,
+                    "No hay stock suficiente para esa venta",
+                )
+                return
+
+            tipo_pago_seleccionado = None
+            if (
+                self.eleccion_efectivo.isChecked()
+                or self.eleccion_constructor.isChecked()
+            ):
+                tipo_pago_seleccionado = "efectivo"
+            elif self.eleccion_posnet.isChecked():
+                tipo_pago_seleccionado = "posnet"
+            else:
+                self.mostrar_error_temporal(
+                    self.label_tipo_pago_no_elegido,
+                    "Seleccione el precio de venta",
+                )
+                return
+
+            self.base_datos.registrar_venta(
+                producto, cantidad_a_vender, tipo_pago_seleccionado
+            )
+            QtWidgets.QMessageBox.information(
+                self, "Venta Cargada", "Venta registrada con éxito"
+            )
+            self.limpiar_campos()
+            self.actualizar_treeviews()
+
+        except ValueError:
+            self.mostrar_error_temporal(
+                self.label_cantidad_invalida,
+                "Por favor ingrese una cantidad válida",
             )
 
     def limpiar_campos(self):
@@ -297,68 +300,63 @@ class VentanaRegistrarVentasAutorizado(
     def verificar_cantidad_a_vender(self):
         producto_seleccionado = self.treeview_productos.currentIndex()
 
-        if producto_seleccionado.isValid():
-            producto = self.modelo_productos.itemFromIndex(
-                producto_seleccionado.siblingAtColumn(0)
-            ).text()
-            try:
-                cantidad_a_vender = int(self.input_cantidad_vendida.text())
-                if not self.base_datos.stock_suficiente(producto, cantidad_a_vender):
-                    self.mostrar_error_temporal(
-                        self.label_cantidad_invalida,
-                        "No hay stock suficiente para esa venta",
-                    )
-                elif cantidad_a_vender < 1:
-                    self.mostrar_error_temporal(
-                        self.label_cantidad_invalida,
-                        "Por favor Ingrese una cantidad valida",
-                    )
-                else:
-                    if (
-                        self.eleccion_efectivo.isChecked()
-                        or self.eleccion_constructor.isChecked()
-                    ):
-                        self.base_datos.registrar_venta(
-                            producto, cantidad_a_vender, "efectivo"
-                        )
-                        QtWidgets.QMessageBox.information(
-                            self, "Venta Cargada", "Venta registrada con exito"
-                        )
-                        self.limpiar_campos()
-                        self.actualizar_treeviews()
-                    elif self.eleccion_posnet.isChecked():
-                        self.base_datos.registrar_venta(
-                            producto, cantidad_a_vender, "posnet"
-                        )
-                        QtWidgets.QMessageBox.information(
-                            self, "Venta Cargada", "Venta registrada con exito"
-                        )
-                        self.limpiar_campos()
-                        self.actualizar_treeviews()
-                    elif self.eleccion_mercadolibre.isChecked():
-                        self.base_datos.registrar_venta(
-                            producto, cantidad_a_vender, "mercadolibre"
-                        )
-                        QtWidgets.QMessageBox.information(
-                            self, "Venta Cargada", "Venta registrada con exito"
-                        )
-                        self.limpiar_campos()
-                        self.actualizar_treeviews()
-                    else:
-                        self.mostrar_error_temporal(
-                            self.label_tipo_pago_no_elegido,
-                            "Seleccione el precio de venta",
-                        )
-
-            except ValueError:
-                self.mostrar_error_temporal(
-                    self.label_cantidad_invalida,
-                    "Por favor ingrese una cantidad valida",
-                )
-        else:
+        if not producto_seleccionado.isValid():
             self.mostrar_error_temporal(
                 self.label_cantidad_invalida,
                 "Seleccione un producto primero",
+            )
+            return
+
+        producto = self.modelo_productos.itemFromIndex(
+            producto_seleccionado.siblingAtColumn(0)
+        ).text()
+
+        try:
+            cantidad_a_vender = int(self.input_cantidad_vendida.text())
+            if cantidad_a_vender < 1:
+                self.mostrar_error_temporal(
+                    self.label_cantidad_invalida,
+                    "Por favor Ingrese una cantidad válida",
+                )
+                return
+
+            if not self.base_datos.stock_suficiente(producto, cantidad_a_vender):
+                self.mostrar_error_temporal(
+                    self.label_cantidad_invalida,
+                    "No hay stock suficiente para esa venta",
+                )
+                return
+
+            tipo_pago = None
+            opciones_pago = {
+                self.eleccion_efectivo: "efectivo",
+                self.eleccion_constructor: "constructor",
+                self.eleccion_posnet: "posnet",
+                self.eleccion_mercadolibre: "mercadolibre",
+            }
+            for opcion, pago in opciones_pago.items():
+                if opcion.isChecked():
+                    tipo_pago = pago
+                    break
+
+            if tipo_pago is None:
+                self.mostrar_error_temporal(
+                    self.label_tipo_pago_no_elegido,
+                    "Seleccione el precio de venta",
+                )
+                return
+
+            self.base_datos.registrar_venta(producto, cantidad_a_vender, tipo_pago)
+            QtWidgets.QMessageBox.information(
+                self, "Venta Cargada", "Venta registrada con éxito"
+            )
+            self.limpiar_campos()
+            self.actualizar_treeviews()
+
+        except ValueError:
+            self.mostrar_error_temporal(
+                self.label_cantidad_invalida,
+                "Por favor ingrese una cantidad válida",
             )
 
     def limpiar_campos(self):
@@ -655,7 +653,7 @@ class VentanaStock(Ventana):
         nombre_producto = self.input_buscar_producto.text().lower()
         if len(nombre_producto) > 0:
             items = self.modelo_productos.findItems(
-                nombre_producto, QtCore.Qt.MatchContains, 0
+                nombre_producto, QtCore.Qt.MatchContains, 1
             )  # Columna 0 es la columna de "Producto"
 
             if items:
@@ -680,27 +678,38 @@ class VentanaStock(Ventana):
         pass
 
     def eliminar_producto(self):
-        producto = self.treeview_productos.currentIndex()
-        if producto.isValid():
-            respuesta = QtWidgets.QMessageBox.question(
-                self,
-                "Confirmación",
-                "¿Está seguro de que desea eliminar este producto?",
-            )
-            if respuesta == QtWidgets.QMessageBox.Yes:
-                producto = self.modelo_productos.itemFromIndex(
-                    producto.siblingAtColumn(0)
-                ).text()
-                self.base_datos.eliminar_producto(producto)
-                QtWidgets.QMessageBox.information(
-                    self, "Confirmacion", "Venta eliminada con exito."
-                )
-                self.actualizar_treeview_productos()
-        else:
+        producto_seleccionado = self.treeview_productos.currentIndex()
+
+        if not producto_seleccionado.isValid():
             self.mostrar_error_temporal(
                 self.label_eliminar_producto,
                 "Seleccione un producto de la lista",
             )
+            return
+
+        producto_nombre = self.modelo_productos.itemFromIndex(
+            producto_seleccionado.siblingAtColumn(0)
+        ).text()
+
+        respuesta = QtWidgets.QMessageBox.question(
+            self,
+            "Confirmación",
+            "¿Está seguro de que desea eliminar el producto '{}'?".format(
+                producto_nombre
+            ),
+        )
+
+        if respuesta == QtWidgets.QMessageBox.Yes:
+            try:
+                self.base_datos.eliminar_producto(producto_nombre)
+                QtWidgets.QMessageBox.information(
+                    self, "Confirmación", "Producto eliminado con éxito."
+                )
+                self.actualizar_treeview_productos()
+            except Exception as e:
+                QtWidgets.QMessageBox.critical(
+                    self, "Error", "Error al eliminar el producto: {}".format(str(e))
+                )
 
     def modificar_producto(self):
         self.ocultar_campos()
@@ -750,98 +759,56 @@ class VentanaStock(Ventana):
     def modificar_productos_gral(self):
         self.mostrar_campos_modificar_productos_gral()
 
-    def modificar_costo_inicial(self):
+    def modificar_parametro(self, parametro, mensaje):
         self.widget_ingresar_porcentaje.setVisible(True)
-        self.label_ingrese_porcentaje.setText(
-            "Ingrese el porcentaje de aumento del costo inicial para todos los productos"
-        )
+        self.label_ingrese_porcentaje.setText(mensaje)
         try:
             self.boton_confirmar_modificacion_gral.clicked.disconnect()
         except TypeError:
             pass
         self.boton_confirmar_modificacion_gral.clicked.connect(
-            self.confirmar_modificar_costo_inicial
+            lambda: self.confirmar_modificar_gral(parametro)
         )
 
-    def confirmar_modificar_costo_inicial(self):
-        pass
+    def modificar_costo_inicial(self):
+        self.modificar_parametro(
+            "costo_inicial",
+            "Ingrese el porcentaje de aumento del costo inicial para todos los productos",
+        )
 
     def modificar_descuento_1(self):
-        self.widget_ingresar_porcentaje.setVisible(True)
-        self.label_ingrese_porcentaje.setText(
-            "Ingrese el nuevo porcentaje de descuento_1 para todos los productos"
-        )
-        try:
-            self.boton_confirmar_modificacion_gral.clicked.disconnect()
-        except TypeError:
-            pass
-        self.boton_confirmar_modificacion_gral.clicked.connect(
-            lambda: self.confirmar_modificar_gral("descuento_1")
+        self.modificar_parametro(
+            "descuento_1",
+            "Ingrese el nuevo porcentaje de descuento_1 para todos los productos",
         )
 
     def modificar_descuento_2(self):
-        self.widget_ingresar_porcentaje.setVisible(True)
-        self.label_ingrese_porcentaje.setText(
-            "Ingrese el nuevo porcentaje de descuento_2 para todos los productos"
-        )
-        try:
-            self.boton_confirmar_modificacion_gral.clicked.disconnect()
-        except TypeError:
-            pass
-        self.boton_confirmar_modificacion_gral.clicked.connect(
-            lambda: self.confirmar_modificar_gral("descuento_2")
+        self.modificar_parametro(
+            "descuento_2",
+            "Ingrese el nuevo porcentaje de descuento_2 para todos los productos",
         )
 
     def modificar_iva(self):
-        self.widget_ingresar_porcentaje.setVisible(True)
-        self.label_ingrese_porcentaje.setText(
-            "Ingrese el nuevo porcentaje de iva para todos los productos"
-        )
-        try:
-            self.boton_confirmar_modificacion_gral.clicked.disconnect()
-        except TypeError:
-            pass
-        self.boton_confirmar_modificacion_gral.clicked.connect(
-            lambda: self.confirmar_modificar_gral("iva")
+        self.modificar_parametro(
+            "iva", "Ingrese el nuevo porcentaje de iva para todos los productos"
         )
 
     def modificar_aumento_efectivo(self):
-        self.widget_ingresar_porcentaje.setVisible(True)
-        self.label_ingrese_porcentaje.setText(
-            "Ingrese el nuevo porcentaje de aumento_efectivo para todos los productos"
-        )
-        try:
-            self.boton_confirmar_modificacion_gral.clicked.disconnect()
-        except TypeError:
-            pass
-        self.boton_confirmar_modificacion_gral.clicked.connect(
-            lambda: self.confirmar_modificar_gral("aumento_efectivo")
+        self.modificar_parametro(
+            "aumento_efectivo",
+            "Ingrese el nuevo porcentaje de aumento_efectivo para todos los productos",
         )
 
     def modificar_aumento_mercadolibre(self):
-        self.widget_ingresar_porcentaje.setVisible(True)
-        self.label_ingrese_porcentaje.setText(
-            "Ingrese el nuevo porcentaje de aumento_mercadolibre para todos los productos"
-        )
-        try:
-            self.boton_confirmar_modificacion_gral.clicked.disconnect()
-        except TypeError:
-            pass
-        self.boton_confirmar_modificacion_gral.clicked.connect(
-            lambda: self.confirmar_modificar_gral("aumento_mercadolibre")
+        self.modificar_parametro(
+            "aumento_mercadolibre",
+            "Ingrese el nuevo porcentaje de aumento_mercadolibre para todos los productos",
         )
 
     def modificar_aumento_constructores(self):
-        self.widget_ingresar_porcentaje.setVisible(True)
-        self.label_ingrese_porcentaje.setText(
-            "Ingrese el nuevo porcentaje de aumento_constructores para todos los productos"
-        )
-        try:
-            self.boton_confirmar_modificacion_gral.clicked.disconnect()
-        except TypeError:
-            pass
-        self.boton_confirmar_modificacion_gral.clicked.connect(
-            lambda: self.confirmar_modificar_gral("aumento_constructores")
+        self.modificar_parametro(
+            "aumento_constructores",
+            "Ingrese el nuevo porcentaje de aumento_constructores para todos los productos",
         )
 
     def confirmar_modificar_gral(self, columna):
@@ -963,7 +930,7 @@ class VentanaStockCregar(VentanaStock, Ui_StockCregar):
         try:
             nuevo_producto = self.input_nombre_producto.text()
             if (
-                self.nombre_viejo_producto != nuevo_producto
+                self.nombre_viejo_producto.lower() != nuevo_producto.lower()
                 and self.base_datos.producto_repetido_en_stock(nuevo_producto)
             ):
                 self.mostrar_error_temporal(self.label_error, "Producto ya existente")
@@ -1113,7 +1080,7 @@ class VentanaStockFara(VentanaStock, Ui_StockFara):
         try:
             nuevo_producto = self.input_nombre_producto.text()
             if (
-                self.nombre_viejo_producto != nuevo_producto
+                self.nombre_viejo_producto.lower() != nuevo_producto.lower()
                 and self.base_datos.producto_repetido_en_stock(nuevo_producto)
             ):
                 self.mostrar_error_temporal(self.label_error, "Producto ya existente")
@@ -1303,7 +1270,7 @@ class VentanaStockFontana(VentanaStock, Ui_StockFontana):
         try:
             nuevo_producto = self.input_nombre_producto.text()
             if (
-                self.nombre_viejo_producto != nuevo_producto
+                self.nombre_viejo_producto.lower() != nuevo_producto.lower()
                 and self.base_datos.producto_repetido_en_stock(nuevo_producto)
             ):
                 self.mostrar_error_temporal(self.label_error, "Producto ya existente")
@@ -1449,7 +1416,7 @@ class VentanaRegistrarCompras(Ventana, Ui_RegistrarCompras):
         nombre_producto = self.input_buscar_producto.text().lower()
         if len(nombre_producto) > 0:
             items = self.modelo_productos.findItems(
-                nombre_producto, QtCore.Qt.MatchContains, 0
+                nombre_producto, QtCore.Qt.MatchContains, 1
             )  # Columna 0 es la columna de "Producto"
 
             if items:
@@ -1820,7 +1787,7 @@ class VentanaHistorialVentas(Ventana, Ui_HistorialVentas):
             self.ocultar_campos()
             self.actualizar_treeviews()
             QtWidgets.QMessageBox.information(
-                self, "Confirmacion", "Venta modificada cone exito."
+                self, "Confirmacion", "Venta modificada con exito."
             )
         except ValueError:
             self.mostrar_error_temporal(

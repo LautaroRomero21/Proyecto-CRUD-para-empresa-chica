@@ -34,7 +34,7 @@ font: 57 14pt &quot;Yu Gothic Medium&quot;;
 color: #fff;
 background: none;
 }
-QPushButton#boton_usuarios,#boton_modificar_comisiones{
+QPushButton#boton_usuarios,#boton_modificar_comisiones,#boton_generar_imprimible{
 font: 57 12pt &quot;Yu Gothic Medium&quot;;
 color: #fff;
 background-image: url(:/ventana_principal_autorizado/principal_autorizada_background.png);
@@ -95,9 +95,9 @@ background: none;</string>
   <widget class="QPushButton" name="boton_usuarios">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>190</x>
      <y>650</y>
-     <width>271</width>
+     <width>241</width>
      <height>51</height>
     </rect>
    </property>
@@ -426,9 +426,9 @@ border: 1px solid grey</string>
   <widget class="QPushButton" name="boton_modificar_comisiones">
    <property name="geometry">
     <rect>
-     <x>650</x>
+     <x>490</x>
      <y>650</y>
-     <width>281</width>
+     <width>241</width>
      <height>51</height>
     </rect>
    </property>
@@ -440,6 +440,25 @@ border: 1px solid grey</string>
    </property>
    <property name="text">
     <string>Modificar Comisiones</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="boton_generar_imprimible">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>650</y>
+     <width>241</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/ventana_principal_autorizado/principal_autorizada_background.png);</string>
+   </property>
+   <property name="text">
+    <string>Generar Imprimible</string>
    </property>
   </widget>
  </widget>

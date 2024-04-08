@@ -111,7 +111,7 @@ class Base:
                 "mercadolibre": 13,
                 "posnet": 7,
                 "efectivo": 0,
-                "constructores": 0,
+                "constructor": 0,
             }
             with open("impuestos.json", "w") as file:
                 json.dump(impuestos_default, file)
@@ -143,7 +143,7 @@ class Base:
             producto_info = self.buscar_informacion_producto(id_producto)
             precio = self.obtener_precio(producto_info, tipo_pago)
             porcentaje_perdido = self.impuestos[tipo_pago]
-            if tipo_pago == "constructores":
+            if tipo_pago == "constructor":
                 tipo_pago = "efectivo"
             Ventas.create(
                 id_venta=self.mayor_id_ventas() + 1,
@@ -151,7 +151,7 @@ class Base:
                 producto=producto_info.producto,
                 cantidad=cantidad_vendida,
                 precio_unitario=precio,
-                precio_total=precio * cantidad_vendida,
+                precio_total=round((precio * cantidad_vendida), 2),
                 ingreso_neto=round(
                     precio * cantidad_vendida * (1 - porcentaje_perdido / 100), 2
                 ),
@@ -764,13 +764,9 @@ class Base:
     #################   GANANCIAS   #################
     def consultar_ganancias_totales(self, fecha_inicial, fecha_final):
         try:
-            total_ganado = (
-                Ventas.select(fn.Sum(Ventas.ingreso_neto))
-                .where((Ventas.fecha >= fecha_inicial) & (Ventas.fecha <= fecha_final))
-                .scalar()
-                or 0
-            )
-            return total_ganado
+            total_ganado = self.consultar_total_vendido(fecha_inicial, fecha_final)
+            total_gastado = self.consultar_total_gastado(fecha_inicial, fecha_final)
+            return total_ganado - total_gastado
         except PeeweeException:
             print("Error al consultar el total ganado en la Base de Datos")
             return None
@@ -779,23 +775,13 @@ class Base:
         self, fecha_inicial, fecha_final, tipo_pago
     ):
         try:
-            total_ganado = (
-                Ventas.select(fn.Sum(Ventas.ingreso_neto))
-                .where(
-                    (Ventas.fecha >= fecha_inicial)
-                    & (Ventas.fecha <= fecha_final)
-                    & (Ventas.tipo_pago == tipo_pago)
-                )
-                .scalar()
-                or 0
+            total_ganado = self.consultar_total_vendido_segun_tipo_pago(
+                fecha_inicial, fecha_final, tipo_pago
             )
-            return total_ganado
+            total_gastado = self.consultar_total_gastado(fecha_inicial, fecha_final)
+            return total_ganado - total_gastado
         except PeeweeException:
             print(
                 f"Error al consultar el total ganado en {tipo_pago} en la Base de Datos"
             )
             return None
-
-
-if __name__ == "__main__":
-    base_datos = Base()

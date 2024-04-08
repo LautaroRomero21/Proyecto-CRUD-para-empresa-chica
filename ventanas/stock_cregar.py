@@ -155,7 +155,7 @@ class Ui_StockCregar(object):
         header = self.treeview_productos.header()
         header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
         header.resizeSection(0, 60)
-        header.resizeSection(1, 150)
+        header.resizeSection(1,170)
         header.resizeSection(2, 45)
         header.resizeSection(3, 90)
         header.resizeSection(4, 90)
