@@ -12,13 +12,18 @@ from peewee import (
 )
 from datetime import date
 import json
+import os
+from dotenv import load_dotenv
+
+# Cargar las variables de entorno desde el archivo credenciales.env
+load_dotenv(dotenv_path="credenciales.env")
 
 db = MySQLDatabase(
-    "mi_base_de_datos",
-    user="root",
-    password="Lautaroromero_021",
-    host="localhost",
-    port=3306,
+    os.getenv("DB_NAME"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
+    host=os.getenv("DB_HOST"),
+    port=int(os.getenv("DB_PORT")),
 )
 
 
