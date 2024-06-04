@@ -102,7 +102,7 @@ color: #fff;
     <property name="geometry">
      <rect>
       <x>850</x>
-      <y>50</y>
+      <y>40</y>
       <width>161</width>
       <height>21</height>
      </rect>
@@ -121,7 +121,7 @@ background: none;</string>
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>120</y>
+      <y>110</y>
       <width>351</width>
       <height>31</height>
      </rect>
@@ -143,7 +143,7 @@ background: none;</string>
     <property name="geometry">
      <rect>
       <x>810</x>
-      <y>140</y>
+      <y>130</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -161,8 +161,8 @@ background: none;</string>
    <widget class="QRadioButton" name="eleccion_efectivo">
     <property name="geometry">
      <rect>
-      <x>780</x>
-      <y>180</y>
+      <x>750</x>
+      <y>160</y>
       <width>91</width>
       <height>21</height>
      </rect>
@@ -187,7 +187,7 @@ background: none;</string>
     <property name="geometry">
      <rect>
       <x>900</x>
-      <y>80</y>
+      <y>70</y>
       <width>71</width>
       <height>41</height>
      </rect>
@@ -235,8 +235,8 @@ background: none;</string>
    <widget class="QRadioButton" name="eleccion_posnet">
     <property name="geometry">
      <rect>
-      <x>900</x>
-      <y>170</y>
+      <x>980</x>
+      <y>150</y>
       <width>81</width>
       <height>41</height>
      </rect>
@@ -260,9 +260,9 @@ background: none;</string>
    <widget class="QPushButton" name="boton_registrar_venta">
     <property name="geometry">
      <rect>
-      <x>870</x>
-      <y>230</y>
-      <width>141</width>
+      <x>880</x>
+      <y>260</y>
+      <width>121</width>
       <height>41</height>
      </rect>
     </property>
@@ -280,7 +280,7 @@ background: none;</string>
     <property name="geometry">
      <rect>
       <x>780</x>
-      <y>200</y>
+      <y>180</y>
       <width>321</width>
       <height>21</height>
      </rect>
@@ -301,9 +301,9 @@ background: none;</string>
     <property name="geometry">
      <rect>
       <x>650</x>
-      <y>280</y>
+      <y>310</y>
       <width>531</width>
-      <height>361</height>
+      <height>331</height>
      </rect>
     </property>
     <property name="font">
@@ -395,8 +395,8 @@ background: none;</string>
    <widget class="QRadioButton" name="eleccion_constructor">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>170</y>
+      <x>1070</x>
+      <y>150</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -440,7 +440,7 @@ background: none;</string>
     <property name="geometry">
      <rect>
       <x>650</x>
-      <y>140</y>
+      <y>150</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -459,7 +459,7 @@ background: none;</string>
     <property name="geometry">
      <rect>
       <x>650</x>
-      <y>180</y>
+      <y>200</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -478,7 +478,7 @@ background: none;</string>
     <property name="geometry">
      <rect>
       <x>650</x>
-      <y>220</y>
+      <y>250</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -519,6 +519,113 @@ background: none;</string>
     </property>
     <property name="text">
      <string>↻</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget_factura" native="true">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>200</y>
+      <width>451</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <widget class="QRadioButton" name="eleccion_factura_A">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>30</y>
+       <width>151</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Yu Gothic Medium</family>
+       <pointsize>12</pointsize>
+       <weight>7</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Factura A</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="eleccion_factura_C">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>30</y>
+       <width>141</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Yu Gothic Medium</family>
+       <pointsize>12</pointsize>
+       <weight>7</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Factura C</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_seleccionar_factura">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>0</y>
+       <width>261</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+font: 57 14pt &quot;Yu Gothic Medium&quot;;
+color: #fff;
+background: none;</string>
+     </property>
+     <property name="text">
+      <string>Seleccione la factura:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QRadioButton" name="eleccion_mercadolibre">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>160</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Yu Gothic Medium</family>
+      <pointsize>12</pointsize>
+      <weight>7</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>MercadoLibre</string>
     </property>
    </widget>
   </widget>

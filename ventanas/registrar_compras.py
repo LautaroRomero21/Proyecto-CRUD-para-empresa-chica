@@ -17,13 +17,13 @@ class Ui_RegistrarCompras(object):
     def setupUi(self, RegistrarCompras):
         RegistrarCompras.setObjectName("RegistrarCompras")
         RegistrarCompras.resize(1195, 722)
-        RegistrarCompras.setMinimumSize(QtCore.QSize(1195, 722))
-        RegistrarCompras.setMaximumSize(QtCore.QSize(1195, 722))
+        RegistrarCompras.setMinimumSize(QtCore.QSize(1195, 645))
+        RegistrarCompras.setMaximumSize(QtCore.QSize(1195, 645))
         RegistrarCompras.setStyleSheet("")
         self.widget = QtWidgets.QWidget(RegistrarCompras)
-        self.widget.setGeometry(QtCore.QRect(0, 0, 1195, 722))
-        self.widget.setMinimumSize(QtCore.QSize(1195, 722))
-        self.widget.setMaximumSize(QtCore.QSize(1195, 722))
+        self.widget.setGeometry(QtCore.QRect(0, 0, 1195, 645))
+        self.widget.setMinimumSize(QtCore.QSize(1195, 645))
+        self.widget.setMaximumSize(QtCore.QSize(1195, 645))
         self.widget.setStyleSheet(
             "QPushButton{\n"
             'font: 57 11pt "Yu Gothic Medium";\n'
@@ -122,7 +122,7 @@ class Ui_RegistrarCompras(object):
         self.input_cantidad_comprada.setAlignment(QtCore.Qt.AlignCenter)
         self.input_cantidad_comprada.setObjectName("input_cantidad_comprada")
         self.treeview_compras = QtWidgets.QTreeView(self.widget)
-        self.treeview_compras.setGeometry(QtCore.QRect(620, 280, 571, 431))
+        self.treeview_compras.setGeometry(QtCore.QRect(620, 280, 571, 361))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.treeview_compras.setFont(font)
@@ -193,7 +193,7 @@ class Ui_RegistrarCompras(object):
         self.label_error_al_registrar.setAlignment(QtCore.Qt.AlignCenter)
         self.label_error_al_registrar.setObjectName("label_error_al_registrar")
         self.treeview_productos = QtWidgets.QTreeView(self.widget)
-        self.treeview_productos.setGeometry(QtCore.QRect(10, 120, 601, 591))
+        self.treeview_productos.setGeometry(QtCore.QRect(10, 120, 601, 521))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.treeview_productos.setFont(font)

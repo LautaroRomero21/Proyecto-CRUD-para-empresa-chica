@@ -15,9 +15,9 @@ from ventanas.imagenes import imagenes
 class Ui_VentanaPrincipalAutorizada(object):
     def setupUi(self, VentanaPrincipalAutorizada):
         VentanaPrincipalAutorizada.setObjectName("VentanaPrincipalAutorizada")
-        VentanaPrincipalAutorizada.resize(1195, 722)
-        VentanaPrincipalAutorizada.setMinimumSize(QtCore.QSize(1195, 722))
-        VentanaPrincipalAutorizada.setMaximumSize(QtCore.QSize(1195, 722))
+        VentanaPrincipalAutorizada.resize(1195, 645)
+        VentanaPrincipalAutorizada.setMinimumSize(QtCore.QSize(1195, 645))
+        VentanaPrincipalAutorizada.setMaximumSize(QtCore.QSize(1195, 645))
         VentanaPrincipalAutorizada.setCursor(QtGui.QCursor(QtCore.Qt.UpArrowCursor))
         VentanaPrincipalAutorizada.setStyleSheet(
             "QLabel{\n"
@@ -25,7 +25,7 @@ class Ui_VentanaPrincipalAutorizada(object):
             "color: #fff;\n"
             "background: none;\n"
             "}\n"
-            "QPushButton#boton_usuarios,#boton_modificar_comisiones{\n"
+            "QPushButton#boton_usuarios,#boton_modificar_comisiones,#boton_generar_imprimible{\n"
             'font: 57 12pt "Yu Gothic Medium";\n'
             "color: #fff;\n"
             "background-image: url(:/ventana_principal_autorizado/principal_autorizada_background.png);\n"
@@ -45,62 +45,62 @@ class Ui_VentanaPrincipalAutorizada(object):
         self.label_3.setText("")
         self.label_3.setObjectName("label_3")
         self.label_6 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_6.setGeometry(QtCore.QRect(430, 30, 341, 41))
+        self.label_6.setGeometry(QtCore.QRect(450, 10, 341, 41))
         self.label_6.setStyleSheet(
             'font: 28pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
         )
         self.label_6.setObjectName("label_6")
         self.boton_usuarios = QtWidgets.QPushButton(VentanaPrincipalAutorizada)
-        self.boton_usuarios.setGeometry(QtCore.QRect(280, 650, 271, 51))
+        self.boton_usuarios.setGeometry(QtCore.QRect(290, 590, 241, 51))
         self.boton_usuarios.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.boton_usuarios.setStyleSheet(
             "background-image: url(:/ventana_principal_autorizado/principal_autorizada_background.png);"
         )
         self.boton_usuarios.setObjectName("boton_usuarios")
         self.label_5 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_5.setGeometry(QtCore.QRect(830, 380, 271, 191))
+        self.label_5.setGeometry(QtCore.QRect(830, 340, 271, 191))
         self.label_5.setStyleSheet(
             "background-image: url(:/ventana_principal_autorizado/ganancias.png);"
         )
         self.label_5.setText("")
         self.label_5.setObjectName("label_5")
         self.label_7 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_7.setGeometry(QtCore.QRect(470, 380, 271, 191))
+        self.label_7.setGeometry(QtCore.QRect(470, 340, 271, 191))
         self.label_7.setStyleSheet(
             "background-image: url(:/ventana_principal_autorizado/historial_compras.png);"
         )
         self.label_7.setText("")
         self.label_7.setObjectName("label_7")
         self.label_2 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_2.setGeometry(QtCore.QRect(470, 110, 271, 191))
+        self.label_2.setGeometry(QtCore.QRect(480, 80, 271, 191))
         self.label_2.setStyleSheet(
             "background-image: url(:/ventana_principal_autorizado/historial_ventas.png);"
         )
         self.label_2.setText("")
         self.label_2.setObjectName("label_2")
         self.label = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label.setGeometry(QtCore.QRect(110, 110, 271, 191))
+        self.label.setGeometry(QtCore.QRect(110, 80, 271, 191))
         self.label.setStyleSheet(
             "background-image: url(:/ventana_principal_autorizado/registrar_ventas.png);"
         )
         self.label.setText("")
         self.label.setObjectName("label")
         self.label_4 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_4.setGeometry(QtCore.QRect(830, 110, 271, 191))
+        self.label_4.setGeometry(QtCore.QRect(830, 80, 271, 191))
         self.label_4.setStyleSheet(
             "background-image: url(:/ventana_principal_autorizado/stock_disponible.png);"
         )
         self.label_4.setText("")
         self.label_4.setObjectName("label_4")
         self.label_8 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_8.setGeometry(QtCore.QRect(100, 380, 271, 191))
+        self.label_8.setGeometry(QtCore.QRect(110, 340, 271, 191))
         self.label_8.setStyleSheet(
             "background-image: url(:/ventana_principal_autorizado/registrar_compras.png);"
         )
         self.label_8.setText("")
         self.label_8.setObjectName("label_8")
         self.boton_registrar_ventas = QtWidgets.QPushButton(VentanaPrincipalAutorizada)
-        self.boton_registrar_ventas.setGeometry(QtCore.QRect(100, 100, 291, 211))
+        self.boton_registrar_ventas.setGeometry(QtCore.QRect(100, 70, 291, 211))
         self.boton_registrar_ventas.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -110,7 +110,7 @@ class Ui_VentanaPrincipalAutorizada(object):
         self.boton_registrar_ventas.setText("")
         self.boton_registrar_ventas.setObjectName("boton_registrar_ventas")
         self.boton_historial_ventas = QtWidgets.QPushButton(VentanaPrincipalAutorizada)
-        self.boton_historial_ventas.setGeometry(QtCore.QRect(460, 100, 291, 211))
+        self.boton_historial_ventas.setGeometry(QtCore.QRect(470, 70, 291, 211))
         self.boton_historial_ventas.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -120,7 +120,7 @@ class Ui_VentanaPrincipalAutorizada(object):
         self.boton_historial_ventas.setText("")
         self.boton_historial_ventas.setObjectName("boton_historial_ventas")
         self.boton_stock_disponible = QtWidgets.QPushButton(VentanaPrincipalAutorizada)
-        self.boton_stock_disponible.setGeometry(QtCore.QRect(820, 100, 291, 211))
+        self.boton_stock_disponible.setGeometry(QtCore.QRect(820, 70, 291, 211))
         self.boton_stock_disponible.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -132,7 +132,7 @@ class Ui_VentanaPrincipalAutorizada(object):
         self.boton_consultar_ganancias = QtWidgets.QPushButton(
             VentanaPrincipalAutorizada
         )
-        self.boton_consultar_ganancias.setGeometry(QtCore.QRect(820, 370, 291, 211))
+        self.boton_consultar_ganancias.setGeometry(QtCore.QRect(820, 330, 291, 211))
         self.boton_consultar_ganancias.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -142,7 +142,7 @@ class Ui_VentanaPrincipalAutorizada(object):
         self.boton_consultar_ganancias.setText("")
         self.boton_consultar_ganancias.setObjectName("boton_consultar_ganancias")
         self.boton_historial_compras = QtWidgets.QPushButton(VentanaPrincipalAutorizada)
-        self.boton_historial_compras.setGeometry(QtCore.QRect(460, 370, 291, 211))
+        self.boton_historial_compras.setGeometry(QtCore.QRect(460, 330, 291, 211))
         self.boton_historial_compras.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -152,7 +152,7 @@ class Ui_VentanaPrincipalAutorizada(object):
         self.boton_historial_compras.setText("")
         self.boton_historial_compras.setObjectName("boton_historial_compras")
         self.boton_registrar_compras = QtWidgets.QPushButton(VentanaPrincipalAutorizada)
-        self.boton_registrar_compras.setGeometry(QtCore.QRect(90, 370, 291, 211))
+        self.boton_registrar_compras.setGeometry(QtCore.QRect(100, 330, 291, 211))
         self.boton_registrar_compras.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -162,33 +162,33 @@ class Ui_VentanaPrincipalAutorizada(object):
         self.boton_registrar_compras.setText("")
         self.boton_registrar_compras.setObjectName("boton_registrar_compras")
         self.label_9 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_9.setGeometry(QtCore.QRect(170, 320, 151, 31))
+        self.label_9.setGeometry(QtCore.QRect(170, 290, 151, 31))
         self.label_9.setStyleSheet("")
         self.label_9.setObjectName("label_9")
         self.label_11 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_11.setGeometry(QtCore.QRect(530, 320, 151, 31))
+        self.label_11.setGeometry(QtCore.QRect(540, 290, 151, 31))
         self.label_11.setStyleSheet("")
         self.label_11.setObjectName("label_11")
         self.label_13 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_13.setGeometry(QtCore.QRect(890, 320, 161, 31))
+        self.label_13.setGeometry(QtCore.QRect(890, 290, 161, 31))
         self.label_13.setStyleSheet("")
         self.label_13.setObjectName("label_13")
         self.label_10 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_10.setGeometry(QtCore.QRect(150, 590, 181, 31))
+        self.label_10.setGeometry(QtCore.QRect(160, 550, 181, 31))
         self.label_10.setStyleSheet("")
         self.label_10.setObjectName("label_10")
         self.label_12 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_12.setGeometry(QtCore.QRect(530, 590, 161, 31))
+        self.label_12.setGeometry(QtCore.QRect(530, 550, 161, 31))
         self.label_12.setStyleSheet("")
         self.label_12.setObjectName("label_12")
         self.label_14 = QtWidgets.QLabel(VentanaPrincipalAutorizada)
-        self.label_14.setGeometry(QtCore.QRect(880, 590, 191, 31))
+        self.label_14.setGeometry(QtCore.QRect(880, 550, 191, 31))
         self.label_14.setStyleSheet("")
         self.label_14.setObjectName("label_14")
         self.boton_modificar_comisiones = QtWidgets.QPushButton(
             VentanaPrincipalAutorizada
         )
-        self.boton_modificar_comisiones.setGeometry(QtCore.QRect(650, 650, 281, 51))
+        self.boton_modificar_comisiones.setGeometry(QtCore.QRect(670, 590, 241, 51))
         self.boton_modificar_comisiones.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )

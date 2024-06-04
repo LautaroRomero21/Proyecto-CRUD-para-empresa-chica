@@ -16,9 +16,9 @@ from PyQt5.QtCore import Qt
 class Ui_StockFara(object):
     def setupUi(self, StockFara):
         StockFara.setObjectName("StockFara")
-        StockFara.resize(1195, 722)
-        StockFara.setMinimumSize(QtCore.QSize(1195, 722))
-        StockFara.setMaximumSize(QtCore.QSize(1195, 722))
+        StockFara.resize(1195, 645)
+        StockFara.setMinimumSize(QtCore.QSize(1195, 645))
+        StockFara.setMaximumSize(QtCore.QSize(1195, 645))
         StockFara.setStyleSheet("")
         self.widget = QtWidgets.QWidget(StockFara)
         self.widget.setGeometry(QtCore.QRect(0, 0, 1195, 722))
@@ -62,12 +62,11 @@ class Ui_StockFara(object):
             "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(0, 190, 255, 113));\n"
             "color: #fff;\n"
             "border: 1px solid #000;\n"
-            "font-size: 15px;\n"
             "}\n"
             "QHeaderView::section {\n"
             "color: #000;\n"
             "border: 1px solid #000;\n"
-            "font-size: 14px;\n"
+            "font-size: 15px;\n"
             "}\n"
             "QTreeView::item {\n"
             "color: #fff;\n"
@@ -75,11 +74,10 @@ class Ui_StockFara(object):
             "border-bottom: 0.5px solid #000;\n"
             "}\n"
             "QTreeView::item:selected {\n"
-            "background-color: red;\n"
+            "background-color: #f00;\n"
             "}\n"
             ""
         )
-
         self.widget.setObjectName("widget")
         self.widget_lista_productos = QtWidgets.QWidget(self.widget)
         self.widget_lista_productos.setGeometry(QtCore.QRect(0, 0, 1201, 721))
@@ -123,7 +121,7 @@ class Ui_StockFara(object):
         self.boton_volver.setStyleSheet("")
         self.boton_volver.setObjectName("boton_volver")
         self.treeview_productos = QtWidgets.QTreeView(self.widget_lista_productos)
-        self.treeview_productos.setGeometry(QtCore.QRect(0, 80, 1191, 501))
+        self.treeview_productos.setGeometry(QtCore.QRect(0, 80, 1191, 471))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.treeview_productos.setFont(font)
@@ -155,22 +153,7 @@ class Ui_StockFara(object):
         )
         header = self.treeview_productos.header()
         header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
-        header.resizeSection(0, 60)
-        header.resizeSection(1, 250)
-        header.resizeSection(2, 45)
-        header.resizeSection(3, 90)
-        header.resizeSection(4, 90)
-        header.resizeSection(5, 0)
-        header.resizeSection(6, 90)
-        header.resizeSection(7, 0)
-        header.resizeSection(8, 90)
-        header.resizeSection(9, 90)
-        header.resizeSection(10, 90)
-        header.resizeSection(11, 90)
-        header.resizeSection(12, 90)
-        header.resizeSection(13, 90)
-        header.resizeSection(14, 90)
-        header.resizeSection(15, 90)
+        header.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 
         self.producto_no_encontrado = QtWidgets.QLabel(self.widget_lista_productos)
         self.producto_no_encontrado.setGeometry(QtCore.QRect(230, 50, 181, 21))
@@ -189,7 +172,7 @@ class Ui_StockFara(object):
         self.producto_no_encontrado.setAlignment(QtCore.Qt.AlignCenter)
         self.producto_no_encontrado.setObjectName("producto_no_encontrado")
         self.boton_agregar_producto = QtWidgets.QPushButton(self.widget_lista_productos)
-        self.boton_agregar_producto.setGeometry(QtCore.QRect(100, 620, 201, 51))
+        self.boton_agregar_producto.setGeometry(QtCore.QRect(100, 560, 201, 51))
         self.boton_agregar_producto.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -198,7 +181,7 @@ class Ui_StockFara(object):
         self.boton_eliminar_producto = QtWidgets.QPushButton(
             self.widget_lista_productos
         )
-        self.boton_eliminar_producto.setGeometry(QtCore.QRect(370, 620, 201, 51))
+        self.boton_eliminar_producto.setGeometry(QtCore.QRect(380, 560, 201, 51))
         self.boton_eliminar_producto.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -207,7 +190,7 @@ class Ui_StockFara(object):
         self.boton_modificar_producto = QtWidgets.QPushButton(
             self.widget_lista_productos
         )
-        self.boton_modificar_producto.setGeometry(QtCore.QRect(640, 620, 201, 51))
+        self.boton_modificar_producto.setGeometry(QtCore.QRect(650, 560, 201, 51))
         self.boton_modificar_producto.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -216,7 +199,7 @@ class Ui_StockFara(object):
         self.boton_modificar_productos_gral = QtWidgets.QPushButton(
             self.widget_lista_productos
         )
-        self.boton_modificar_productos_gral.setGeometry(QtCore.QRect(900, 620, 201, 51))
+        self.boton_modificar_productos_gral.setGeometry(QtCore.QRect(900, 560, 201, 51))
         self.boton_modificar_productos_gral.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -225,7 +208,7 @@ class Ui_StockFara(object):
             "boton_modificar_productos_gral"
         )
         self.label_eliminar_producto = QtWidgets.QLabel(self.widget_lista_productos)
-        self.label_eliminar_producto.setGeometry(QtCore.QRect(350, 670, 251, 21))
+        self.label_eliminar_producto.setGeometry(QtCore.QRect(360, 610, 251, 21))
         font = QtGui.QFont()
         font.setFamily("Yu Gothic Medium")
         font.setPointSize(12)
@@ -241,7 +224,7 @@ class Ui_StockFara(object):
         self.label_eliminar_producto.setAlignment(QtCore.Qt.AlignCenter)
         self.label_eliminar_producto.setObjectName("label_eliminar_producto")
         self.label_modificar_producto = QtWidgets.QLabel(self.widget_lista_productos)
-        self.label_modificar_producto.setGeometry(QtCore.QRect(620, 670, 251, 21))
+        self.label_modificar_producto.setGeometry(QtCore.QRect(630, 610, 251, 21))
         font = QtGui.QFont()
         font.setFamily("Yu Gothic Medium")
         font.setPointSize(12)
@@ -257,7 +240,7 @@ class Ui_StockFara(object):
         self.label_modificar_producto.setAlignment(QtCore.Qt.AlignCenter)
         self.label_modificar_producto.setObjectName("label_modificar_producto")
         self.widget_agregar_producto = QtWidgets.QWidget(self.widget)
-        self.widget_agregar_producto.setGeometry(QtCore.QRect(110, 50, 951, 621))
+        self.widget_agregar_producto.setGeometry(QtCore.QRect(120, 10, 951, 621))
         self.widget_agregar_producto.setStyleSheet("")
         self.widget_agregar_producto.setObjectName("widget_agregar_producto")
         self.input_nombre_producto = QtWidgets.QLineEdit(self.widget_agregar_producto)
@@ -639,7 +622,7 @@ class Ui_StockFara(object):
         self.label_error.setAlignment(QtCore.Qt.AlignCenter)
         self.label_error.setObjectName("label_error")
         self.widget_modificar_gral = QtWidgets.QWidget(self.widget)
-        self.widget_modificar_gral.setGeometry(QtCore.QRect(180, 150, 821, 461))
+        self.widget_modificar_gral.setGeometry(QtCore.QRect(180, 130, 821, 461))
         self.widget_modificar_gral.setStyleSheet("")
         self.widget_modificar_gral.setObjectName("widget_modificar_gral")
         self.label_32 = QtWidgets.QLabel(self.widget_modificar_gral)

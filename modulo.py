@@ -13,7 +13,6 @@ from peewee import (
 from datetime import date
 import json
 
-
 db = MySQLDatabase(
     "mi_base_de_datos",
     user="root",
@@ -133,15 +132,10 @@ class Base:
         return self.impuestos[tipo_pago]
 
     #######################   VENTAS    #######################
-    def registrar_venta(
-        self,
-        id_producto,
-        cantidad_vendida,
-        tipo_pago,
-    ):
+    def registrar_venta(self, id_producto, cantidad_vendida, tipo_pago, factura):
         try:
             producto_info = self.buscar_informacion_producto(id_producto)
-            precio = self.obtener_precio(producto_info, tipo_pago)
+            precio = self.obtener_precio_segun_factura(id_producto, tipo_pago, factura)
             porcentaje_perdido = self.impuestos[tipo_pago]
             if tipo_pago == "constructor":
                 tipo_pago = "efectivo"
@@ -160,6 +154,13 @@ class Base:
             self.restar_stock_producto(id_producto, cantidad_vendida)
         except PeeweeException:
             print("Error al registrar la Ventas en la Base de Datos")
+
+    def obtener_precio_segun_factura(self, id_producto, tipo_pago, factura):
+        producto_info = self.buscar_informacion_producto(id_producto)
+        if factura == "A":
+            return round(self.obtener_precio(producto_info, tipo_pago) * 1.21, 0)
+        elif factura == "C":
+            return self.obtener_precio(producto_info, tipo_pago)
 
     def modificar_venta(
         self,
@@ -230,6 +231,14 @@ class Base:
 
     def obtener_ventas_ordenadas(self):
         return Ventas.select().order_by(Ventas.fecha.desc(), Ventas.id_venta.desc())
+
+    def obtener_ventas_ordenadas_hoy(self):
+        fecha_hoy = date.today()
+        return (
+            Ventas.select()
+            .where(Ventas.fecha == fecha_hoy)
+            .order_by(Ventas.id_venta.desc())
+        )
 
     def obtener_ventas_segun_tipo_pago(self, tipo_pago):
         return (
@@ -468,7 +477,8 @@ class Base:
                 costos_producto["costo_total"] * (1 + (aumento_mercadolibre / 100)), 2
             )
             precio_constructores = round(
-                costos_producto["costo_total"] * (1 + (aumento_constructores / 100)), 2
+                costos_producto["costo_total"] * (1 + (aumento_constructores / 100)),
+                2,
             )
             Stock.create(
                 producto=producto,
@@ -577,6 +587,25 @@ class Base:
             print("Error al obtener productos para venta")
             return None
 
+    def obtener_productos_para_venta_filtrados(self, empresa):
+        try:
+            productos = (
+                Stock.select(
+                    Stock.id_producto,
+                    Stock.producto,
+                    Stock.stock,
+                    Stock.precio_efectivo,
+                    Stock.precio_mercadolibre,
+                    Stock.precio_constructores,
+                )
+                .where(Stock.empresa == empresa)
+                .order_by(Stock.producto)
+            )
+            return productos  # Devuelve el resultado de la consulta
+        except PeeweeException:
+            print("Error al obtener productos para venta")
+            return None
+
     def obtener_productos_filtrados(self, empresa):
         try:
             productos_filtrados = (
@@ -617,8 +646,7 @@ class Base:
                 2,
             )
             precio_mercadolibre = round(
-                costos_producto["costo_total"]
-                * (1 + (nuevo_aumento_mercadolibre / 100)),
+                precio_efectivo * (1 + (nuevo_aumento_mercadolibre / 100)),
                 2,
             )
             precio_constructores = round(
@@ -671,7 +699,8 @@ class Base:
                     costos["costo_total"] * (1 + (producto.aumento_efectivo / 100)), 2
                 )
                 producto.precio_mercadolibre = round(
-                    costos["costo_total"] * (1 + (producto.aumento_mercadolibre / 100)),
+                    producto.precio_efectivo
+                    * (1 + (producto.aumento_mercadolibre / 100)),
                     2,
                 )
                 producto.precio_constructores = round(
@@ -754,7 +783,7 @@ class Base:
             costo_total * (1 + aumento_efectivo / 100), 2
         )
         precios["precio_mercadolibre"] = round(
-            costo_total * (1 + precio_mercadolibre / 100), 2
+            precios["precio_efectivo"] * (1 + precio_mercadolibre / 100), 2
         )
         precios["precio_constructores"] = round(
             costo_total * (1 + precio_constructores / 100), 2

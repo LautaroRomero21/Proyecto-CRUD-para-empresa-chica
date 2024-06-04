@@ -132,46 +132,111 @@ class VentanaRegistrarVentas(Ventana):
         self.boton_fara.clicked.connect(lambda: self.filtrar_productos("fara"))
         self.boton_fontana.clicked.connect(lambda: self.filtrar_productos("fontana"))
         self.boton_actualizar.clicked.connect(self.actualizar_treeviews)
+        self.eleccion_efectivo.toggled.connect(self.verificar_efectivo_seleccionado)
         global base_datos
         self.base_datos = base_datos
-
         self.actualizar_treeviews()
+        self.widget_factura.setVisible(False)
 
     def actualizar_treeviews(self):
         self.actualizar_treeview_productos()
         self.actualizar_treeview_ventas()
 
     def actualizar_treeview_productos(self):
+        self.modelo_productos.removeRows(0, self.modelo_productos.rowCount())
         productos = self.base_datos.obtener_productos_para_venta()
-        self.actualizar_treeview(
-            self.treeview_productos,
-            self.modelo_productos,
-            productos,
-            [
-                "id_producto",
-                "producto",
-                "stock",
-                "precio_efectivo",
-                "precio_mercadolibre",
-                "precio_constructores",
-            ],
-        )
+        atributos = [
+            "id_producto",
+            "producto",
+            "stock",
+            "precio_efectivo",
+            "precio_mercadolibre",
+            "precio_constructores",
+        ]
+        modelo = self.modelo_productos
 
-    def filtrar_productos(self, filtro):
-        productos_filtrados = self.base_datos.obtener_productos_filtrados(filtro)
-        self.actualizar_treeview(
-            self.treeview_productos,
-            self.modelo_productos,
-            productos_filtrados,
-            [
-                "id_producto",
-                "producto",
-                "stock",
-                "precio_efectivo",
-                "precio_mercadolibre",
-                "precio_constructores",
-            ],
-        )
+        if productos:
+            for producto in productos:
+                row = []
+                for attr in atributos:
+                    valor = getattr(producto, attr)
+                    # Verificar si el tipo de dato es DoubleField y agregar "$"
+                    if isinstance(valor, float):
+                        if (
+                            attr == "precio_efectivo"
+                            or attr == "precio_mercadolibre"
+                            or attr == "precio_constructores"
+                        ):
+                            valor = f"${valor:.2f}"  # Redondear a 2 decimales y agregar signo "$"
+                        else:
+                            valor = f"{valor}%"  # Agregar "%" al valor porcentual
+                    item = QtGui.QStandardItem(str(valor))
+                    item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
+                    row.append(item)
+
+                # Calcular precio_efectivo_+_IVA y agregarlo como una columna adicional
+                precio_efectivo = float(producto.precio_efectivo)
+                precio_efectivo_iva = round(
+                    precio_efectivo * 1.21, 2
+                )  # Redondear a 2 decimales
+                precio_efectivo_iva_str = f"${precio_efectivo_iva:.2f}"
+                precio_efectivo_iva_item = QtGui.QStandardItem(precio_efectivo_iva_str)
+                precio_efectivo_iva_item.setFlags(
+                    precio_efectivo_iva_item.flags() & ~QtCore.Qt.ItemIsEditable
+                )
+                row.insert(
+                    4, precio_efectivo_iva_item
+                )  # Insertar en la posición deseada
+
+                modelo.appendRow(row)
+
+    def filtrar_productos(self, empresa):
+        self.modelo_productos.removeRows(0, self.modelo_productos.rowCount())
+        productos = self.base_datos.obtener_productos_para_venta_filtrados(empresa)
+        atributos = [
+            "id_producto",
+            "producto",
+            "stock",
+            "precio_efectivo",
+            "precio_mercadolibre",
+            "precio_constructores",
+        ]
+        modelo = self.modelo_productos
+
+        if productos:
+            for producto in productos:
+                row = []
+                for attr in atributos:
+                    valor = getattr(producto, attr)
+                    # Verificar si el tipo de dato es DoubleField y agregar "$"
+                    if isinstance(valor, float):
+                        if (
+                            attr == "precio_efectivo"
+                            or attr == "precio_mercadolibre"
+                            or attr == "precio_constructores"
+                        ):
+                            valor = f"${valor:.2f}"  # Redondear a 2 decimales y agregar signo "$"
+                        else:
+                            valor = f"{valor}%"  # Agregar "%" al valor porcentual
+                    item = QtGui.QStandardItem(str(valor))
+                    item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
+                    row.append(item)
+
+                # Calcular precio_efectivo_+_IVA y agregarlo como una columna adicional
+                precio_efectivo = float(producto.precio_efectivo)
+                precio_efectivo_iva = round(
+                    precio_efectivo * 1.21, 2
+                )  # Redondear a 2 decimales
+                precio_efectivo_iva_str = f"${precio_efectivo_iva:.2f}"
+                precio_efectivo_iva_item = QtGui.QStandardItem(precio_efectivo_iva_str)
+                precio_efectivo_iva_item.setFlags(
+                    precio_efectivo_iva_item.flags() & ~QtCore.Qt.ItemIsEditable
+                )
+                row.insert(
+                    4, precio_efectivo_iva_item
+                )  # Insertar en la posición deseada
+
+                modelo.appendRow(row)
 
     def actualizar_treeview_ventas(self):
         ventas = self.base_datos.obtener_ventas_ordenadas()
@@ -216,10 +281,35 @@ class VentanaRegistrarVentas(Ventana):
     def verificar_cantidad_a_vender(self):
         pass
 
+    def verificar_efectivo_seleccionado(self, checked):
+        if checked:
+            self.widget_factura.setVisible(True)
+            self.eleccion_constructor.setChecked(False)
+            self.eleccion_mercadolibre.setChecked(False)
+            self.eleccion_posnet.setChecked(False)
+        else:
+            self.widget_factura.setVisible(False)
+
 
 class VentanaRegistrarVentasVendedor(VentanaRegistrarVentas, Ui_RegistrarVentaVendedor):
     def __init__(self):
         super().__init__()
+
+    def actualizar_treeview_ventas(self):
+        ventas = self.base_datos.obtener_ventas_ordenadas_hoy()
+        self.actualizar_treeview(
+            self.treeview_ventas,
+            self.modelo_ventas,
+            ventas,
+            [
+                "id_venta",
+                "fecha",
+                "producto",
+                "cantidad",
+                "precio_unitario",
+                "tipo_pago",
+            ],
+        )
 
     def verificar_cantidad_a_vender(self):
         producto_seleccionado = self.treeview_productos.currentIndex()
@@ -252,13 +342,29 @@ class VentanaRegistrarVentasVendedor(VentanaRegistrarVentas, Ui_RegistrarVentaVe
                 return
 
             tipo_pago_seleccionado = None
+            factura = None
             if (
                 self.eleccion_efectivo.isChecked()
-                or self.eleccion_constructor.isChecked()
+                and self.eleccion_factura_A.isChecked()
             ):
                 tipo_pago_seleccionado = "efectivo"
+                factura = "A"
+            elif (
+                self.eleccion_efectivo.isChecked()
+                and self.eleccion_factura_C.isChecked()
+            ):
+                tipo_pago_seleccionado = "efectivo"
+                factura = "C"
+            elif self.eleccion_constructor.isChecked():
+                tipo_pago_seleccionado = "constructor"
+                factura = "C"
             elif self.eleccion_posnet.isChecked():
                 tipo_pago_seleccionado = "posnet"
+                factura = "C"
+            elif self.eleccion_mercadolibre.isChecked():
+                tipo_pago_seleccionado = "mercadolibre"
+                factura = "C"
+
             else:
                 self.mostrar_error_temporal(
                     self.label_tipo_pago_no_elegido,
@@ -267,86 +373,8 @@ class VentanaRegistrarVentasVendedor(VentanaRegistrarVentas, Ui_RegistrarVentaVe
                 return
 
             self.base_datos.registrar_venta(
-                producto, cantidad_a_vender, tipo_pago_seleccionado
+                producto, cantidad_a_vender, tipo_pago_seleccionado, factura
             )
-            QtWidgets.QMessageBox.information(
-                self, "Venta Cargada", "Venta registrada con éxito"
-            )
-            self.limpiar_campos()
-            self.actualizar_treeviews()
-
-        except ValueError:
-            self.mostrar_error_temporal(
-                self.label_cantidad_invalida,
-                "Por favor ingrese una cantidad válida",
-            )
-
-    def limpiar_campos(self):
-        self.input_cantidad_vendida.setText("")
-        self.eleccion_constructor.setChecked(False)
-        self.eleccion_efectivo.setChecked(False)
-        self.eleccion_posnet.setChecked(False)
-
-
-class VentanaRegistrarVentasAutorizado(
-    VentanaRegistrarVentas, Ui_RegistrarVentasAutorizado
-):
-    def __init__(self):
-        super().__init__()
-        self.boton_volver.clicked.connect(self.volver)
-        global ventana_principal_usuario_autorizado
-        self.ventana_anterior = ventana_principal_usuario_autorizado
-
-    def verificar_cantidad_a_vender(self):
-        producto_seleccionado = self.treeview_productos.currentIndex()
-
-        if not producto_seleccionado.isValid():
-            self.mostrar_error_temporal(
-                self.label_cantidad_invalida,
-                "Seleccione un producto primero",
-            )
-            return
-
-        producto = self.modelo_productos.itemFromIndex(
-            producto_seleccionado.siblingAtColumn(0)
-        ).text()
-
-        try:
-            cantidad_a_vender = int(self.input_cantidad_vendida.text())
-            if cantidad_a_vender < 1:
-                self.mostrar_error_temporal(
-                    self.label_cantidad_invalida,
-                    "Por favor Ingrese una cantidad válida",
-                )
-                return
-
-            if not self.base_datos.stock_suficiente(producto, cantidad_a_vender):
-                self.mostrar_error_temporal(
-                    self.label_cantidad_invalida,
-                    "No hay stock suficiente para esa venta",
-                )
-                return
-
-            tipo_pago = None
-            opciones_pago = {
-                self.eleccion_efectivo: "efectivo",
-                self.eleccion_constructor: "constructor",
-                self.eleccion_posnet: "posnet",
-                self.eleccion_mercadolibre: "mercadolibre",
-            }
-            for opcion, pago in opciones_pago.items():
-                if opcion.isChecked():
-                    tipo_pago = pago
-                    break
-
-            if tipo_pago is None:
-                self.mostrar_error_temporal(
-                    self.label_tipo_pago_no_elegido,
-                    "Seleccione el precio de venta",
-                )
-                return
-
-            self.base_datos.registrar_venta(producto, cantidad_a_vender, tipo_pago)
             QtWidgets.QMessageBox.information(
                 self, "Venta Cargada", "Venta registrada con éxito"
             )
@@ -365,6 +393,24 @@ class VentanaRegistrarVentasAutorizado(
         self.eleccion_efectivo.setChecked(False)
         self.eleccion_posnet.setChecked(False)
         self.eleccion_mercadolibre.setChecked(False)
+
+    def verificar_efectivo_seleccionado(self, checked):
+        if checked:
+            self.widget_factura.setVisible(True)
+            self.eleccion_constructor.setChecked(False)
+            self.eleccion_posnet.setChecked(False)
+        else:
+            self.widget_factura.setVisible(False)
+
+
+class VentanaRegistrarVentasAutorizado(
+    VentanaRegistrarVentas, Ui_RegistrarVentasAutorizado
+):
+    def __init__(self):
+        super().__init__()
+        self.boton_volver.clicked.connect(self.volver)
+        global ventana_principal_usuario_autorizado
+        self.ventana_anterior = ventana_principal_usuario_autorizado
 
 
 class VentanaPrincipalUsuarioAutorizado(
@@ -480,12 +526,8 @@ class VentanaUsuarios(Ventana, Ui_Usuarios):
 
     def registrar_vendedor(self):
         self.mostrar_campos()
-        self.label_ingresar_usuario.setText(
-            "Ingrese cual sera el usuario del nuevo vendedor:"
-        )
-        self.label_ingresar_contrasenia.setText(
-            "Ingrese cual sera la contraseña del nuevo vendedor:"
-        )
+        self.label_ingresar_usuario.setText("Usuario del nuevo vendedor:")
+        self.label_ingresar_contrasenia.setText("Contraseña del nuevo vendedor:")
         self.confirmar = "vendedor"
 
     def eliminar_vendedor(self):
@@ -507,12 +549,8 @@ class VentanaUsuarios(Ventana, Ui_Usuarios):
 
     def registrar_usuario_autorizado(self):
         self.mostrar_campos()
-        self.label_ingresar_usuario.setText(
-            "Ingrese cual sera el usuario del nuevo autorizado:"
-        )
-        self.label_ingresar_contrasenia.setText(
-            "Ingrese cual sera la contraseña del nuevo autorizado:"
-        )
+        self.label_ingresar_usuario.setText("Usuario del nuevo autorizado:")
+        self.label_ingresar_contrasenia.setText("Contraseña del nuevo autorizado:")
         self.confirmar = "usuario_autorizado"
 
     def eliminar_usuario_autorizado(self):
@@ -988,8 +1026,12 @@ class VentanaStockCregar(VentanaStock, Ui_StockCregar):
 
     def confirmar_modificar_gral(self, columna):
         try:
-            porcentaje = round(float(self.input_nuevo_porcentaje.text()), 2)
-            self.base_datos.modificar_productos_gral("cregar", columna, porcentaje)
+            if columna == "costo_inicial":
+                porcentaje = round(float(self.input_nuevo_porcentaje.text()), 2)
+                self.base_datos.aumentar_costo_inicial_general("cregar", porcentaje)
+            else:
+                porcentaje = round(float(self.input_nuevo_porcentaje.text()), 2)
+                self.base_datos.modificar_productos_gral("cregar", columna, porcentaje)
             QtWidgets.QMessageBox.information(
                 self, "Confirmacion", "Precios actualizados con exito."
             )
@@ -1138,8 +1180,12 @@ class VentanaStockFara(VentanaStock, Ui_StockFara):
 
     def confirmar_modificar_gral(self, columna):
         try:
-            porcentaje = round(float(self.input_nuevo_porcentaje.text()), 2)
-            self.base_datos.modificar_productos_gral("fara", columna, porcentaje)
+            if columna == "costo_inicial":
+                porcentaje = round(float(self.input_nuevo_porcentaje.text()), 2)
+                self.base_datos.aumentar_costo_inicial_general("fara", porcentaje)
+            else:
+                porcentaje = round(float(self.input_nuevo_porcentaje.text()), 2)
+                self.base_datos.modificar_productos_gral("fara", columna, porcentaje)
             QtWidgets.QMessageBox.information(
                 self, "Confirmacion", "Precios actualizados con exito."
             )
@@ -1324,8 +1370,12 @@ class VentanaStockFontana(VentanaStock, Ui_StockFontana):
 
     def confirmar_modificar_gral(self, columna):
         try:
-            porcentaje = round(float(self.input_nuevo_porcentaje.text()), 2)
-            self.base_datos.modificar_productos_gral("fontana", columna, porcentaje)
+            if columna == "costo_inicial":
+                porcentaje = round(float(self.input_nuevo_porcentaje.text()), 2)
+                self.base_datos.aumentar_costo_inicial_general("fontana", porcentaje)
+            else:
+                porcentaje = round(float(self.input_nuevo_porcentaje.text()), 2)
+                self.base_datos.modificar_productos_gral("fontana", columna, porcentaje)
             QtWidgets.QMessageBox.information(
                 self, "Confirmacion", "Precios actualizados con exito."
             )
@@ -1530,7 +1580,7 @@ class VentanaHistorialCompras(Ventana, Ui_HistorialCompras):
         else:
             self.mostrar_error_temporal(
                 self.label_modificar_compra,
-                "Seleccione una compra de la lista",
+                "Seleccione una compra",
             )
 
     def actualizar_lineedits_compra_seleccionada(self):
@@ -1654,7 +1704,7 @@ class VentanaHistorialCompras(Ventana, Ui_HistorialCompras):
         else:
             self.mostrar_error_temporal(
                 self.label_eliminar_compra,
-                "Seleccione una compra de la lista",
+                "Seleccione una compra",
             )
 
     def ocultar_campos(self):
@@ -1729,7 +1779,7 @@ class VentanaHistorialVentas(Ventana, Ui_HistorialVentas):
         else:
             self.mostrar_error_temporal(
                 self.label_modificar_venta,
-                "Seleccione una venta de la lista",
+                "Seleccione una venta",
             )
 
     def actualizar_lineedits_venta_seleccionada(self):
@@ -1866,7 +1916,7 @@ class VentanaHistorialVentas(Ventana, Ui_HistorialVentas):
         else:
             self.mostrar_error_temporal(
                 self.label_eliminar_venta,
-                "Seleccione una venta de la lista",
+                "Seleccione una venta",
             )
 
     def ocultar_campos(self):

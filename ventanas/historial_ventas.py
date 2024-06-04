@@ -16,14 +16,14 @@ from PyQt5.QtCore import Qt
 class Ui_HistorialVentas(object):
     def setupUi(self, HistorialVentas):
         HistorialVentas.setObjectName("HistorialVentas")
-        HistorialVentas.resize(1195, 722)
-        HistorialVentas.setMinimumSize(QtCore.QSize(1195, 722))
-        HistorialVentas.setMaximumSize(QtCore.QSize(1195, 722))
+        HistorialVentas.resize(1195, 645)
+        HistorialVentas.setMinimumSize(QtCore.QSize(1195, 645))
+        HistorialVentas.setMaximumSize(QtCore.QSize(1195, 645))
         HistorialVentas.setStyleSheet("")
         self.widget = QtWidgets.QWidget(HistorialVentas)
-        self.widget.setGeometry(QtCore.QRect(0, 0, 1195, 722))
-        self.widget.setMinimumSize(QtCore.QSize(1195, 722))
-        self.widget.setMaximumSize(QtCore.QSize(1195, 722))
+        self.widget.setGeometry(QtCore.QRect(0, 0, 1195, 645))
+        self.widget.setMinimumSize(QtCore.QSize(1195, 645))
+        self.widget.setMaximumSize(QtCore.QSize(1195, 645))
         self.widget.setStyleSheet(
             "QPushButton{\n"
             "border:1px solid rgb(176, 255, 226);\n"
@@ -80,7 +80,7 @@ class Ui_HistorialVentas(object):
         )
         self.widget.setObjectName("widget")
         self.treeview_ventas = QtWidgets.QTreeView(self.widget)
-        self.treeview_ventas.setGeometry(QtCore.QRect(10, 60, 661, 651))
+        self.treeview_ventas.setGeometry(QtCore.QRect(10, 60, 661, 591))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.treeview_ventas.setFont(font)
@@ -114,7 +114,7 @@ class Ui_HistorialVentas(object):
         header.resizeSection(7, 100)
 
         self.boton_filtrar_ventas_posnet = QtWidgets.QPushButton(self.widget)
-        self.boton_filtrar_ventas_posnet.setGeometry(QtCore.QRect(680, 560, 181, 51))
+        self.boton_filtrar_ventas_posnet.setGeometry(QtCore.QRect(680, 520, 181, 51))
         self.boton_filtrar_ventas_posnet.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -154,7 +154,7 @@ class Ui_HistorialVentas(object):
         self.boton_eliminar_venta.setObjectName("boton_eliminar_venta")
         self.boton_filtrar_ventas_mercadolibre = QtWidgets.QPushButton(self.widget)
         self.boton_filtrar_ventas_mercadolibre.setGeometry(
-            QtCore.QRect(680, 630, 181, 51)
+            QtCore.QRect(680, 580, 181, 51)
         )
         self.boton_filtrar_ventas_mercadolibre.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
@@ -180,7 +180,7 @@ class Ui_HistorialVentas(object):
         self.label_eliminar_venta.setAlignment(QtCore.Qt.AlignCenter)
         self.label_eliminar_venta.setObjectName("label_eliminar_venta")
         self.boton_mostrar_ventas_totales = QtWidgets.QPushButton(self.widget)
-        self.boton_mostrar_ventas_totales.setGeometry(QtCore.QRect(680, 420, 181, 51))
+        self.boton_mostrar_ventas_totales.setGeometry(QtCore.QRect(680, 400, 181, 51))
         self.boton_mostrar_ventas_totales.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -210,7 +210,7 @@ class Ui_HistorialVentas(object):
         self.boton_consultar_ganancias.setStyleSheet("")
         self.boton_consultar_ganancias.setObjectName("boton_consultar_ganancias")
         self.boton_filtrar_ventas_efectivo = QtWidgets.QPushButton(self.widget)
-        self.boton_filtrar_ventas_efectivo.setGeometry(QtCore.QRect(680, 490, 181, 51))
+        self.boton_filtrar_ventas_efectivo.setGeometry(QtCore.QRect(680, 460, 181, 51))
         self.boton_filtrar_ventas_efectivo.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )

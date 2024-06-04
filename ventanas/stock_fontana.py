@@ -16,9 +16,9 @@ from PyQt5.QtCore import Qt
 class Ui_StockFontana(object):
     def setupUi(self, StockFontana):
         StockFontana.setObjectName("StockFontana")
-        StockFontana.resize(1195, 722)
-        StockFontana.setMinimumSize(QtCore.QSize(1195, 722))
-        StockFontana.setMaximumSize(QtCore.QSize(1195, 722))
+        StockFontana.resize(1195, 645)
+        StockFontana.setMinimumSize(QtCore.QSize(1195, 645))
+        StockFontana.setMaximumSize(QtCore.QSize(1195, 645))
         StockFontana.setStyleSheet("")
         self.widget = QtWidgets.QWidget(StockFontana)
         self.widget.setGeometry(QtCore.QRect(0, 0, 1195, 722))
@@ -62,12 +62,11 @@ class Ui_StockFontana(object):
             "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:1 rgba(0, 190, 255, 113));\n"
             "color: #fff;\n"
             "border: 1px solid #000;\n"
-            "font-size: 15px;\n"
             "}\n"
             "QHeaderView::section {\n"
             "color: #000;\n"
             "border: 1px solid #000;\n"
-            "font-size: 14px;\n"
+            "font-size:15px;\n"
             "}\n"
             "QTreeView::item {\n"
             "color: #fff;\n"
@@ -75,7 +74,7 @@ class Ui_StockFontana(object):
             "border-bottom: 0.5px solid #000;\n"
             "}\n"
             "QTreeView::item:selected {\n"
-            "background-color: red;\n"
+            "background-color: #f00;\n"
             "}\n"
             ""
         )
@@ -122,7 +121,7 @@ class Ui_StockFontana(object):
         self.boton_volver.setStyleSheet("")
         self.boton_volver.setObjectName("boton_volver")
         self.treeview_productos = QtWidgets.QTreeView(self.widget_lista_productos)
-        self.treeview_productos.setGeometry(QtCore.QRect(0, 80, 1191, 501))
+        self.treeview_productos.setGeometry(QtCore.QRect(0, 80, 1191, 471))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.treeview_productos.setFont(font)
@@ -150,19 +149,7 @@ class Ui_StockFontana(object):
         )
         header = self.treeview_productos.header()
         header.setDefaultAlignment(QtCore.Qt.AlignHCenter)
-        header.resizeSection(0, 60)
-        header.resizeSection(1, 350)
-        header.resizeSection(2, 45)
-        header.resizeSection(3, 90)
-        header.resizeSection(4, 90)
-        header.resizeSection(5, 90)
-        header.resizeSection(6, 90)
-        header.resizeSection(7, 90)
-        header.resizeSection(8, 90)
-        header.resizeSection(9, 90)
-        header.resizeSection(10, 90)
-        header.resizeSection(11, 95)
-        header.resizeSection(12, 90)
+        header.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 
         self.producto_no_encontrado = QtWidgets.QLabel(self.widget_lista_productos)
         self.producto_no_encontrado.setGeometry(QtCore.QRect(230, 50, 181, 21))
@@ -181,7 +168,7 @@ class Ui_StockFontana(object):
         self.producto_no_encontrado.setAlignment(QtCore.Qt.AlignCenter)
         self.producto_no_encontrado.setObjectName("producto_no_encontrado")
         self.boton_agregar_producto = QtWidgets.QPushButton(self.widget_lista_productos)
-        self.boton_agregar_producto.setGeometry(QtCore.QRect(100, 620, 201, 51))
+        self.boton_agregar_producto.setGeometry(QtCore.QRect(100, 560, 201, 51))
         self.boton_agregar_producto.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -190,7 +177,7 @@ class Ui_StockFontana(object):
         self.boton_eliminar_producto = QtWidgets.QPushButton(
             self.widget_lista_productos
         )
-        self.boton_eliminar_producto.setGeometry(QtCore.QRect(370, 620, 201, 51))
+        self.boton_eliminar_producto.setGeometry(QtCore.QRect(380, 560, 201, 51))
         self.boton_eliminar_producto.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -199,7 +186,7 @@ class Ui_StockFontana(object):
         self.boton_modificar_producto = QtWidgets.QPushButton(
             self.widget_lista_productos
         )
-        self.boton_modificar_producto.setGeometry(QtCore.QRect(640, 620, 201, 51))
+        self.boton_modificar_producto.setGeometry(QtCore.QRect(640, 560, 201, 51))
         self.boton_modificar_producto.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -208,7 +195,7 @@ class Ui_StockFontana(object):
         self.boton_modificar_productos_gral = QtWidgets.QPushButton(
             self.widget_lista_productos
         )
-        self.boton_modificar_productos_gral.setGeometry(QtCore.QRect(900, 620, 201, 51))
+        self.boton_modificar_productos_gral.setGeometry(QtCore.QRect(900, 560, 201, 51))
         self.boton_modificar_productos_gral.setCursor(
             QtGui.QCursor(QtCore.Qt.PointingHandCursor)
         )
@@ -217,7 +204,7 @@ class Ui_StockFontana(object):
             "boton_modificar_productos_gral"
         )
         self.label_eliminar_producto = QtWidgets.QLabel(self.widget_lista_productos)
-        self.label_eliminar_producto.setGeometry(QtCore.QRect(350, 670, 251, 21))
+        self.label_eliminar_producto.setGeometry(QtCore.QRect(350, 610, 251, 21))
         font = QtGui.QFont()
         font.setFamily("Yu Gothic Medium")
         font.setPointSize(12)
@@ -233,7 +220,7 @@ class Ui_StockFontana(object):
         self.label_eliminar_producto.setAlignment(QtCore.Qt.AlignCenter)
         self.label_eliminar_producto.setObjectName("label_eliminar_producto")
         self.label_modificar_producto = QtWidgets.QLabel(self.widget_lista_productos)
-        self.label_modificar_producto.setGeometry(QtCore.QRect(620, 670, 251, 21))
+        self.label_modificar_producto.setGeometry(QtCore.QRect(620, 610, 251, 21))
         font = QtGui.QFont()
         font.setFamily("Yu Gothic Medium")
         font.setPointSize(12)
@@ -248,8 +235,51 @@ class Ui_StockFontana(object):
         self.label_modificar_producto.setText("")
         self.label_modificar_producto.setAlignment(QtCore.Qt.AlignCenter)
         self.label_modificar_producto.setObjectName("label_modificar_producto")
+        self.boton_modificar_descuento_1 = QtWidgets.QPushButton(
+            self.widget_lista_productos
+        )
+        self.boton_modificar_descuento_1.setEnabled(False)
+        self.boton_modificar_descuento_1.setGeometry(QtCore.QRect(20, 650, 31, 51))
+        self.boton_modificar_descuento_1.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
+        self.boton_modificar_descuento_1.setStyleSheet("border:none;\n" "")
+        self.boton_modificar_descuento_1.setText("")
+        self.boton_modificar_descuento_1.setObjectName("boton_modificar_descuento_1")
+        self.boton_modificar_descuento_2 = QtWidgets.QPushButton(
+            self.widget_lista_productos
+        )
+        self.boton_modificar_descuento_2.setGeometry(QtCore.QRect(30, 650, 31, 51))
+        self.boton_modificar_descuento_2.setCursor(
+            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
+        )
+        self.boton_modificar_descuento_2.setStyleSheet("border:none;\n" "")
+        self.boton_modificar_descuento_2.setText("")
+        self.boton_modificar_descuento_2.setObjectName("boton_modificar_descuento_2")
+        self.input_descuento_1 = QtWidgets.QLineEdit(self.widget_lista_productos)
+        self.input_descuento_1.setEnabled(False)
+        self.input_descuento_1.setGeometry(QtCore.QRect(230, 680, 61, 31))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.input_descuento_1.setFont(font)
+        self.input_descuento_1.setStyleSheet("border:none;")
+        self.input_descuento_1.setAlignment(QtCore.Qt.AlignCenter)
+        self.input_descuento_1.setObjectName("input_descuento_1")
+        self.input_descuento_2 = QtWidgets.QLineEdit(self.widget_lista_productos)
+        self.input_descuento_2.setEnabled(False)
+        self.input_descuento_2.setGeometry(QtCore.QRect(300, 680, 61, 31))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.input_descuento_2.setFont(font)
+        self.input_descuento_2.setStyleSheet("border:none;")
+        self.input_descuento_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.input_descuento_2.setObjectName("input_descuento_2")
         self.widget_agregar_producto = QtWidgets.QWidget(self.widget)
-        self.widget_agregar_producto.setGeometry(QtCore.QRect(170, 80, 871, 561))
+        self.widget_agregar_producto.setGeometry(QtCore.QRect(160, 40, 871, 561))
         self.widget_agregar_producto.setStyleSheet("")
         self.widget_agregar_producto.setObjectName("widget_agregar_producto")
         self.input_nombre_producto = QtWidgets.QLineEdit(self.widget_agregar_producto)
@@ -551,24 +581,24 @@ class Ui_StockFontana(object):
         self.label_error.setAlignment(QtCore.Qt.AlignCenter)
         self.label_error.setObjectName("label_error")
         self.widget_modificar_gral = QtWidgets.QWidget(self.widget)
-        self.widget_modificar_gral.setGeometry(QtCore.QRect(180, 150, 821, 481))
+        self.widget_modificar_gral.setGeometry(QtCore.QRect(180, 130, 821, 481))
         self.widget_modificar_gral.setStyleSheet("")
         self.widget_modificar_gral.setObjectName("widget_modificar_gral")
-        self.label_32 = QtWidgets.QLabel(self.widget_modificar_gral)
-        self.label_32.setGeometry(QtCore.QRect(240, 30, 341, 31))
+        self.label_34 = QtWidgets.QLabel(self.widget_modificar_gral)
+        self.label_34.setGeometry(QtCore.QRect(240, 30, 341, 31))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(20)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.label_32.setFont(font)
-        self.label_32.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_32.setStyleSheet(
+        self.label_34.setFont(font)
+        self.label_34.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.label_34.setStyleSheet(
             'font: 20pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
         )
-        self.label_32.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_32.setObjectName("label_32")
+        self.label_34.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_34.setObjectName("label_34")
         self.boton_modificar_costo_inicial = QtWidgets.QPushButton(
             self.widget_modificar_gral
         )
@@ -668,21 +698,21 @@ class Ui_StockFontana(object):
         self.input_nuevo_porcentaje.setStyleSheet("")
         self.input_nuevo_porcentaje.setAlignment(QtCore.Qt.AlignCenter)
         self.input_nuevo_porcentaje.setObjectName("input_nuevo_porcentaje")
-        self.label_35 = QtWidgets.QLabel(self.widget_ingresar_porcentaje)
-        self.label_35.setGeometry(QtCore.QRect(210, 100, 21, 21))
+        self.label_37 = QtWidgets.QLabel(self.widget_ingresar_porcentaje)
+        self.label_37.setGeometry(QtCore.QRect(210, 100, 21, 21))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
         font.setPointSize(13)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.label_35.setFont(font)
-        self.label_35.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label_35.setStyleSheet(
+        self.label_37.setFont(font)
+        self.label_37.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.label_37.setStyleSheet(
             'font: 13pt "MS Shell Dlg 2";\n' "color: #fff;\n" "background: none;"
         )
-        self.label_35.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_35.setObjectName("label_35")
+        self.label_37.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_37.setObjectName("label_37")
         self.boton_confirmar_modificacion_gral = QtWidgets.QPushButton(
             self.widget_ingresar_porcentaje
         )
@@ -717,49 +747,6 @@ class Ui_StockFontana(object):
         self.label_ingrese_porcentaje_valido.setObjectName(
             "label_ingrese_porcentaje_valido"
         )
-        self.boton_modificar_descuento_1 = QtWidgets.QPushButton(
-            self.widget_lista_productos
-        )
-        self.boton_modificar_descuento_1.setEnabled(False)
-        self.boton_modificar_descuento_1.setGeometry(QtCore.QRect(20, 650, 31, 51))
-        self.boton_modificar_descuento_1.setCursor(
-            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
-        )
-        self.boton_modificar_descuento_1.setStyleSheet("border:none;\n" "")
-        self.boton_modificar_descuento_1.setText("")
-        self.boton_modificar_descuento_1.setObjectName("boton_modificar_descuento_1")
-        self.boton_modificar_descuento_2 = QtWidgets.QPushButton(
-            self.widget_lista_productos
-        )
-        self.boton_modificar_descuento_2.setGeometry(QtCore.QRect(30, 650, 31, 51))
-        self.boton_modificar_descuento_2.setCursor(
-            QtGui.QCursor(QtCore.Qt.PointingHandCursor)
-        )
-        self.boton_modificar_descuento_2.setStyleSheet("border:none;\n" "")
-        self.boton_modificar_descuento_2.setText("")
-        self.boton_modificar_descuento_2.setObjectName("boton_modificar_descuento_2")
-        self.input_descuento_1 = QtWidgets.QLineEdit(self.widget_lista_productos)
-        self.input_descuento_1.setEnabled(False)
-        self.input_descuento_1.setGeometry(QtCore.QRect(230, 680, 61, 31))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setWeight(50)
-        self.input_descuento_1.setFont(font)
-        self.input_descuento_1.setStyleSheet("border:none;")
-        self.input_descuento_1.setAlignment(QtCore.Qt.AlignCenter)
-        self.input_descuento_1.setObjectName("input_descuento_1")
-        self.input_descuento_2 = QtWidgets.QLineEdit(self.widget_lista_productos)
-        self.input_descuento_2.setEnabled(False)
-        self.input_descuento_2.setGeometry(QtCore.QRect(300, 680, 61, 31))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setWeight(50)
-        self.input_descuento_2.setFont(font)
-        self.input_descuento_2.setStyleSheet("border:none;")
-        self.input_descuento_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.input_descuento_2.setObjectName("input_descuento_2")
 
         self.retranslateUi(StockFontana)
         QtCore.QMetaObject.connectSlotsByName(StockFontana)
@@ -799,7 +786,7 @@ class Ui_StockFontana(object):
         self.boton_confirmar_modificacion.setText(
             _translate("StockFontana", "Confirmar")
         )
-        self.label_32.setText(_translate("StockFontana", "Que desea modificar?:"))
+        self.label_34.setText(_translate("StockFontana", "Que desea modificar?:"))
         self.boton_modificar_costo_inicial.setText(
             _translate("StockFontana", "Aumentar Costo Inicial")
         )
@@ -822,7 +809,7 @@ class Ui_StockFontana(object):
                 "Ingrese el nuevo porcentaje de aumento_constructores para todos los productos:",
             )
         )
-        self.label_35.setText(_translate("StockFontana", "%"))
+        self.label_37.setText(_translate("StockFontana", "%"))
         self.boton_confirmar_modificacion_gral.setText(
             _translate("StockFontana", "Confirmar")
         )

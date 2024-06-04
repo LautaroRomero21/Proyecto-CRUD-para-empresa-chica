@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>1195</width>
-    <height>722</height>
+    <height>645</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1195</width>
-    <height>722</height>
+    <height>645</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>1195</width>
-    <height>722</height>
+    <height>645</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -124,7 +124,7 @@ color:#fff;
      <rect>
       <x>170</x>
       <y>90</y>
-      <width>151</width>
+      <width>181</width>
       <height>31</height>
      </rect>
     </property>
@@ -200,7 +200,7 @@ font-size:14px;</string>
       <x>620</x>
       <y>280</y>
       <width>571</width>
-      <height>431</height>
+      <height>361</height>
      </rect>
     </property>
     <property name="font">
@@ -326,7 +326,7 @@ background: none;</string>
       <x>10</x>
       <y>120</y>
       <width>601</width>
-      <height>591</height>
+      <height>521</height>
      </rect>
     </property>
     <property name="font">

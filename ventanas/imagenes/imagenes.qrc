@@ -32,6 +32,9 @@
   <qresource prefix="registrar_compras">
     <file>3376284.jpg</file>
   </qresource>
+  <qresource prefix="login_heladeras">
+    <file>login.jpg</file>
+  </qresource>
   <qresource prefix="historial_compras">
     <file>380346.jpg</file>
   </qresource>
